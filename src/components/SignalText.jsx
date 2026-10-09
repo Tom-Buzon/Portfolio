@@ -1,10 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-export default function SignalText({text}) {
+export default function SignalText({text,active=false}) {
  const [display,setDisplay]=useState(text);
  const frame=useRef(0);
  useEffect(()=>()=>cancelAnimationFrame(frame.current),[]);
- function decode(){
+ const decode=useCallback(()=>{
   if(matchMedia('(prefers-reduced-motion: reduce)').matches||document.documentElement.dataset.motion==='off')return;
   cancelAnimationFrame(frame.current);
   const start=performance.now(), glyphs='_/+·:01';
@@ -14,7 +14,8 @@ export default function SignalText({text}) {
    if(progress<1)frame.current=requestAnimationFrame(tick);
   };
   frame.current=requestAnimationFrame(tick);
- }
+ },[text]);
+ useEffect(()=>{if(active)decode();else setDisplay(text);return()=>cancelAnimationFrame(frame.current);},[active,decode,text]);
  return <span className="signal-text" onPointerEnter={decode} onFocus={decode}><span className="signal-stable">{text}</span><span className="signal-visual" aria-hidden="true">{display}</span></span>;
 }
-SignalText.propTypes={text:PropTypes.string.isRequired};
+SignalText.propTypes={text:PropTypes.string.isRequired,active:PropTypes.bool};

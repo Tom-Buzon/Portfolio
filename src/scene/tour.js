@@ -1,6 +1,17 @@
 // The three documents occupy distinct parts of the same attic.
 // Every entry is [camera x,y,z, look-at x,y,z]. Curved approaches orbit the exhibits from clear aisles.
 export const tourRoutes = {
+  whoami: [
+    [6.5,4.5,12, .4,2.4,-1], [4.5,3.8,5.2, .8,1.9,0],
+    [-3.7,3.8,-4, 1.5,2.8,-13], [-3.8,3.6,-7, 1.3,2.9,-19],
+    [4.8,3.4,-12, 1.4,2.9,-19.5], [-5,3.1,-5, -12,2.8,-7],
+    [-10,3.1,-2, -17,2.7,-9], [-5.5,3.05,-8.5, 4,2.7,-10],
+    [6.3,3.1,-10, 16,3,-21], [12,3.1,-15, 17,3,-23],
+    [12,3.1,-28, 3,2.6,-35], [-3.5,3.3,-29, 1,2.8,-35],
+    [-3.5,3,-38, 1,2.5,-43], [-3.4,3,-46, 1.7,2.6,-53],
+    [6.5,3,-47, 16,3,-49], [12,3.2,-41.5, 18,3.4,-50],
+    [12,4.1,-41, 18,3,-50],
+  ],
   home: [
     [6.5,4.5,12, .4,2.4,-1], [4.8,3.5,6.4, 1,2.3,-.7],
     [-1.8,3.6,2.8, 1.1,2.3,-.7], [-4.8,4,-9, 1.5,3,-14],
@@ -24,8 +35,14 @@ export const tourRoutes = {
 
 export function measureTour(elements, viewportHeight) {
   const stops = [];
-  for (const { top, height, from, to } of elements) {
-    if (to === undefined) stops.push({ y: Math.max(0, top - viewportHeight * .22), p: from });
+  for (const { top, height, from, to, hold } of elements) {
+    if (hold) {
+      // Keep a reading pose while optional inline content grows. Travel in the
+      // gap between the end of one reading interval and the next one.
+      const start=Math.max(0,top-viewportHeight*.12);
+      stops.push({y:start,p:from},{y:Math.max(start+1,top+height-viewportHeight*.92),p:from});
+    }
+    else if (to === undefined) stops.push({ y: Math.max(0, top - viewportHeight * .22), p: from });
     else {
       // Travel for the whole visible crossing; arrive as the real case study enters.
       stops.push({ y: Math.max(0, top - viewportHeight * .72), p: from });

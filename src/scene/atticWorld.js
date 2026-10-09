@@ -1,6 +1,6 @@
 import * as THREE from 'three';
-import { publicUrl } from '../lib/publicUrl';
 import { tourRoutes, measureTour, sampleTour } from './tour.js';
+import { createGallery, createMethodObject } from './gallery.js';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
@@ -10,7 +10,7 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 
 // One continuous, deliberately open attic. The camera travels between physical stations.
 export function createAtticWorld(host, { page, onReady, onFailure }) {
-  const mobile = innerWidth < 800;
+  let mobile = innerWidth <= 1000;
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, powerPreference: 'high-performance' });
   renderer.setPixelRatio(Math.min(devicePixelRatio, mobile ? 1.25 : 1.6));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -24,7 +24,7 @@ export function createAtticWorld(host, { page, onReady, onFailure }) {
   let elapsed = 0;
   const composer = mobile ? null : new EffectComposer(renderer, new THREE.WebGLRenderTarget(1,1,{type:THREE.HalfFloatType,samples:4}));
   let bloom;
-  if(composer){composer.addPass(new RenderPass(scene,camera));bloom=new UnrealBloomPass(new THREE.Vector2(innerWidth,innerHeight),.28,.6,.85);composer.addPass(bloom);composer.addPass(new OutputPass());}
+  if(composer){composer.addPass(new RenderPass(scene,camera));bloom=new UnrealBloomPass(new THREE.Vector2(innerWidth,innerHeight),.14,.5,1.05);composer.addPass(bloom);composer.addPass(new OutputPass());}
   const render=()=>composer?composer.render():renderer.render(scene,camera);
   renderer.shadowMap.enabled = !mobile;
   renderer.shadowMap.type = THREE.PCFShadowMap;
@@ -32,13 +32,13 @@ export function createAtticWorld(host, { page, onReady, onFailure }) {
   const environment = new RoomEnvironment();
   const environmentMap = pmrem.fromScene(environment, .05);
   scene.environment = environmentMap.texture;
-  scene.environmentIntensity = .28;
+  scene.environmentIntensity = .21;
   environment.dispose(); pmrem.dispose();
   const textures = [], animated = [], geometries = new Set(), materials = new Set();
   const v = (...xyz) => new THREE.Vector3(...xyz);
   const material = (color, roughness = .65, metalness = .15) => new THREE.MeshStandardMaterial({ color, roughness, metalness });
   const oak = material(0x795039), darkWood = material(0x342c28), steel = material(0x1d2934,.36,.7);
-  const black = material(0x090f18,.4,.3), copper = material(0xc99565,.3,.72), paper = material(0xbac4c4,.9,.1);
+  const black = material(0x090f18,.4,.3), copper = material(0xc99565,.53,.42), paper = material(0xbac4c4,.9,.1);
   const blue = new THREE.MeshBasicMaterial({color:0x8edaff}), amber = new THREE.MeshBasicMaterial({color:0xf4c88c});
   const add = (geo, mat, parent = scene) => { const mesh = new THREE.Mesh(geo, mat); mesh.castShadow=true;mesh.receiveShadow=true;parent.add(mesh); return mesh; };
   const box = (w,h,d,x,y,z,mat=steel,parent=scene) => { const m=add(new RoundedBoxGeometry(w,h,d,1,Math.min(.028,w*.12,h*.12,d*.12)),mat,parent);m.position.set(x,y,z);return m; };
@@ -46,7 +46,7 @@ export function createAtticWorld(host, { page, onReady, onFailure }) {
   const beam = (a,b,r,mat=darkWood,parent=scene) => {const delta=b.clone().sub(a);const m=box(r,delta.length(),r,0,0,0,mat,parent);m.position.copy(a.clone().add(b).multiplyScalar(.5));m.quaternion.setFromUnitVectors(v(0,1,0),delta.normalize());return m;};
   const line = (points,color=0x7dd4f6,opacity=.45,parent=scene) => {const m=new THREE.Line(new THREE.BufferGeometry().setFromPoints(points),new THREE.LineBasicMaterial({color,transparent:true,opacity}));parent.add(m);return m;};
   const glowTexture = (()=>{const c=document.createElement('canvas');c.width=c.height=64;const ctx=c.getContext('2d');const g=ctx.createRadialGradient(32,32,0,32,32,32);g.addColorStop(0,'rgba(255,255,255,1)');g.addColorStop(.12,'rgba(255,255,255,.6)');g.addColorStop(.42,'rgba(255,255,255,.12)');g.addColorStop(1,'rgba(255,255,255,0)');ctx.fillStyle=g;ctx.fillRect(0,0,64,64);const t=new THREE.CanvasTexture(c);textures.push(t);return t;})();
-  const glow=(x,y,z,color,size,parent=scene)=>{const sprite=new THREE.Sprite(new THREE.SpriteMaterial({map:glowTexture,color,transparent:true,blending:THREE.AdditiveBlending,depthWrite:false,opacity:.6}));sprite.position.set(x,y,z);sprite.scale.setScalar(size);parent.add(sprite);return sprite;};
+  const glow=(x,y,z,color,size,parent=scene)=>{const sprite=new THREE.Sprite(new THREE.SpriteMaterial({map:glowTexture,color,transparent:true,blending:THREE.AdditiveBlending,depthWrite:false,opacity:.25}));sprite.position.set(x,y,z);sprite.scale.setScalar(size);parent.add(sprite);return sprite;};
   const light=(x,y,z,color,intensity,distance=16)=>{const l=new THREE.PointLight(color,intensity,distance,1.7);l.position.set(x,y,z);scene.add(l);return l;};
   scene.add(new THREE.HemisphereLight(0x99c6ef,0x352821,2.1));
   const moon=new THREE.DirectionalLight(0xadcfff,3.2);moon.position.set(8,10,-12);scene.add(moon);
@@ -82,15 +82,15 @@ export function createAtticWorld(host, { page, onReady, onFailure }) {
   const grid=new THREE.GridHelper(16,20,0x6685a5,0x263749);grid.scale.z=4;grid.position.set(0,-.03,-22);grid.material.transparent=true;grid.material.opacity=.15;scene.add(grid);
 
   function label(text,width=3,color='#b8d6e5'){
-    const c=document.createElement('canvas');c.width=768;c.height=96;const ctx=c.getContext('2d');ctx.clearRect(0,0,768,96);ctx.fillStyle=color;ctx.font='36px monospace';ctx.fillText(text,4,59);
+    const c=document.createElement('canvas');c.width=768;c.height=96;const ctx=c.getContext('2d');ctx.clearRect(0,0,768,96);ctx.fillStyle=color;ctx.font='36px monospace';ctx.fillText(text,4,59,758);
     const texture=new THREE.CanvasTexture(c);texture.colorSpace=THREE.SRGBColorSpace;textures.push(texture);
     return add(new THREE.PlaneGeometry(width,width/8),new THREE.MeshBasicMaterial({map:texture,transparent:true,depthWrite:false,side:THREE.DoubleSide}));
   }
-  const sign=label('ATTIC—AI / LEIDEN',5,'#e5bf91');sign.position.set(1.5,5.4,-3);
+
 
   function screenTexture(kind){
     const c=document.createElement('canvas');c.width=512;c.height=320;const ctx=c.getContext('2d');
-    ctx.fillStyle='#07121e';ctx.fillRect(0,0,512,320);ctx.fillStyle='#78cde9';ctx.font='13px monospace';ctx.fillText('ATTIC / '+kind+'                         ●',22,27);
+    ctx.fillStyle='#07121e';ctx.fillRect(0,0,512,320);ctx.fillStyle='#78cde9';ctx.font='13px monospace';ctx.fillText('TOM / '+kind+'                         ●',22,27);
     ctx.strokeStyle='#314654';ctx.strokeRect(12,10,488,300);
     if(kind==='BUILD')for(let i=0;i<15;i++){ctx.fillStyle=['#7db0c4','#d6b483','#748497'][i%3];ctx.fillRect(28+(i%3)*15,52+i*15,45+(i*53)%230,3);}
     else if(kind==='SIGNAL'){ctx.strokeStyle='#a1e4d3';for(let j=0;j<3;j++){ctx.beginPath();for(let x=25;x<485;x++){const y=160+Math.sin(x*.04+j)*Math.sin(x*.017)*60*(1-j*.17);x===25?ctx.moveTo(x,y):ctx.lineTo(x,y);}ctx.stroke();}}
@@ -98,9 +98,10 @@ export function createAtticWorld(host, { page, onReady, onFailure }) {
     const texture=new THREE.CanvasTexture(c);texture.colorSpace=THREE.SRGBColorSpace;textures.push(texture);return texture;
   }
   function monitor(parent,x,y,z,kind='BUILD',scale=1){
-    const group=new THREE.Group();parent.add(group);group.position.set(x,y,z);group.scale.setScalar(scale);
+    const group=new THREE.Group();group.userData.monitor=true;parent.add(group);group.position.set(x,y,z);group.scale.setScalar(scale);
     box(2.6,1.6,.13,0,.8,0,black,group);
     const display=add(new THREE.PlaneGeometry(2.45,1.45),new THREE.MeshBasicMaterial({map:screenTexture(kind)}),group);display.position.set(0,.8,.075);
+    group.userData.display=display;
     cylinder(.06,.55,0,-.18,0,steel,group);box(.7,.05,.42,0,-.45,0,steel,group);
     const scan=box(2.42,.014,.004,0,.8,.085,blue,group);animated.push(time=>{scan.position.y=.11+(time*.16)%1.36;scan.material.opacity=.7;});return group;
   }
@@ -113,16 +114,16 @@ export function createAtticWorld(host, { page, onReady, onFailure }) {
     return group;
   }
   const work=desk(0);
-  monitor(work,.55,2.05,-.65);
+  const welcomeMonitor=monitor(work,.55,2.05,-.65);
   const side=monitor(work,-1.65,2.05,-.45,'BUILD',.67);side.rotation.y=.32;
   box(2,.06,.65,.2,1.66,.65,black,work);
   for(let row=0;row<4;row++)for(let col=0;col<14;col++)box(.105,.035,.09,-.65+col*.128,1.71,.44+row*.12,col%5===0?copper:paper,work);
   box(.25,.1,.4,1.48,1.7,.55,paper,work);
   // Desk lamp, notebook, soldering cable and compact computer.
-  cylinder(.3,.06,2,1.65,-.45,copper,work);
-  beam(v(2,1.65,-.45),v(1.85,2.8,-.65),.065,copper,work);beam(v(1.85,2.8,-.65),v(1.55,3.2,-.35),.065,copper,work);
-  const shade=add(new THREE.ConeGeometry(.37,.4,24,1,true),copper,work);shade.position.set(1.55,3.03,-.35);
-  glow(2.65,2.8,-.35,0xffbc70,1.6);light(2.65,2.8,-.35,0xffb35e,26,10);
+  cylinder(.3,.06,2.85,1.65,-.45,copper,work);
+  beam(v(2.85,1.65,-.45),v(3,2.8,-.65),.065,copper,work);beam(v(3,2.8,-.65),v(3.1,3.2,-.35),.065,copper,work);
+  const shade=add(new THREE.ConeGeometry(.37,.4,24,1,true),copper,work);shade.position.set(3.1,3.03,-.35);
+  glow(4.2,2.8,-.35,0xffbc70,1.1);light(4.2,2.8,-.35,0xffb35e,16,10);
   box(.85,.04,.65,-1.8,1.65,.65,paper,work);
   box(.7,.95,1.2,3,.5,-.3,black,work);for(let i=0;i<8;i++)box(.48,.025,.02,3,.15+i*.1,.32,i%3===0?blue:steel,work);
   cylinder(.16,.32,2.12,1.79,.55,paper,work);
@@ -290,8 +291,8 @@ export function createAtticWorld(host, { page, onReady, onFailure }) {
   box(14.7,.2,.22,0,5.15,-7,steel);
   box(3.25,.5,.065,-5.6,4.55,-6.9,steel);box(3.55,.5,.065,2.8,4.55,-6.9,steel);
   for(const x of [-6.7,-4.5,1.5,4.1])beam(v(x,4.8,-6.92),v(x,5.12,-6.92),.016,copper);
-  const studioPlaque=label('01 / STUDIO',2.8,'#e5bf91');studioPlaque.position.set(-5.6,4.55,-6.84);
-  const galleryPlaque=label('02 / PORTFOLIO',3.1,'#b8d6e5');galleryPlaque.position.set(2.8,4.55,-6.84);
+  const studioPlaque=label('01 / PROFILE',2.8,'#e5bf91');studioPlaque.position.set(-5.6,4.55,-6.84);
+  const galleryPlaque=label('03 / SELECTED WORK',3.1,'#b8d6e5');galleryPlaque.position.set(2.8,4.55,-6.84);
   // A planning area belongs to the studio, beside the development bench.
   const planning=new THREE.Group();planning.position.set(-15.4,0,-4.8);scene.add(planning);
   box(2.8,.13,1.75,0,1.14,0,oak,planning);
@@ -310,21 +311,8 @@ export function createAtticWorld(host, { page, onReady, onFailure }) {
     box(.72,.12,.65,x,.65,1.2,steel,planning);box(.72,.6,.12,x,1.02,1.51,steel,planning);
     for(const dx of [-.27,.27])for(const dz of [-.22,.22])box(.04,.65,.04,x+dx,.32,1.2+dz,copper,planning);
   }
-  const planningSign=label('STUDIO / BRIEF → BUILD',3.2,'#e5bf91');planningSign.position.set(-15.4,4.15,-6);
+  const planningSign=label('UNDERSTAND / BUILD / ITERATE',3.2,'#e5bf91');planningSign.position.set(-15.4,4.15,-6);
   light(-15.4,3.8,-3.8,0xe8bd89,23,12);
-  // Exhibition islands distinguish the gallery from the desks in the studio.
-  for(const [index,z] of [-14,-28,-42,-54].entries()){
-    box(6.2,.08,4.6,1.1,.005,z+.15,stone);
-    box(6.3,.025,.035,1.1,.055,z+2.45,index%2?amber:blue);
-    const plaque=label('0'+(index+1)+' / '+['MEMORY','PERCEPTION','MOTION','SPACE'][index],2.8);
-    box(2.85,.38,.065,-1.5,.4,z+2.45,steel);
-    plaque.position.set(-1.5,.4,z+2.5);plaque.rotation.x=-.12;
-    // Ceiling tracks give each exhibit its own pool of light.
-    beam(v(-1,5.7,z),v(3.4,5.7,z),.045,steel);
-    for(const x of [-.7,3.1]){const spot=cylinder(.085,.22,x,5.57,z,black);spot.rotation.z=x<0?-.3:.3;glow(x,5.43,z,0xb8d6ef,.45);}
-  }
-  memory.children[0].material=stone;
-
   // Two full-height extensions, with their own roof, floor, joinery and use of light.
   function wing(centerX, front, back, outerX) {
     const length=front-back, centerZ=(front+back)/2;
@@ -371,8 +359,9 @@ export function createAtticWorld(host, { page, onReady, onFailure }) {
     }
   }
   wing(-16,6,-12,-24);
-  wing(16,-9,-50,24);
-  box(.18,4.5,36,8,2.2,-32,plaster);
+  wing(16,-9,-87,24);
+  for(const [front,back] of [[-14,-25],[-33,-43],[-51,-87]])box(.18,4.5,front-back,8,2.2,(front+back)/2,plaster);
+  for(const z of [-25,-33,-43,-51])beam(v(8,0,z),v(8,4.5,z),.2,oak);
   // Short bridge into the gallery; no crossing through a wall or existing workstation.
   box(5,.12,6,8,-.12,-10,oak);
   for(const z of [0,-8])beam(v(-8,0,z),v(-8,4.5,z),.26);
@@ -381,7 +370,7 @@ export function createAtticWorld(host, { page, onReady, onFailure }) {
 
   // Studio: materials library, workbench, meeting table and a small listening corner.
   const studioBench=work.clone(true);studioBench.position.set(-17.5,0,-10.2);scene.add(studioBench);
-  const studioChair=chair.clone(true);studioChair.position.set(-17.5,0,-8.3);scene.add(studioChair);
+  const studioChair=chair.clone(true);studioChair.position.set(-17.5,0,-6.4);scene.add(studioChair);
   box(7,.025,5,-15.4,.005,-3.8,textile);
   for(let bay=0;bay<3;bay++){
     const x=-12-bay*3;
@@ -409,59 +398,12 @@ export function createAtticWorld(host, { page, onReady, onFailure }) {
   }
   light(-19,4.5,-7,0xe7b985,24,14);
 
-  // Gallery exhibits are additional objects. The home-page workstations stay in place.
-  const exhibit=(source,x,y,z)=>{const object=source.clone(true);object.position.set(x,y,z);scene.add(object);return object;};
-  exhibit(memory,16,0,-18);
-  const galleryNetwork=exhibit(network,16,3.3,-18);
-  exhibit(sound,16,0,-27);
-  const galleryWave=exhibit(waveform,16,4.35,-27);
-  const galleryFilm=exhibit(film,16,0,-37), galleryFrames=exhibit(frames,16,4.8,-37);
-  const galleryModel=exhibit(model,16,1.9,-45);
-  cylinder(2.35,1.65,16,.8,-45,stone);
-  animated.push(time=>{
-    galleryNetwork.rotation.y=time*.105;galleryNetwork.position.y=3.3+Math.sin(time*.65)*.12;
-    galleryWave.children.forEach((bar,i)=>{bar.scale.y=.4+Math.abs(Math.sin(i*.4+time*1.6)*Math.sin(i*.17-time*.7))*4;});
-    galleryFrames.position.y=4.7+Math.sin(time*.45)*.16;galleryModel.rotation.y=Math.sin(time*.17)*.15;
-    galleryFilm.children.filter(child=>child.geometry?.type==='TorusGeometry').forEach(reel=>{reel.rotation.z=time*.32;});
-  });
-  const galleryTitle=label('PORTFOLIO / WORK IN PROGRESS',5,'#e5bf91');galleryTitle.position.set(16,5.4,-12);
-  for(const [index,z] of [-18,-27,-37,-45].entries()){
-    box(6.4,.1,4.8,16,.005,z,stone);
-    box(6.45,.018,.03,16,.067,z+2.4,index%2?amber:blue);
-    const plaque=label(['01 / MASTERMIND','02 / VESPER','03 / FRAMEFORGE','04 / SPATIAL STUDIES'][index],3.8);
-    plaque.position.set(15,.45,z+2.48);box(4,.48,.08,15,.45,z+2.43,steel);
-    beam(v(12.5,5.5,z),v(19.5,5.5,z),.06,steel);
-    for(const x of [13,19]){const fixture=cylinder(.12,.32,x,5.3,z,copper);fixture.rotation.z=x<16?-.45:.45;glow(x,5.07,z,0xc8dcef,.8);}
-    // Archive drawers and sample trays along the far wall, outside the camera aisle.
-    box(.9,1.1,2.5,23.2,.55,z,oak);
-    for(let i=0;i<4;i++){box(.025,.21,2.3,22.72,.18+i*.25,z,steel);box(.04,.035,.25,22.69,.18+i*.25,z,copper);}
-    light(16,4,z,index%2?0xe7bd96:0x9bc8e8,24,12);
-  }
-  // The inside wall carries project material, so the return arcs reveal more than a blank wall.
-  // Real captures are the same explicitly labelled assets used by the HTML case studies.
-  const projectPanels=[
-    {z:-18,title:'MASTERMIND / KNOWLEDGE',kind:'BUILD'},
-    {z:-27,title:'VESPER / LEVEL STUDY',kind:'SIGNAL',image:'/images/vesper.webp',aspect:1100/760},
-    {z:-37,title:'FRAMEFORGE / SEQUENCE',kind:'FRAME'},
-    {z:-45,title:'BLENDER / SPATIAL STUDY',kind:'FRAME',image:'/images/blender-room.webp',aspect:4/3},
-  ];
-  const textureLoader=new THREE.TextureLoader();
-  for(const panel of projectPanels){
-    const mount=new THREE.Group();mount.position.set(8.25,0,panel.z);mount.rotation.y=Math.PI/2;scene.add(mount);
-    const height=panel.image?4.2/panel.aspect:2.63;
-    box(4.5,height+.3,.14,0,2.8,0,steel,mount);box(4.32,height+.12,.02,0,2.8,.081,copper,mount);
-    const panelMaterial=new THREE.MeshBasicMaterial({map:screenTexture(panel.kind),toneMapped:false});
-    const display=add(new THREE.PlaneGeometry(4.2,height),panelMaterial,mount);display.position.set(0,2.8,.096);
-    if(panel.image){
-      const texture=textureLoader.load(publicUrl(panel.image),loaded=>{if(!alive){loaded.dispose();return;}loaded.colorSpace=THREE.SRGBColorSpace;panelMaterial.map=loaded;panelMaterial.needsUpdate=true;},undefined,()=>{});textures.push(texture);
-    }
-    const caption=label(panel.title,4,'#e5bf91');mount.add(caption);caption.position.set(0,4.75,.1);
-    box(4.7,.07,.4,0,4.45,.08,oak,mount);box(4.15,.02,.035,0,4.39,.24,amber,mount);
-    for(const x of [-2.16,2.16])for(const y of [1.4,4.15]){const pin=cylinder(.024,.025,x,y,.106,copper,mount);pin.rotation.x=Math.PI/2;}
-    box(4.4,.8,.8,0,.4,.23,oak,mount);
-    for(let i=0;i<4;i++){box(1.02,.65,.025,-1.62+i*1.08,.43,.647,steel,mount);box(.19,.035,.05,-1.62+i*1.08,.64,.68,copper,mount);}
-    for(let i=0;i<5;i++)box(.6,.025,.45,-1.35+i*.64,.83+(i%3)*.025,.2,i%2?paper:shelvingWood,mount);
-  }
+  // Reassign the old stations to personal project installations.
+  memory.visible=false; sound.visible=false; waveform.visible=false; film.visible=false; frames.visible=false; model.visible=false; network.visible=false;
+  soundSign.visible=false; memorySign.visible=false; headphones.visible=false;
+  const gallery=createGallery({scene,box,cylinder,beam,label,light,glow,add,textures,
+    materials:{oak,steel,copper,black,paper,amber,stone,textile,terracotta,leaves,ceramic,darkWood},sources:{work,memory,sound,film,model,headphones,studioBench,planning,planningSign,rack}});
+  const updateMethod=createMethodObject({scene,add,box,line,display:welcomeMonitor.userData.display,textures,materials:{copper,blue,paper}});
 
   // GPU particles: depth-aware dust, not a flat DOM overlay.
   const particlesCount=mobile?900:2200, positions=new Float32Array(particlesCount*3), seeds=new Float32Array(particlesCount);
@@ -477,13 +419,14 @@ export function createAtticWorld(host, { page, onReady, onFailure }) {
   const lastStop=cameraStops.length-1;
   let sceneVisible=true;
   let stops=[], targetProgress=0, progress=targetProgress, frame=0, alive=true;
+  const inspections=new Map();let focusBlend=0,lastFocus=null,focusProject='',jump=false;
   let enabled=document.documentElement.dataset.motion!=='off'&&!matchMedia('(prefers-reduced-motion:reduce)').matches;
   let pointer={x:0,y:0}, smoothPointer={x:0,y:0}, lastTime=0, menuOpen=false, menuBlend=0, measuredFrames=0, metricStart=performance.now();
   const initialPosition=v(), initialLook=v(), desiredPosition=v(), desiredLook=v(), look=v();
   function measure(){
-    stops=measureTour([...document.querySelectorAll('[data-scene-stop]')].map(el=>({
+    stops=measureTour([...document.querySelectorAll('[data-scene-stop]')].filter(el=>el.offsetHeight>0).map(el=>({
       top:el.getBoundingClientRect().top+scrollY,height:el.offsetHeight,
-      from:Number(el.dataset.sceneStop),to:el.hasAttribute('data-scene-to')?Number(el.dataset.sceneTo):undefined,
+      from:Number(el.dataset.sceneStop),to:el.hasAttribute('data-scene-to')?Number(el.dataset.sceneTo):undefined,hold:el.hasAttribute('data-scene-hold'),
     })),innerHeight);
     updateScroll();
   }
@@ -491,6 +434,7 @@ export function createAtticWorld(host, { page, onReady, onFailure }) {
     targetProgress=THREE.MathUtils.clamp(sampleTour(stops,scrollY),0,lastStop);
     // Keep the camera current while its canvas is covered; no catch-up flight on re-entry.
     if(!sceneVisible)progress=targetProgress;
+    if(!enabled)renderStill();
   }
   function pose(p,position,target){
     const t=THREE.MathUtils.clamp(p/lastStop,0,1);
@@ -498,19 +442,31 @@ export function createAtticWorld(host, { page, onReady, onFailure }) {
     // Wider mobile FOV keeps the same physical path through doorways and between exhibits.
     if(mobile){position.y+=.65;target.y+=.25;}
   }
-  function resize(){renderer.setSize(innerWidth,innerHeight);composer?.setSize(innerWidth,innerHeight);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();measure();if(!enabled)renderStill();}
-  function renderStill(){pose(0,initialPosition,initialLook);camera.position.copy(initialPosition);camera.lookAt(initialLook);render();}
+  function resize(){mobile=innerWidth<=1000;renderer.setPixelRatio(Math.min(devicePixelRatio,mobile?1.25:1.6));renderer.setSize(innerWidth,innerHeight);composer?.setSize(innerWidth,innerHeight);camera.fov=mobile?63:48;camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();measure();if(!enabled)renderStill();}
+  function renderStill(){progress=targetProgress;pose(progress,initialPosition,initialLook);camera.position.copy(initialPosition);camera.lookAt(initialLook);updateMethod(progress);network.visible=false;gallery.update(camera,progress,false);render();}
   function draw(now){if(!alive||document.hidden||(!sceneVisible&&!menuOpen)){frame=0;return;}frame=requestAnimationFrame(draw);if(now-lastTime<(mobile?32:16))return;const delta=Math.min((now-lastTime)/1000,.06);lastTime=now;
     elapsed+=delta;const t=elapsed;const smoothing=1-Math.exp(-delta*11);
-    progress+= (targetProgress-progress)*smoothing;
+    if(jump&&!document.querySelector('.project-visit')&&!focusProject){focusBlend=0;lastFocus=null;}
+    progress=jump?targetProgress:progress+(targetProgress-progress)*smoothing;jump=false;
     smoothPointer.x+=(pointer.x-smoothPointer.x)*.035;smoothPointer.y+=(pointer.y-smoothPointer.y)*.035;
     pose(progress,desiredPosition,desiredLook);
+    let inspection=null;
+    const visit=document.querySelector('.project-visit');
+    if(!mobile&&visit){
+      if(focusProject!==visit.dataset.project){focusProject=visit.dataset.project;lastFocus=null;focusBlend=0;}
+      inspection=gallery.focus(visit.dataset.project,visit.dataset.inspectScreen);
+    }else if(!visit){focusProject='';}
+    focusBlend+=((inspection?1:0)-focusBlend)*(1-Math.exp(-delta*8));
+    if(inspection){if(!lastFocus)lastFocus={position:desiredPosition.clone(),look:desiredLook.clone()};lastFocus.position.lerp(inspection.position,smoothing);lastFocus.look.lerp(inspection.look,smoothing);}
+    if(lastFocus){desiredPosition.lerp(lastFocus.position,focusBlend);desiredLook.lerp(lastFocus.look,focusBlend);}
     menuBlend+=((menuOpen?1:0)-menuBlend)*smoothing;
     desiredPosition.x-=menuBlend*1.2;desiredPosition.y+=menuBlend*.7;desiredLook.y+=menuBlend*.2;
-    desiredPosition.x+=smoothPointer.x*.55;desiredPosition.y+=smoothPointer.y*.25;
+    desiredPosition.x+=smoothPointer.x*.18*(1-focusBlend);desiredPosition.y+=smoothPointer.y*.09*(1-focusBlend);
     camera.position.copy(desiredPosition);look.copy(desiredLook);camera.lookAt(look);
-    animated.forEach(fn=>fn(t));dustMaterial.uniforms.uTime.value=t;
+    if(!inspection){animated.forEach(fn=>fn(t));dustMaterial.uniforms.uTime.value=t;}
+    updateMethod(progress);network.visible=false;
     render();
+    gallery.update(camera,progress,enabled);
     if(++measuredFrames===60){host.dataset.fps=String(Math.round(60000/(now-metricStart)));metricStart=now;measuredFrames=0;}
     host.style.setProperty('--travel',String(progress/lastStop));
   }
@@ -518,12 +474,16 @@ export function createAtticWorld(host, { page, onReady, onFailure }) {
   function toggle(e){enabled=e.detail&&!matchMedia('(prefers-reduced-motion:reduce)').matches;if(!enabled){cancelAnimationFrame(frame);frame=0;renderStill();}else start();}
   function pointerMove(e){pointer={x:(e.clientX/innerWidth-.5)*2,y:(.5-e.clientY/innerHeight)*2};}
   function contextLost(e){e.preventDefault();cancelAnimationFrame(frame);frame=0;onFailure();}
+  function inspect(event){const {project,open,screen}=event.detail;if(open)inspections.set(project,screen);else inspections.delete(project);}
+  function navigate(event){if(event.detail.immediate)jump=true;}
+  const routeChanged=()=>requestAnimationFrame(measure);
   const resizeObserver=new ResizeObserver(measure);resizeObserver.observe(document.querySelector('main'));
   const menuObserver=new MutationObserver(()=>{menuOpen=document.body.classList.contains('menu-is-open');start();});menuObserver.observe(document.body,{attributes:true,attributeFilter:['class']});
   const visibleRegions=new Set();
   const visibilityObserver=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting)visibleRegions.add(entry.target);else visibleRegions.delete(entry.target);});sceneVisible=visibleRegions.size>0;start();},{rootMargin:'100px'});
-  document.querySelectorAll('.home-hero,.portfolio-hero,.spatial-passage,[data-scene-view]').forEach(el=>visibilityObserver.observe(el));
+  visibilityObserver.observe(document.querySelector('main'));
   window.addEventListener('resize',resize);window.addEventListener('scroll',updateScroll,{passive:true});window.addEventListener('pointermove',pointerMove,{passive:true});window.addEventListener('attic:motion',toggle);document.addEventListener('visibilitychange',start);renderer.domElement.addEventListener('webglcontextlost',contextLost);
+  window.addEventListener('whoami:inspect',inspect);window.addEventListener('whoami:scroll',navigate);window.addEventListener('whoami:route',routeChanged);
   resize();pose(targetProgress,initialPosition,initialLook);camera.position.copy(initialPosition);look.copy(initialLook);camera.lookAt(look);render();onReady();start();
-  return()=>{alive=false;cancelAnimationFrame(frame);resizeObserver.disconnect();visibilityObserver.disconnect();menuObserver.disconnect();window.removeEventListener('resize',resize);window.removeEventListener('scroll',updateScroll);window.removeEventListener('pointermove',pointerMove);window.removeEventListener('attic:motion',toggle);document.removeEventListener('visibilitychange',start);renderer.domElement.removeEventListener('webglcontextlost',contextLost);scene.traverse(o=>{if(o.geometry)geometries.add(o.geometry);if(o.material)(Array.isArray(o.material)?o.material:[o.material]).forEach(m=>materials.add(m));});geometries.forEach(g=>g.dispose());materials.forEach(m=>m.dispose());textures.forEach(t=>t.dispose());bloom?.dispose();composer?.passes.forEach(pass=>{if(pass!==bloom)pass.dispose?.();});composer?.dispose();environmentMap.dispose();renderer.dispose();renderer.domElement.remove();};
+  return()=>{alive=false;gallery.dispose();window.removeEventListener('whoami:route',routeChanged);window.removeEventListener('whoami:inspect',inspect);window.removeEventListener('whoami:scroll',navigate);cancelAnimationFrame(frame);resizeObserver.disconnect();visibilityObserver.disconnect();menuObserver.disconnect();window.removeEventListener('resize',resize);window.removeEventListener('scroll',updateScroll);window.removeEventListener('pointermove',pointerMove);window.removeEventListener('attic:motion',toggle);document.removeEventListener('visibilitychange',start);renderer.domElement.removeEventListener('webglcontextlost',contextLost);scene.traverse(o=>{if(o.geometry)geometries.add(o.geometry);if(o.material)(Array.isArray(o.material)?o.material:[o.material]).forEach(m=>materials.add(m));});geometries.forEach(g=>g.dispose());materials.forEach(m=>m.dispose());textures.forEach(t=>t.dispose());bloom?.dispose();composer?.passes.forEach(pass=>{if(pass!==bloom)pass.dispose?.();});composer?.dispose();environmentMap.dispose();renderer.dispose();renderer.domElement.remove();};
 }

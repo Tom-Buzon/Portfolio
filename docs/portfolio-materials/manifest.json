@@ -1,0 +1,895 @@
+{
+  "schema_version": 1,
+  "imported_at": "2026-10-09T17:00:46.817583+02:00",
+  "source_root": "C:\\Users\\suean\\Desktop\\Mastermind-V2\\backend\\data",
+  "additional_sources": [
+    "C:\\Users\\suean\\Downloads\\index (6).html"
+  ],
+  "workspace": "C:\\Users\\suean\\Desktop\\M-IA",
+  "source_read_only": true,
+  "codex_marker": {
+    "text": "::tag [ PARTIE A CONSULTER POUR CODEX ]",
+    "source_line": 275,
+    "content_until_end_of_document": true,
+    "local_excerpt": "docs/portfolio-materials/brief-codex.md",
+    "media_links_rebased": true
+  },
+  "files": [
+    {
+      "source": "C:\\Users\\suean\\Desktop\\Mastermind-V2\\backend\\data\\OPCL\\OPCLPortfolioProject\\drawings\\293019d6ce7331553aae35615b2c51f28d9292e662cdcf11dcdbb3d3c20474f4.json",
+      "local": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/drawings/293019d6ce7331553aae35615b2c51f28d9292e662cdcf11dcdbb3d3c20474f4.json",
+      "bytes": 127530,
+      "sha256": "adc9bf1ce267a9f8463991a7064001329e7646200e3c2accbe0f8595b7602304",
+      "copy_verified": true,
+      "kind": "drawing",
+      "label": "293019d6ce7331553aae35615b2c51f28d9292e662cdcf11dcdbb3d3c20474f4.json",
+      "drawing": {
+        "id": "excalidraw-a81c266b-df92-4878-bffe-30274b27ff87",
+        "status": "active",
+        "elements": 168,
+        "external_media": []
+      }
+    },
+    {
+      "source": "C:\\Users\\suean\\Desktop\\Mastermind-V2\\backend\\data\\OPCL\\OPCLPortfolioProject\\images\\44bc6b5396ecdf0b6e5616caa9df17b0aa8ab7a5a59fa1f6122760ac3fb58dac.png",
+      "local": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/images/44bc6b5396ecdf0b6e5616caa9df17b0aa8ab7a5a59fa1f6122760ac3fb58dac.png",
+      "bytes": 2224497,
+      "sha256": "44bc6b5396ecdf0b6e5616caa9df17b0aa8ab7a5a59fa1f6122760ac3fb58dac",
+      "copy_verified": true,
+      "kind": "image",
+      "label": "ClipGenerator — ajustement et animation des cartes",
+      "image": {
+        "width": 2554,
+        "height": 1367,
+        "format": "PNG"
+      }
+    },
+    {
+      "source": "C:\\Users\\suean\\Desktop\\Mastermind-V2\\backend\\data\\OPCL\\OPCLPortfolioProject\\images\\87590299c6cdc18108476b22b40f1e3efdb9f6a66b4b622673e729bcdc976c83.png",
+      "local": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/images/87590299c6cdc18108476b22b40f1e3efdb9f6a66b4b622673e729bcdc976c83.png",
+      "bytes": 355010,
+      "sha256": "87590299c6cdc18108476b22b40f1e3efdb9f6a66b4b622673e729bcdc976c83",
+      "copy_verified": true,
+      "kind": "image",
+      "label": "ClipGenerator — analyse audio",
+      "image": {
+        "width": 2546,
+        "height": 1366,
+        "format": "PNG"
+      }
+    },
+    {
+      "source": "C:\\Users\\suean\\Desktop\\Mastermind-V2\\backend\\data\\OPCL\\OPCLPortfolioProject\\images\\8deb266ef8b83a0ea608e3cc965554d97e5c8a8d5aba2e588ccf3277545cfdde.png",
+      "local": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/images/8deb266ef8b83a0ea608e3cc965554d97e5c8a8d5aba2e588ccf3277545cfdde.png",
+      "bytes": 551705,
+      "sha256": "8deb266ef8b83a0ea608e3cc965554d97e5c8a8d5aba2e588ccf3277545cfdde",
+      "copy_verified": true,
+      "kind": "image",
+      "label": "ClipGenerator — description des scènes par IA",
+      "image": {
+        "width": 2553,
+        "height": 1363,
+        "format": "PNG"
+      }
+    },
+    {
+      "source": "C:\\Users\\suean\\Desktop\\Mastermind-V2\\backend\\data\\OPCL\\OPCLPortfolioProject\\images\\91fa13854ad04267f4aec602d3222f6031599507d71344ff5dfabd6763671653.png",
+      "local": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/images/91fa13854ad04267f4aec602d3222f6031599507d71344ff5dfabd6763671653.png",
+      "bytes": 859561,
+      "sha256": "91fa13854ad04267f4aec602d3222f6031599507d71344ff5dfabd6763671653",
+      "copy_verified": true,
+      "kind": "image",
+      "label": "ClipGenerator — vérification du montage avant export",
+      "image": {
+        "width": 2546,
+        "height": 1365,
+        "format": "PNG"
+      }
+    },
+    {
+      "source": "C:\\Users\\suean\\Desktop\\Mastermind-V2\\backend\\data\\OPCL\\OPCLPortfolioProject\\images\\9e3008ebd11e602bdcec29ef9f4e926cc50644974ef546ca71af616eea4334bf.png",
+      "local": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/images/9e3008ebd11e602bdcec29ef9f4e926cc50644974ef546ca71af616eea4334bf.png",
+      "bytes": 620177,
+      "sha256": "9e3008ebd11e602bdcec29ef9f4e926cc50644974ef546ca71af616eea4334bf",
+      "copy_verified": true,
+      "kind": "image",
+      "label": "ClipGenerator — narration en direct",
+      "image": {
+        "width": 2550,
+        "height": 1361,
+        "format": "PNG"
+      }
+    },
+    {
+      "source": "C:\\Users\\suean\\Desktop\\Mastermind-V2\\backend\\data\\OPCL\\OPCLPortfolioProject\\images\\fff22004c3a922f4ada3ef3ac21436abd1c1a7de72a0bf5d5d7308baf4ec4433.png",
+      "local": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/images/fff22004c3a922f4ada3ef3ac21436abd1c1a7de72a0bf5d5d7308baf4ec4433.png",
+      "bytes": 42569,
+      "sha256": "fff22004c3a922f4ada3ef3ac21436abd1c1a7de72a0bf5d5d7308baf4ec4433",
+      "copy_verified": true,
+      "kind": "image",
+      "label": "ClipGenerator — démarrage des services locaux",
+      "image": {
+        "width": 706,
+        "height": 350,
+        "format": "PNG"
+      }
+    },
+    {
+      "source": "C:\\Users\\suean\\Desktop\\Mastermind-V2\\backend\\data\\OPCL\\OPCLPortfolioProject\\OPCLPortfolioProject.md",
+      "local": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/OPCLPortfolioProject.md",
+      "bytes": 18131,
+      "sha256": "c780939bef5f31699e1f27b701ac5c768e480bb022777a255ba76334f5a5b5a1",
+      "copy_verified": true,
+      "kind": "document",
+      "label": "OPCLPortfolioProject.md"
+    },
+    {
+      "source": "C:\\Users\\suean\\Desktop\\Mastermind-V2\\backend\\data\\OPCL\\OPCLPortfolioProject\\video\\13287319fae0590a118fc67b2a4783cc488f658d4598c15fef24fa150493ba78.mp4",
+      "local": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/video/13287319fae0590a118fc67b2a4783cc488f658d4598c15fef24fa150493ba78.mp4",
+      "bytes": 11982062,
+      "sha256": "13287319fae0590a118fc67b2a4783cc488f658d4598c15fef24fa150493ba78",
+      "copy_verified": true,
+      "kind": "video",
+      "label": "ClipGenerator — vidéo produite 2",
+      "video": {
+        "duration_seconds": 63.903438,
+        "streams": [
+          {
+            "index": 0,
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 478,
+            "height": 850,
+            "pix_fmt": "yuv420p",
+            "avg_frame_rate": "24/1"
+          },
+          {
+            "index": 1,
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "avg_frame_rate": "0/0"
+          }
+        ],
+        "full_decode_verified": true
+      }
+    },
+    {
+      "source": "C:\\Users\\suean\\Desktop\\Mastermind-V2\\backend\\data\\OPCL\\OPCLPortfolioProject\\video\\51fc8c089195571647d379c7017e0b8506da02ea4a713e312210d5cf719374a0.mp4",
+      "local": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/video/51fc8c089195571647d379c7017e0b8506da02ea4a713e312210d5cf719374a0.mp4",
+      "bytes": 9921618,
+      "sha256": "51fc8c089195571647d379c7017e0b8506da02ea4a713e312210d5cf719374a0",
+      "copy_verified": true,
+      "kind": "video",
+      "label": "ClipGenerator — vidéo produite 1",
+      "video": {
+        "duration_seconds": 53.496771,
+        "streams": [
+          {
+            "index": 0,
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 478,
+            "height": 850,
+            "pix_fmt": "yuv420p",
+            "avg_frame_rate": "24/1"
+          },
+          {
+            "index": 1,
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "avg_frame_rate": "0/0"
+          }
+        ],
+        "full_decode_verified": true
+      }
+    },
+    {
+      "source": "C:\\Users\\suean\\Desktop\\Mastermind-V2\\backend\\data\\OPCL\\OPCLPortfolioProject\\video\\5a01058c604d5de6681354a4dc6001f545f1a0b5c52b64c6abd39a4fdd653fff.mp4",
+      "local": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/video/5a01058c604d5de6681354a4dc6001f545f1a0b5c52b64c6abd39a4fdd653fff.mp4",
+      "bytes": 3120148,
+      "sha256": "5a01058c604d5de6681354a4dc6001f545f1a0b5c52b64c6abd39a4fdd653fff",
+      "copy_verified": true,
+      "kind": "video",
+      "label": "Vesper — démarrage réel du jeu",
+      "video": {
+        "duration_seconds": 43.3,
+        "streams": [
+          {
+            "index": 0,
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1096,
+            "height": 756,
+            "pix_fmt": "yuv420p",
+            "avg_frame_rate": "30/1"
+          },
+          {
+            "index": 1,
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "avg_frame_rate": "0/0"
+          }
+        ],
+        "full_decode_verified": true
+      }
+    },
+    {
+      "source": "C:\\Users\\suean\\Desktop\\Mastermind-V2\\backend\\data\\OPCL\\OPCLPortfolioProject\\video\\f63cac569549c53d32019db58f633d790ee5f693102e6395f4ff2def725a7a3d.mp4",
+      "local": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/video/f63cac569549c53d32019db58f633d790ee5f693102e6395f4ff2def725a7a3d.mp4",
+      "bytes": 125827914,
+      "sha256": "f63cac569549c53d32019db58f633d790ee5f693102e6395f4ff2def725a7a3d",
+      "copy_verified": true,
+      "kind": "video",
+      "label": "Hoplites — démonstration originale",
+      "video": {
+        "duration_seconds": 252.586646,
+        "streams": [
+          {
+            "index": 0,
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1274,
+            "height": 710,
+            "pix_fmt": "yuv420p",
+            "avg_frame_rate": "30/1"
+          },
+          {
+            "index": 1,
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "avg_frame_rate": "0/0"
+          }
+        ],
+        "full_decode_verified": true
+      },
+      "requested_excerpt": {
+        "start_seconds": 43,
+        "end_seconds": 108,
+        "duration_seconds": 65,
+        "prepared": false
+      }
+    },
+    {
+      "source": "C:\\Users\\suean\\Desktop\\Mastermind-V2\\backend\\data\\technicalRepportSFT\\drawings\\ecd46b7950a86ad69e9020f2f554fa49b27063c794bcb85a888628bd597293c3.json",
+      "local": "docs/portfolio-materials/sources/technicalRepportSFT/drawings/ecd46b7950a86ad69e9020f2f554fa49b27063c794bcb85a888628bd597293c3.json",
+      "bytes": 191621,
+      "sha256": "59df35c2585167ac89fbaa3ddd4a80a232fb963b3cf1cf7b76cc10120236bedc",
+      "copy_verified": true,
+      "kind": "drawing",
+      "label": "ecd46b7950a86ad69e9020f2f554fa49b27063c794bcb85a888628bd597293c3.json",
+      "drawing": {
+        "id": "excalidraw-09496d19-9e6c-4555-a7c9-036a005a10d4",
+        "status": "active",
+        "elements": 335,
+        "external_media": []
+      }
+    },
+    {
+      "source": "C:\\Users\\suean\\Desktop\\Mastermind-V2\\backend\\data\\technicalRepportSFT\\technicalRepportSFT.md",
+      "local": "docs/portfolio-materials/sources/technicalRepportSFT/technicalRepportSFT.md",
+      "bytes": 24214,
+      "sha256": "fa09ed4555618f5443187322d8a4736eb43856662ec5b9c6c967fd7092eb2861",
+      "copy_verified": true,
+      "kind": "document",
+      "label": "technicalRepportSFT.md"
+    },
+    {
+      "source": "C:\\Users\\suean\\Desktop\\Mastermind-V2\\backend\\data\\MnemeMind\\images\\05afa04e9af9a59cb46549b4ee121c9656e7a857f48eb81e7d6b17a4863b0521.png",
+      "local": "docs/portfolio-materials/sources/MnemeMind/images/05afa04e9af9a59cb46549b4ee121c9656e7a857f48eb81e7d6b17a4863b0521.png",
+      "bytes": 153456,
+      "sha256": "05afa04e9af9a59cb46549b4ee121c9656e7a857f48eb81e7d6b17a4863b0521",
+      "copy_verified": true,
+      "kind": "image",
+      "label": "MnemeMind — calendrier, seconde vue",
+      "image": {
+        "width": 2493,
+        "height": 1301,
+        "format": "PNG"
+      }
+    },
+    {
+      "source": "C:\\Users\\suean\\Desktop\\Mastermind-V2\\backend\\data\\MnemeMind\\images\\441b3de023d37f329fbd08d5d22b72fd23fa6a50221193d9dc9400a508947909.png",
+      "local": "docs/portfolio-materials/sources/MnemeMind/images/441b3de023d37f329fbd08d5d22b72fd23fa6a50221193d9dc9400a508947909.png",
+      "bytes": 126259,
+      "sha256": "441b3de023d37f329fbd08d5d22b72fd23fa6a50221193d9dc9400a508947909",
+      "copy_verified": true,
+      "kind": "image",
+      "label": "MnemeMind — clonage de voix",
+      "image": {
+        "width": 1190,
+        "height": 922,
+        "format": "PNG"
+      }
+    },
+    {
+      "source": "C:\\Users\\suean\\Desktop\\Mastermind-V2\\backend\\data\\MnemeMind\\images\\48ad845e5bbd0da9371258f9c551bf6f2219e5c9bb34d291162fe565c2476633.png",
+      "local": "docs/portfolio-materials/sources/MnemeMind/images/48ad845e5bbd0da9371258f9c551bf6f2219e5c9bb34d291162fe565c2476633.png",
+      "bytes": 291763,
+      "sha256": "48ad845e5bbd0da9371258f9c551bf6f2219e5c9bb34d291162fe565c2476633",
+      "copy_verified": true,
+      "kind": "image",
+      "label": "MnemeMind — Mermaid, audio et transcription",
+      "image": {
+        "width": 2500,
+        "height": 1307,
+        "format": "PNG"
+      }
+    },
+    {
+      "source": "C:\\Users\\suean\\Desktop\\Mastermind-V2\\backend\\data\\MnemeMind\\images\\7b4019db5517f4f4fa6965d1cc9cb27f8b447b1d3efe0c6fcb135bb3b4bcf76a.png",
+      "local": "docs/portfolio-materials/sources/MnemeMind/images/7b4019db5517f4f4fa6965d1cc9cb27f8b447b1d3efe0c6fcb135bb3b4bcf76a.png",
+      "bytes": 471776,
+      "sha256": "7b4019db5517f4f4fa6965d1cc9cb27f8b447b1d3efe0c6fcb135bb3b4bcf76a",
+      "copy_verified": true,
+      "kind": "image",
+      "label": "MnemeMind — seconde vue de l’IA locale",
+      "image": {
+        "width": 2496,
+        "height": 1304,
+        "format": "PNG"
+      }
+    },
+    {
+      "source": "C:\\Users\\suean\\Desktop\\Mastermind-V2\\backend\\data\\MnemeMind\\images\\7e0929e251697c1566e729886fd840e46908c8cb395aa14f5e71080942b42ccb.png",
+      "local": "docs/portfolio-materials/sources/MnemeMind/images/7e0929e251697c1566e729886fd840e46908c8cb395aa14f5e71080942b42ccb.png",
+      "bytes": 342750,
+      "sha256": "7e0929e251697c1566e729886fd840e46908c8cb395aa14f5e71080942b42ccb",
+      "copy_verified": true,
+      "kind": "image",
+      "label": "MnemeMind — gestion des tâches",
+      "image": {
+        "width": 2496,
+        "height": 1305,
+        "format": "PNG"
+      }
+    },
+    {
+      "source": "C:\\Users\\suean\\Desktop\\Mastermind-V2\\backend\\data\\MnemeMind\\images\\984f45066a64352ede99073bbf6a37d540fe0b926146d5b4ab93e3d97074ddba.png",
+      "local": "docs/portfolio-materials/sources/MnemeMind/images/984f45066a64352ede99073bbf6a37d540fe0b926146d5b4ab93e3d97074ddba.png",
+      "bytes": 331215,
+      "sha256": "984f45066a64352ede99073bbf6a37d540fe0b926146d5b4ab93e3d97074ddba",
+      "copy_verified": true,
+      "kind": "image",
+      "label": "MnemeMind — Excalidraw dans les notes",
+      "image": {
+        "width": 2496,
+        "height": 1306,
+        "format": "PNG"
+      }
+    },
+    {
+      "source": "C:\\Users\\suean\\Desktop\\Mastermind-V2\\backend\\data\\MnemeMind\\images\\af7506a516add97ba95d6d36d425af1c3c60264d386e7cd8af8b6117f6a6bdf7.png",
+      "local": "docs/portfolio-materials/sources/MnemeMind/images/af7506a516add97ba95d6d36d425af1c3c60264d386e7cd8af8b6117f6a6bdf7.png",
+      "bytes": 578714,
+      "sha256": "af7506a516add97ba95d6d36d425af1c3c60264d386e7cd8af8b6117f6a6bdf7",
+      "copy_verified": true,
+      "kind": "image",
+      "label": "MnemeMind — IA locale et représentations des embeddings",
+      "image": {
+        "width": 2498,
+        "height": 1299,
+        "format": "PNG"
+      }
+    },
+    {
+      "source": "C:\\Users\\suean\\Desktop\\Mastermind-V2\\backend\\data\\MnemeMind\\images\\d3cbcb48e8e93e585f8d66173904f353672d2d00063490a8c90c0025620d1f39.png",
+      "local": "docs/portfolio-materials/sources/MnemeMind/images/d3cbcb48e8e93e585f8d66173904f353672d2d00063490a8c90c0025620d1f39.png",
+      "bytes": 61296,
+      "sha256": "d3cbcb48e8e93e585f8d66173904f353672d2d00063490a8c90c0025620d1f39",
+      "copy_verified": true,
+      "kind": "image",
+      "label": "MnemeMind — balises Markdown",
+      "image": {
+        "width": 731,
+        "height": 639,
+        "format": "PNG"
+      }
+    },
+    {
+      "source": "C:\\Users\\suean\\Desktop\\Mastermind-V2\\backend\\data\\MnemeMind\\images\\e0d9bfd8a39b61ebf1e4c032c52ed5ad2ada87f5fbbc4f49ddebd3d3d1ae52b3.png",
+      "local": "docs/portfolio-materials/sources/MnemeMind/images/e0d9bfd8a39b61ebf1e4c032c52ed5ad2ada87f5fbbc4f49ddebd3d3d1ae52b3.png",
+      "bytes": 1109961,
+      "sha256": "e0d9bfd8a39b61ebf1e4c032c52ed5ad2ada87f5fbbc4f49ddebd3d3d1ae52b3",
+      "copy_verified": true,
+      "kind": "image",
+      "label": "MnemeMind — mode Explore",
+      "image": {
+        "width": 2499,
+        "height": 1305,
+        "format": "PNG"
+      }
+    },
+    {
+      "source": "C:\\Users\\suean\\Desktop\\Mastermind-V2\\backend\\data\\MnemeMind\\images\\e270db2b7cb8da6200100fc5c416fb8eab2be24458dae7463583ef95192178c8.png",
+      "local": "docs/portfolio-materials/sources/MnemeMind/images/e270db2b7cb8da6200100fc5c416fb8eab2be24458dae7463583ef95192178c8.png",
+      "bytes": 47525,
+      "sha256": "e270db2b7cb8da6200100fc5c416fb8eab2be24458dae7463583ef95192178c8",
+      "copy_verified": true,
+      "kind": "image",
+      "label": "MnemeMind — import des documents",
+      "image": {
+        "width": 1033,
+        "height": 625,
+        "format": "PNG"
+      }
+    },
+    {
+      "source": "C:\\Users\\suean\\Desktop\\Mastermind-V2\\backend\\data\\MnemeMind\\images\\eb9f4fcae2502070b62fecc0b36ae50c6806bfbc0b3fd85860b6bc3dc1847d77.png",
+      "local": "docs/portfolio-materials/sources/MnemeMind/images/eb9f4fcae2502070b62fecc0b36ae50c6806bfbc0b3fd85860b6bc3dc1847d77.png",
+      "bytes": 472943,
+      "sha256": "eb9f4fcae2502070b62fecc0b36ae50c6806bfbc0b3fd85860b6bc3dc1847d77",
+      "copy_verified": true,
+      "kind": "image",
+      "label": "MnemeMind — calendrier",
+      "image": {
+        "width": 2500,
+        "height": 1308,
+        "format": "PNG"
+      }
+    },
+    {
+      "source": "C:\\Users\\suean\\Desktop\\Mastermind-V2\\backend\\data\\MnemeMind\\images\\f11acca33bb58d7fdbc95b8f27db8561664bd9ffee29bc7a6203114dcbf392fb.png",
+      "local": "docs/portfolio-materials/sources/MnemeMind/images/f11acca33bb58d7fdbc95b8f27db8561664bd9ffee29bc7a6203114dcbf392fb.png",
+      "bytes": 568642,
+      "sha256": "f11acca33bb58d7fdbc95b8f27db8561664bd9ffee29bc7a6203114dcbf392fb",
+      "copy_verified": true,
+      "kind": "image",
+      "label": "MnemeMind — Explore en plein écran",
+      "image": {
+        "width": 2501,
+        "height": 1308,
+        "format": "PNG"
+      }
+    },
+    {
+      "source": "C:\\Users\\suean\\Desktop\\Mastermind-V2\\backend\\data\\MnemeMind\\MnemeMind.md",
+      "local": "docs/portfolio-materials/sources/MnemeMind/MnemeMind.md",
+      "bytes": 4892,
+      "sha256": "610365aa698b2b28e3b2df37092728bac8a5b527d27368f29907abeb2a2e8787",
+      "copy_verified": true,
+      "kind": "document",
+      "label": "MnemeMind.md"
+    },
+    {
+      "source": "C:\\Users\\suean\\Desktop\\Mastermind-V2\\backend\\data\\MyAgents\\audio\\4db9e22e874635feb9a5008ebd865f6c818e0cc26c6ed353a855f0e7de8e18ac.wav",
+      "local": "docs/portfolio-materials/sources/MyAgents/audio/4db9e22e874635feb9a5008ebd865f6c818e0cc26c6ed353a855f0e7de8e18ac.wav",
+      "bytes": 300524,
+      "sha256": "4db9e22e874635feb9a5008ebd865f6c818e0cc26c6ed353a855f0e7de8e18ac",
+      "copy_verified": true,
+      "kind": "audio",
+      "label": "4db9e22e874635feb9a5008ebd865f6c818e0cc26c6ed353a855f0e7de8e18ac.wav"
+    },
+    {
+      "source": "C:\\Users\\suean\\Desktop\\Mastermind-V2\\backend\\data\\MyAgents\\images\\0d1aa1793b830b2998cb7c31898ebfb5dc06fd503be98cd903ae6c391e55a3d1.png",
+      "local": "docs/portfolio-materials/sources/MyAgents/images/0d1aa1793b830b2998cb7c31898ebfb5dc06fd503be98cd903ae6c391e55a3d1.png",
+      "bytes": 218292,
+      "sha256": "0d1aa1793b830b2998cb7c31898ebfb5dc06fd503be98cd903ae6c391e55a3d1",
+      "copy_verified": true,
+      "kind": "image",
+      "label": "AtticAgentWatcher — configuration du harness et suivi des agents",
+      "image": {
+        "width": 1054,
+        "height": 925,
+        "format": "PNG"
+      }
+    },
+    {
+      "source": "C:\\Users\\suean\\Desktop\\Mastermind-V2\\backend\\data\\MyAgents\\images\\0d993879e3724b401b50279adaefa9f367e3f602ad1039db0c0bf75365f689b7.png",
+      "local": "docs/portfolio-materials/sources/MyAgents/images/0d993879e3724b401b50279adaefa9f367e3f602ad1039db0c0bf75365f689b7.png",
+      "bytes": 339908,
+      "sha256": "0d993879e3724b401b50279adaefa9f367e3f602ad1039db0c0bf75365f689b7",
+      "copy_verified": true,
+      "kind": "image",
+      "label": "AtticAgentWatcher — tableau de bord sur sept jours",
+      "image": {
+        "width": 1071,
+        "height": 918,
+        "format": "PNG"
+      }
+    },
+    {
+      "source": "C:\\Users\\suean\\Desktop\\Mastermind-V2\\backend\\data\\MyAgents\\images\\5a9d65d498d2b4a0a878334e909f29ca4edb07d0b875793b8c67884714c2e87e.png",
+      "local": "docs/portfolio-materials/sources/MyAgents/images/5a9d65d498d2b4a0a878334e909f29ca4edb07d0b875793b8c67884714c2e87e.png",
+      "bytes": 329630,
+      "sha256": "5a9d65d498d2b4a0a878334e909f29ca4edb07d0b875793b8c67884714c2e87e",
+      "copy_verified": true,
+      "kind": "image",
+      "label": "AtticAgentWatcher — tableau de bord du POC, activité du jour",
+      "image": {
+        "width": 1059,
+        "height": 898,
+        "format": "PNG"
+      }
+    },
+    {
+      "source": "C:\\Users\\suean\\Desktop\\Mastermind-V2\\backend\\data\\MyAgents\\images\\a24ecd2d5519b8d560c57a499d649b696b3590031548de17f2e2526202f3a850.png",
+      "local": "docs/portfolio-materials/sources/MyAgents/images/a24ecd2d5519b8d560c57a499d649b696b3590031548de17f2e2526202f3a850.png",
+      "bytes": 175319,
+      "sha256": "a24ecd2d5519b8d560c57a499d649b696b3590031548de17f2e2526202f3a850",
+      "copy_verified": true,
+      "kind": "image",
+      "label": "AtticAgentWatcher — consommation, cache et tokens de raisonnement",
+      "image": {
+        "width": 1051,
+        "height": 919,
+        "format": "PNG"
+      }
+    },
+    {
+      "source": "C:\\Users\\suean\\Desktop\\Mastermind-V2\\backend\\data\\MyAgents\\images\\b1bcfa0fd245609227af312f1628b2385702c2db355dd1696772b484ee3e6f8c.png",
+      "local": "docs/portfolio-materials/sources/MyAgents/images/b1bcfa0fd245609227af312f1628b2385702c2db355dd1696772b484ee3e6f8c.png",
+      "bytes": 134471,
+      "sha256": "b1bcfa0fd245609227af312f1628b2385702c2db355dd1696772b484ee3e6f8c",
+      "copy_verified": true,
+      "kind": "image",
+      "label": "AtticAgentWatcher — monde 2D MyFactory",
+      "image": {
+        "width": 1046,
+        "height": 914,
+        "format": "PNG"
+      }
+    },
+    {
+      "source": "C:\\Users\\suean\\Desktop\\Mastermind-V2\\backend\\data\\MyAgents\\MyAgents.md",
+      "local": "docs/portfolio-materials/sources/MyAgents/MyAgents.md",
+      "bytes": 9020,
+      "sha256": "87f9a79dfd96b2a2905cc7dee01aaf1e417bacf60d162b275acbda878bfa4941",
+      "copy_verified": true,
+      "kind": "document",
+      "label": "MyAgents.md"
+    },
+    {
+      "source": "C:\\Users\\suean\\Downloads\\index (6).html",
+      "local": "docs/portfolio-materials/sources/skill-map/index (6).html",
+      "bytes": 34662,
+      "sha256": "35b2cec41ceac06b350b7254a5a62aaf2ffa66f00263b1543de91d14a819fb5c",
+      "copy_verified": true,
+      "kind": "skill_map",
+      "label": "Carte interactive des compétences",
+      "html": {
+        "title": "Attic-AI — Competency Constellation",
+        "local_dependencies": [],
+        "remote_dependencies": [
+          {
+            "url": "https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap",
+            "purpose": "Polices Google Fonts",
+            "fallback": "Polices système"
+          },
+          {
+            "url_template": "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${slug}.svg",
+            "purpose": "Logos des outils",
+            "fallback": "Monogrammes locaux"
+          }
+        ]
+      }
+    }
+  ],
+  "references": [
+    {
+      "document": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/OPCLPortfolioProject.md",
+      "reference": "video/5a01058c604d5de6681354a4dc6001f545f1a0b5c52b64c6abd39a4fdd653fff.mp4",
+      "target": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/video/5a01058c604d5de6681354a4dc6001f545f1a0b5c52b64c6abd39a4fdd653fff.mp4",
+      "resolved": true
+    },
+    {
+      "document": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/OPCLPortfolioProject.md",
+      "reference": "video/f63cac569549c53d32019db58f633d790ee5f693102e6395f4ff2def725a7a3d.mp4",
+      "target": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/video/f63cac569549c53d32019db58f633d790ee5f693102e6395f4ff2def725a7a3d.mp4",
+      "resolved": true
+    },
+    {
+      "document": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/OPCLPortfolioProject.md",
+      "reference": "images/fff22004c3a922f4ada3ef3ac21436abd1c1a7de72a0bf5d5d7308baf4ec4433.png",
+      "target": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/images/fff22004c3a922f4ada3ef3ac21436abd1c1a7de72a0bf5d5d7308baf4ec4433.png",
+      "resolved": true
+    },
+    {
+      "document": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/OPCLPortfolioProject.md",
+      "reference": "images/87590299c6cdc18108476b22b40f1e3efdb9f6a66b4b622673e729bcdc976c83.png",
+      "target": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/images/87590299c6cdc18108476b22b40f1e3efdb9f6a66b4b622673e729bcdc976c83.png",
+      "resolved": true
+    },
+    {
+      "document": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/OPCLPortfolioProject.md",
+      "reference": "images/8deb266ef8b83a0ea608e3cc965554d97e5c8a8d5aba2e588ccf3277545cfdde.png",
+      "target": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/images/8deb266ef8b83a0ea608e3cc965554d97e5c8a8d5aba2e588ccf3277545cfdde.png",
+      "resolved": true
+    },
+    {
+      "document": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/OPCLPortfolioProject.md",
+      "reference": "images/44bc6b5396ecdf0b6e5616caa9df17b0aa8ab7a5a59fa1f6122760ac3fb58dac.png",
+      "target": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/images/44bc6b5396ecdf0b6e5616caa9df17b0aa8ab7a5a59fa1f6122760ac3fb58dac.png",
+      "resolved": true
+    },
+    {
+      "document": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/OPCLPortfolioProject.md",
+      "reference": "images/9e3008ebd11e602bdcec29ef9f4e926cc50644974ef546ca71af616eea4334bf.png",
+      "target": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/images/9e3008ebd11e602bdcec29ef9f4e926cc50644974ef546ca71af616eea4334bf.png",
+      "resolved": true
+    },
+    {
+      "document": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/OPCLPortfolioProject.md",
+      "reference": "images/91fa13854ad04267f4aec602d3222f6031599507d71344ff5dfabd6763671653.png",
+      "target": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/images/91fa13854ad04267f4aec602d3222f6031599507d71344ff5dfabd6763671653.png",
+      "resolved": true
+    },
+    {
+      "document": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/OPCLPortfolioProject.md",
+      "reference": "video/51fc8c089195571647d379c7017e0b8506da02ea4a713e312210d5cf719374a0.mp4",
+      "target": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/video/51fc8c089195571647d379c7017e0b8506da02ea4a713e312210d5cf719374a0.mp4",
+      "resolved": true
+    },
+    {
+      "document": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/OPCLPortfolioProject.md",
+      "reference": "video/13287319fae0590a118fc67b2a4783cc488f658d4598c15fef24fa150493ba78.mp4",
+      "target": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/video/13287319fae0590a118fc67b2a4783cc488f658d4598c15fef24fa150493ba78.mp4",
+      "resolved": true
+    },
+    {
+      "document": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/OPCLPortfolioProject.md",
+      "reference": "excalidraw-a81c266b-df92-4878-bffe-30274b27ff87",
+      "target": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/drawings/293019d6ce7331553aae35615b2c51f28d9292e662cdcf11dcdbb3d3c20474f4.json",
+      "resolved": true
+    },
+    {
+      "document": "docs/portfolio-materials/sources/technicalRepportSFT/technicalRepportSFT.md",
+      "reference": "excalidraw-09496d19-9e6c-4555-a7c9-036a005a10d4",
+      "target": "docs/portfolio-materials/sources/technicalRepportSFT/drawings/ecd46b7950a86ad69e9020f2f554fa49b27063c794bcb85a888628bd597293c3.json",
+      "resolved": true
+    },
+    {
+      "document": "docs/portfolio-materials/sources/MnemeMind/MnemeMind.md",
+      "reference": "images/d3cbcb48e8e93e585f8d66173904f353672d2d00063490a8c90c0025620d1f39.png",
+      "target": "docs/portfolio-materials/sources/MnemeMind/images/d3cbcb48e8e93e585f8d66173904f353672d2d00063490a8c90c0025620d1f39.png",
+      "resolved": true
+    },
+    {
+      "document": "docs/portfolio-materials/sources/MnemeMind/MnemeMind.md",
+      "reference": "images/eb9f4fcae2502070b62fecc0b36ae50c6806bfbc0b3fd85860b6bc3dc1847d77.png",
+      "target": "docs/portfolio-materials/sources/MnemeMind/images/eb9f4fcae2502070b62fecc0b36ae50c6806bfbc0b3fd85860b6bc3dc1847d77.png",
+      "resolved": true
+    },
+    {
+      "document": "docs/portfolio-materials/sources/MnemeMind/MnemeMind.md",
+      "reference": "images/05afa04e9af9a59cb46549b4ee121c9656e7a857f48eb81e7d6b17a4863b0521.png",
+      "target": "docs/portfolio-materials/sources/MnemeMind/images/05afa04e9af9a59cb46549b4ee121c9656e7a857f48eb81e7d6b17a4863b0521.png",
+      "resolved": true
+    },
+    {
+      "document": "docs/portfolio-materials/sources/MnemeMind/MnemeMind.md",
+      "reference": "images/7e0929e251697c1566e729886fd840e46908c8cb395aa14f5e71080942b42ccb.png",
+      "target": "docs/portfolio-materials/sources/MnemeMind/images/7e0929e251697c1566e729886fd840e46908c8cb395aa14f5e71080942b42ccb.png",
+      "resolved": true
+    },
+    {
+      "document": "docs/portfolio-materials/sources/MnemeMind/MnemeMind.md",
+      "reference": "images/af7506a516add97ba95d6d36d425af1c3c60264d386e7cd8af8b6117f6a6bdf7.png",
+      "target": "docs/portfolio-materials/sources/MnemeMind/images/af7506a516add97ba95d6d36d425af1c3c60264d386e7cd8af8b6117f6a6bdf7.png",
+      "resolved": true
+    },
+    {
+      "document": "docs/portfolio-materials/sources/MnemeMind/MnemeMind.md",
+      "reference": "images/7b4019db5517f4f4fa6965d1cc9cb27f8b447b1d3efe0c6fcb135bb3b4bcf76a.png",
+      "target": "docs/portfolio-materials/sources/MnemeMind/images/7b4019db5517f4f4fa6965d1cc9cb27f8b447b1d3efe0c6fcb135bb3b4bcf76a.png",
+      "resolved": true
+    },
+    {
+      "document": "docs/portfolio-materials/sources/MnemeMind/MnemeMind.md",
+      "reference": "images/984f45066a64352ede99073bbf6a37d540fe0b926146d5b4ab93e3d97074ddba.png",
+      "target": "docs/portfolio-materials/sources/MnemeMind/images/984f45066a64352ede99073bbf6a37d540fe0b926146d5b4ab93e3d97074ddba.png",
+      "resolved": true
+    },
+    {
+      "document": "docs/portfolio-materials/sources/MnemeMind/MnemeMind.md",
+      "reference": "images/48ad845e5bbd0da9371258f9c551bf6f2219e5c9bb34d291162fe565c2476633.png",
+      "target": "docs/portfolio-materials/sources/MnemeMind/images/48ad845e5bbd0da9371258f9c551bf6f2219e5c9bb34d291162fe565c2476633.png",
+      "resolved": true
+    },
+    {
+      "document": "docs/portfolio-materials/sources/MnemeMind/MnemeMind.md",
+      "reference": "images/e0d9bfd8a39b61ebf1e4c032c52ed5ad2ada87f5fbbc4f49ddebd3d3d1ae52b3.png",
+      "target": "docs/portfolio-materials/sources/MnemeMind/images/e0d9bfd8a39b61ebf1e4c032c52ed5ad2ada87f5fbbc4f49ddebd3d3d1ae52b3.png",
+      "resolved": true
+    },
+    {
+      "document": "docs/portfolio-materials/sources/MnemeMind/MnemeMind.md",
+      "reference": "images/f11acca33bb58d7fdbc95b8f27db8561664bd9ffee29bc7a6203114dcbf392fb.png",
+      "target": "docs/portfolio-materials/sources/MnemeMind/images/f11acca33bb58d7fdbc95b8f27db8561664bd9ffee29bc7a6203114dcbf392fb.png",
+      "resolved": true
+    },
+    {
+      "document": "docs/portfolio-materials/sources/MnemeMind/MnemeMind.md",
+      "reference": "images/441b3de023d37f329fbd08d5d22b72fd23fa6a50221193d9dc9400a508947909.png",
+      "target": "docs/portfolio-materials/sources/MnemeMind/images/441b3de023d37f329fbd08d5d22b72fd23fa6a50221193d9dc9400a508947909.png",
+      "resolved": true
+    },
+    {
+      "document": "docs/portfolio-materials/sources/MnemeMind/MnemeMind.md",
+      "reference": "images/e270db2b7cb8da6200100fc5c416fb8eab2be24458dae7463583ef95192178c8.png",
+      "target": "docs/portfolio-materials/sources/MnemeMind/images/e270db2b7cb8da6200100fc5c416fb8eab2be24458dae7463583ef95192178c8.png",
+      "resolved": true
+    },
+    {
+      "document": "docs/portfolio-materials/sources/MyAgents/MyAgents.md",
+      "reference": "images/5a9d65d498d2b4a0a878334e909f29ca4edb07d0b875793b8c67884714c2e87e.png",
+      "target": "docs/portfolio-materials/sources/MyAgents/images/5a9d65d498d2b4a0a878334e909f29ca4edb07d0b875793b8c67884714c2e87e.png",
+      "resolved": true
+    },
+    {
+      "document": "docs/portfolio-materials/sources/MyAgents/MyAgents.md",
+      "reference": "images/a24ecd2d5519b8d560c57a499d649b696b3590031548de17f2e2526202f3a850.png",
+      "target": "docs/portfolio-materials/sources/MyAgents/images/a24ecd2d5519b8d560c57a499d649b696b3590031548de17f2e2526202f3a850.png",
+      "resolved": true
+    },
+    {
+      "document": "docs/portfolio-materials/sources/MyAgents/MyAgents.md",
+      "reference": "images/0d993879e3724b401b50279adaefa9f367e3f602ad1039db0c0bf75365f689b7.png",
+      "target": "docs/portfolio-materials/sources/MyAgents/images/0d993879e3724b401b50279adaefa9f367e3f602ad1039db0c0bf75365f689b7.png",
+      "resolved": true
+    },
+    {
+      "document": "docs/portfolio-materials/sources/MyAgents/MyAgents.md",
+      "reference": "images/b1bcfa0fd245609227af312f1628b2385702c2db355dd1696772b484ee3e6f8c.png",
+      "target": "docs/portfolio-materials/sources/MyAgents/images/b1bcfa0fd245609227af312f1628b2385702c2db355dd1696772b484ee3e6f8c.png",
+      "resolved": true
+    },
+    {
+      "document": "docs/portfolio-materials/sources/MyAgents/MyAgents.md",
+      "reference": "images/0d1aa1793b830b2998cb7c31898ebfb5dc06fd503be98cd903ae6c391e55a3d1.png",
+      "target": "docs/portfolio-materials/sources/MyAgents/images/0d1aa1793b830b2998cb7c31898ebfb5dc06fd503be98cd903ae6c391e55a3d1.png",
+      "resolved": true
+    },
+    {
+      "document": "docs/portfolio-materials/brief-codex.md",
+      "reference": "sources/OPCL/OPCLPortfolioProject/video/5a01058c604d5de6681354a4dc6001f545f1a0b5c52b64c6abd39a4fdd653fff.mp4",
+      "target": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/video/5a01058c604d5de6681354a4dc6001f545f1a0b5c52b64c6abd39a4fdd653fff.mp4",
+      "resolved": true
+    },
+    {
+      "document": "docs/portfolio-materials/brief-codex.md",
+      "reference": "sources/OPCL/OPCLPortfolioProject/video/f63cac569549c53d32019db58f633d790ee5f693102e6395f4ff2def725a7a3d.mp4",
+      "target": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/video/f63cac569549c53d32019db58f633d790ee5f693102e6395f4ff2def725a7a3d.mp4",
+      "resolved": true
+    },
+    {
+      "document": "docs/portfolio-materials/brief-codex.md",
+      "reference": "sources/OPCL/OPCLPortfolioProject/images/fff22004c3a922f4ada3ef3ac21436abd1c1a7de72a0bf5d5d7308baf4ec4433.png",
+      "target": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/images/fff22004c3a922f4ada3ef3ac21436abd1c1a7de72a0bf5d5d7308baf4ec4433.png",
+      "resolved": true
+    },
+    {
+      "document": "docs/portfolio-materials/brief-codex.md",
+      "reference": "sources/OPCL/OPCLPortfolioProject/images/87590299c6cdc18108476b22b40f1e3efdb9f6a66b4b622673e729bcdc976c83.png",
+      "target": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/images/87590299c6cdc18108476b22b40f1e3efdb9f6a66b4b622673e729bcdc976c83.png",
+      "resolved": true
+    },
+    {
+      "document": "docs/portfolio-materials/brief-codex.md",
+      "reference": "sources/OPCL/OPCLPortfolioProject/images/8deb266ef8b83a0ea608e3cc965554d97e5c8a8d5aba2e588ccf3277545cfdde.png",
+      "target": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/images/8deb266ef8b83a0ea608e3cc965554d97e5c8a8d5aba2e588ccf3277545cfdde.png",
+      "resolved": true
+    },
+    {
+      "document": "docs/portfolio-materials/brief-codex.md",
+      "reference": "sources/OPCL/OPCLPortfolioProject/images/44bc6b5396ecdf0b6e5616caa9df17b0aa8ab7a5a59fa1f6122760ac3fb58dac.png",
+      "target": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/images/44bc6b5396ecdf0b6e5616caa9df17b0aa8ab7a5a59fa1f6122760ac3fb58dac.png",
+      "resolved": true
+    },
+    {
+      "document": "docs/portfolio-materials/brief-codex.md",
+      "reference": "sources/OPCL/OPCLPortfolioProject/images/9e3008ebd11e602bdcec29ef9f4e926cc50644974ef546ca71af616eea4334bf.png",
+      "target": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/images/9e3008ebd11e602bdcec29ef9f4e926cc50644974ef546ca71af616eea4334bf.png",
+      "resolved": true
+    },
+    {
+      "document": "docs/portfolio-materials/brief-codex.md",
+      "reference": "sources/OPCL/OPCLPortfolioProject/images/91fa13854ad04267f4aec602d3222f6031599507d71344ff5dfabd6763671653.png",
+      "target": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/images/91fa13854ad04267f4aec602d3222f6031599507d71344ff5dfabd6763671653.png",
+      "resolved": true
+    },
+    {
+      "document": "docs/portfolio-materials/brief-codex.md",
+      "reference": "sources/OPCL/OPCLPortfolioProject/video/51fc8c089195571647d379c7017e0b8506da02ea4a713e312210d5cf719374a0.mp4",
+      "target": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/video/51fc8c089195571647d379c7017e0b8506da02ea4a713e312210d5cf719374a0.mp4",
+      "resolved": true
+    },
+    {
+      "document": "docs/portfolio-materials/brief-codex.md",
+      "reference": "sources/OPCL/OPCLPortfolioProject/video/13287319fae0590a118fc67b2a4783cc488f658d4598c15fef24fa150493ba78.mp4",
+      "target": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/video/13287319fae0590a118fc67b2a4783cc488f658d4598c15fef24fa150493ba78.mp4",
+      "resolved": true
+    }
+  ],
+  "agent_entry_point": "AGENTS.md",
+  "naming": {
+    "MnemeMind": "Nouveau nom de Mastermind / MasterMind",
+    "ClipGenerator": "Anciennement FrameForge",
+    "AtticAgentWatcher": "Nouveau nom de MyAgents ; même projet, selon l’utilisateur"
+  },
+  "attic_agent_watcher": {
+    "document": "docs/portfolio-materials/sources/MyAgents/MyAgents.md",
+    "images": "docs/portfolio-materials/sources/MyAgents/images",
+    "image_count": 5,
+    "portfolio_status": "POC validé, passage en production en cours",
+    "original_branding_preserved": "MyAgents",
+    "additional_audio": "docs/portfolio-materials/sources/MyAgents/audio/4db9e22e874635feb9a5008ebd865f6c818e0cc26c6ed353a855f0e7de8e18ac.wav",
+    "audio_referenced_in_document": false
+  },
+  "skill_map": {
+    "local": "docs/portfolio-materials/sources/skill-map/index (6).html",
+    "source_filename": "index (6).html",
+    "standalone_html": true,
+    "interactive": true,
+    "domains": [
+      "AI Engineering",
+      "Agentic Systems",
+      "Creative Interfaces",
+      "Product & Strategy"
+    ],
+    "station_count": 20
+  },
+  "report_publication": {
+    "html": "public/reports/sft/index.html",
+    "markdown": "public/reports/sft/technicalRepportSFT.md",
+    "url": "reports/sft/",
+    "markdown_sha256": "fa09ed4555618f5443187322d8a4736eb43856662ec5b9c6c967fd7092eb2861",
+    "body_preserved": true,
+    "application_metadata_and_drawing_marker_removed_from_html_only": true,
+    "portfolio_link_added": false,
+    "deployed": false
+  },
+  "logical_document_links": [
+    {
+      "reference": "technicalRepportSFT",
+      "target": "docs/portfolio-materials/sources/technicalRepportSFT/technicalRepportSFT.md",
+      "scope": "Codex brief"
+    },
+    {
+      "reference": "OPCL/OPCLPortfolioProject/OPCLPortfolioProject",
+      "target": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/OPCLPortfolioProject.md",
+      "scope": "SFT report"
+    },
+    {
+      "reference": "myAgents_OPCLNarative",
+      "scope": "before Codex marker",
+      "imported": false,
+      "reason": "Unrelated document outside the requested section"
+    },
+    {
+      "reference": "NewProcessAgents",
+      "scope": "MyAgents historical notes",
+      "imported": false,
+      "reason": "Related notes outside the requested bundle"
+    },
+    {
+      "reference": "MastermindV2/MastermindV2",
+      "scope": "MyAgents historical notes",
+      "imported": false,
+      "reason": "Historical document link preserved in the original Markdown"
+    }
+  ],
+  "pending_materials": [
+    {
+      "project": "MnemeMind",
+      "required": "Vidéo de démonstration",
+      "reason": "La section Vidéo du document est vide ; les douze images sont importées"
+    },
+    {
+      "project": "SFT",
+      "required": "URL du dépôt technique complet si souhaitée",
+      "reason": "Le rapport contient un emplacement à relier, sans URL de dépôt"
+    }
+  ],
+  "summary": {
+    "copied_original_files": 35,
+    "images": 23,
+    "videos": 4,
+    "documents": 4,
+    "drawings": 2,
+    "skill_maps": 1,
+    "audio_files": 1,
+    "original_bytes": 161969775,
+    "all_copies_sha256_match": true,
+    "all_media_and_drawing_references_resolved": true
+  }
+}

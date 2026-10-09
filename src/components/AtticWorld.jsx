@@ -5,10 +5,10 @@ export default function AtticWorld({ page }) {
   const [ready,setReady]=useState(false);
   useEffect(()=>{
     let cancelled=false,dispose;
-    const fail=()=>{if(cancelled)return;setReady(false);document.documentElement.classList.remove('world-ready');};
+    const fail=()=>{if(cancelled)return;setReady(false);document.documentElement.classList.remove('world-ready');window.dispatchEvent(new Event('whoami:world-ready'));};
     import('../scene/atticWorld').then(({createAtticWorld})=>{
       if(cancelled)return;
-      try {dispose=createAtticWorld(host.current,{page,onReady:()=>{setReady(true);document.documentElement.classList.add('world-ready');},onFailure:fail});}
+      try {dispose=createAtticWorld(host.current,{page,onReady:()=>{setReady(true);document.documentElement.classList.add('world-ready');window.dispatchEvent(new Event('whoami:world-ready'));},onFailure:fail});}
       catch {fail();}
     }).catch(fail);
     return()=>{cancelled=true;dispose?.();document.documentElement.classList.remove('world-ready');};

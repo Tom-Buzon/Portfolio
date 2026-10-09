@@ -1,0 +1,466 @@
+{
+  "mneme-tags": {
+    "width": 731,
+    "height": 639,
+    "variants": [
+      {
+        "src": "/media/mneme-tags-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/media/mneme-tags-731.webp",
+        "width": 731
+      }
+    ],
+    "source": "docs/portfolio-materials/sources/MnemeMind/images/d3cbcb48e8e93e585f8d66173904f353672d2d00063490a8c90c0025620d1f39.png",
+    "sha256": "d3cbcb48e8e93e585f8d66173904f353672d2d00063490a8c90c0025620d1f39"
+  },
+  "mneme-explore": {
+    "width": 2499,
+    "height": 1305,
+    "variants": [
+      {
+        "src": "/media/mneme-explore-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/media/mneme-explore-1280.webp",
+        "width": 1280
+      },
+      {
+        "src": "/media/mneme-explore-2499.webp",
+        "width": 2499
+      }
+    ],
+    "source": "docs/portfolio-materials/sources/MnemeMind/images/e0d9bfd8a39b61ebf1e4c032c52ed5ad2ada87f5fbbc4f49ddebd3d3d1ae52b3.png",
+    "sha256": "e0d9bfd8a39b61ebf1e4c032c52ed5ad2ada87f5fbbc4f49ddebd3d3d1ae52b3"
+  },
+  "mneme-graph": {
+    "width": 2501,
+    "height": 1308,
+    "variants": [
+      {
+        "src": "/media/mneme-graph-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/media/mneme-graph-1280.webp",
+        "width": 1280
+      },
+      {
+        "src": "/media/mneme-graph-2501.webp",
+        "width": 2501
+      }
+    ],
+    "source": "docs/portfolio-materials/sources/MnemeMind/images/f11acca33bb58d7fdbc95b8f27db8561664bd9ffee29bc7a6203114dcbf392fb.png",
+    "sha256": "f11acca33bb58d7fdbc95b8f27db8561664bd9ffee29bc7a6203114dcbf392fb"
+  },
+  "mneme-week": {
+    "width": 2500,
+    "height": 1308,
+    "variants": [
+      {
+        "src": "/media/mneme-week-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/media/mneme-week-1280.webp",
+        "width": 1280
+      },
+      {
+        "src": "/media/mneme-week-2500.webp",
+        "width": 2500
+      }
+    ],
+    "source": "docs/portfolio-materials/sources/MnemeMind/images/eb9f4fcae2502070b62fecc0b36ae50c6806bfbc0b3fd85860b6bc3dc1847d77.png",
+    "sha256": "eb9f4fcae2502070b62fecc0b36ae50c6806bfbc0b3fd85860b6bc3dc1847d77"
+  },
+  "mneme-year": {
+    "width": 2493,
+    "height": 1301,
+    "variants": [
+      {
+        "src": "/media/mneme-year-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/media/mneme-year-1280.webp",
+        "width": 1280
+      },
+      {
+        "src": "/media/mneme-year-2493.webp",
+        "width": 2493
+      }
+    ],
+    "source": "docs/portfolio-materials/sources/MnemeMind/images/05afa04e9af9a59cb46549b4ee121c9656e7a857f48eb81e7d6b17a4863b0521.png",
+    "sha256": "05afa04e9af9a59cb46549b4ee121c9656e7a857f48eb81e7d6b17a4863b0521"
+  },
+  "mneme-tasks": {
+    "width": 2496,
+    "height": 1305,
+    "variants": [
+      {
+        "src": "/media/mneme-tasks-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/media/mneme-tasks-1280.webp",
+        "width": 1280
+      },
+      {
+        "src": "/media/mneme-tasks-2496.webp",
+        "width": 2496
+      }
+    ],
+    "source": "docs/portfolio-materials/sources/MnemeMind/images/7e0929e251697c1566e729886fd840e46908c8cb395aa14f5e71080942b42ccb.png",
+    "sha256": "7e0929e251697c1566e729886fd840e46908c8cb395aa14f5e71080942b42ccb"
+  },
+  "mneme-drawing": {
+    "width": 2496,
+    "height": 1306,
+    "variants": [
+      {
+        "src": "/media/mneme-drawing-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/media/mneme-drawing-1280.webp",
+        "width": 1280
+      },
+      {
+        "src": "/media/mneme-drawing-2496.webp",
+        "width": 2496
+      }
+    ],
+    "source": "docs/portfolio-materials/sources/MnemeMind/images/984f45066a64352ede99073bbf6a37d540fe0b926146d5b4ab93e3d97074ddba.png",
+    "sha256": "984f45066a64352ede99073bbf6a37d540fe0b926146d5b4ab93e3d97074ddba"
+  },
+  "mneme-audio": {
+    "width": 2500,
+    "height": 1307,
+    "variants": [
+      {
+        "src": "/media/mneme-audio-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/media/mneme-audio-1280.webp",
+        "width": 1280
+      },
+      {
+        "src": "/media/mneme-audio-2500.webp",
+        "width": 2500
+      }
+    ],
+    "source": "docs/portfolio-materials/sources/MnemeMind/images/48ad845e5bbd0da9371258f9c551bf6f2219e5c9bb34d291162fe565c2476633.png",
+    "sha256": "48ad845e5bbd0da9371258f9c551bf6f2219e5c9bb34d291162fe565c2476633"
+  },
+  "mneme-voice": {
+    "width": 1190,
+    "height": 922,
+    "variants": [
+      {
+        "src": "/media/mneme-voice-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/media/mneme-voice-1190.webp",
+        "width": 1190
+      }
+    ],
+    "source": "docs/portfolio-materials/sources/MnemeMind/images/441b3de023d37f329fbd08d5d22b72fd23fa6a50221193d9dc9400a508947909.png",
+    "sha256": "441b3de023d37f329fbd08d5d22b72fd23fa6a50221193d9dc9400a508947909"
+  },
+  "mneme-embeddings": {
+    "width": 2498,
+    "height": 1299,
+    "variants": [
+      {
+        "src": "/media/mneme-embeddings-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/media/mneme-embeddings-1280.webp",
+        "width": 1280
+      },
+      {
+        "src": "/media/mneme-embeddings-2498.webp",
+        "width": 2498
+      }
+    ],
+    "source": "docs/portfolio-materials/sources/MnemeMind/images/af7506a516add97ba95d6d36d425af1c3c60264d386e7cd8af8b6117f6a6bdf7.png",
+    "sha256": "af7506a516add97ba95d6d36d425af1c3c60264d386e7cd8af8b6117f6a6bdf7"
+  },
+  "mneme-answer": {
+    "width": 2496,
+    "height": 1304,
+    "variants": [
+      {
+        "src": "/media/mneme-answer-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/media/mneme-answer-1280.webp",
+        "width": 1280
+      },
+      {
+        "src": "/media/mneme-answer-2496.webp",
+        "width": 2496
+      }
+    ],
+    "source": "docs/portfolio-materials/sources/MnemeMind/images/7b4019db5517f4f4fa6965d1cc9cb27f8b447b1d3efe0c6fcb135bb3b4bcf76a.png",
+    "sha256": "7b4019db5517f4f4fa6965d1cc9cb27f8b447b1d3efe0c6fcb135bb3b4bcf76a"
+  },
+  "mneme-import": {
+    "width": 1033,
+    "height": 625,
+    "variants": [
+      {
+        "src": "/media/mneme-import-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/media/mneme-import-1033.webp",
+        "width": 1033
+      }
+    ],
+    "source": "docs/portfolio-materials/sources/MnemeMind/images/e270db2b7cb8da6200100fc5c416fb8eab2be24458dae7463583ef95192178c8.png",
+    "sha256": "e270db2b7cb8da6200100fc5c416fb8eab2be24458dae7463583ef95192178c8"
+  },
+  "watcher-today": {
+    "width": 1059,
+    "height": 898,
+    "variants": [
+      {
+        "src": "/media/watcher-today-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/media/watcher-today-1059.webp",
+        "width": 1059
+      }
+    ],
+    "source": "docs/portfolio-materials/sources/MyAgents/images/5a9d65d498d2b4a0a878334e909f29ca4edb07d0b875793b8c67884714c2e87e.png",
+    "sha256": "5a9d65d498d2b4a0a878334e909f29ca4edb07d0b875793b8c67884714c2e87e"
+  },
+  "watcher-tokens": {
+    "width": 1051,
+    "height": 919,
+    "variants": [
+      {
+        "src": "/media/watcher-tokens-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/media/watcher-tokens-1051.webp",
+        "width": 1051
+      }
+    ],
+    "source": "docs/portfolio-materials/sources/MyAgents/images/a24ecd2d5519b8d560c57a499d649b696b3590031548de17f2e2526202f3a850.png",
+    "sha256": "a24ecd2d5519b8d560c57a499d649b696b3590031548de17f2e2526202f3a850"
+  },
+  "watcher-week": {
+    "width": 1071,
+    "height": 918,
+    "variants": [
+      {
+        "src": "/media/watcher-week-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/media/watcher-week-1071.webp",
+        "width": 1071
+      }
+    ],
+    "source": "docs/portfolio-materials/sources/MyAgents/images/0d993879e3724b401b50279adaefa9f367e3f602ad1039db0c0bf75365f689b7.png",
+    "sha256": "0d993879e3724b401b50279adaefa9f367e3f602ad1039db0c0bf75365f689b7"
+  },
+  "watcher-factory": {
+    "width": 1046,
+    "height": 914,
+    "variants": [
+      {
+        "src": "/media/watcher-factory-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/media/watcher-factory-1046.webp",
+        "width": 1046
+      }
+    ],
+    "source": "docs/portfolio-materials/sources/MyAgents/images/b1bcfa0fd245609227af312f1628b2385702c2db355dd1696772b484ee3e6f8c.png",
+    "sha256": "b1bcfa0fd245609227af312f1628b2385702c2db355dd1696772b484ee3e6f8c"
+  },
+  "watcher-config": {
+    "width": 1054,
+    "height": 925,
+    "variants": [
+      {
+        "src": "/media/watcher-config-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/media/watcher-config-1054.webp",
+        "width": 1054
+      }
+    ],
+    "source": "docs/portfolio-materials/sources/MyAgents/images/0d1aa1793b830b2998cb7c31898ebfb5dc06fd503be98cd903ae6c391e55a3d1.png",
+    "sha256": "0d1aa1793b830b2998cb7c31898ebfb5dc06fd503be98cd903ae6c391e55a3d1"
+  },
+  "clip-services": {
+    "width": 706,
+    "height": 350,
+    "variants": [
+      {
+        "src": "/media/clip-services-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/media/clip-services-706.webp",
+        "width": 706
+      }
+    ],
+    "source": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/images/fff22004c3a922f4ada3ef3ac21436abd1c1a7de72a0bf5d5d7308baf4ec4433.png",
+    "sha256": "fff22004c3a922f4ada3ef3ac21436abd1c1a7de72a0bf5d5d7308baf4ec4433"
+  },
+  "clip-audio": {
+    "width": 2546,
+    "height": 1366,
+    "variants": [
+      {
+        "src": "/media/clip-audio-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/media/clip-audio-1280.webp",
+        "width": 1280
+      },
+      {
+        "src": "/media/clip-audio-2546.webp",
+        "width": 2546
+      }
+    ],
+    "source": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/images/87590299c6cdc18108476b22b40f1e3efdb9f6a66b4b622673e729bcdc976c83.png",
+    "sha256": "87590299c6cdc18108476b22b40f1e3efdb9f6a66b4b622673e729bcdc976c83"
+  },
+  "clip-scenes": {
+    "width": 2553,
+    "height": 1363,
+    "variants": [
+      {
+        "src": "/media/clip-scenes-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/media/clip-scenes-1280.webp",
+        "width": 1280
+      },
+      {
+        "src": "/media/clip-scenes-2553.webp",
+        "width": 2553
+      }
+    ],
+    "source": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/images/8deb266ef8b83a0ea608e3cc965554d97e5c8a8d5aba2e588ccf3277545cfdde.png",
+    "sha256": "8deb266ef8b83a0ea608e3cc965554d97e5c8a8d5aba2e588ccf3277545cfdde"
+  },
+  "clip-animation": {
+    "width": 2554,
+    "height": 1367,
+    "variants": [
+      {
+        "src": "/media/clip-animation-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/media/clip-animation-1280.webp",
+        "width": 1280
+      },
+      {
+        "src": "/media/clip-animation-2554.webp",
+        "width": 2554
+      }
+    ],
+    "source": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/images/44bc6b5396ecdf0b6e5616caa9df17b0aa8ab7a5a59fa1f6122760ac3fb58dac.png",
+    "sha256": "44bc6b5396ecdf0b6e5616caa9df17b0aa8ab7a5a59fa1f6122760ac3fb58dac"
+  },
+  "clip-narration": {
+    "width": 2550,
+    "height": 1361,
+    "variants": [
+      {
+        "src": "/media/clip-narration-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/media/clip-narration-1280.webp",
+        "width": 1280
+      },
+      {
+        "src": "/media/clip-narration-2550.webp",
+        "width": 2550
+      }
+    ],
+    "source": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/images/9e3008ebd11e602bdcec29ef9f4e926cc50644974ef546ca71af616eea4334bf.png",
+    "sha256": "9e3008ebd11e602bdcec29ef9f4e926cc50644974ef546ca71af616eea4334bf"
+  },
+  "clip-edit": {
+    "width": 2546,
+    "height": 1365,
+    "variants": [
+      {
+        "src": "/media/clip-edit-480.webp",
+        "width": 480
+      },
+      {
+        "src": "/media/clip-edit-1280.webp",
+        "width": 1280
+      },
+      {
+        "src": "/media/clip-edit-2546.webp",
+        "width": 2546
+      }
+    ],
+    "source": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/images/91fa13854ad04267f4aec602d3222f6031599507d71344ff5dfabd6763671653.png",
+    "sha256": "91fa13854ad04267f4aec602d3222f6031599507d71344ff5dfabd6763671653"
+  },
+  "vesper": {
+    "src": "/media/vesper.mp4",
+    "poster": "/media/vesper-poster.webp",
+    "width": 1096,
+    "height": 756,
+    "duration": 43.3,
+    "source": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/video/5a01058c604d5de6681354a4dc6001f545f1a0b5c52b64c6abd39a4fdd653fff.mp4",
+    "sha256": "5a01058c604d5de6681354a4dc6001f545f1a0b5c52b64c6abd39a4fdd653fff",
+    "start": 0
+  },
+  "hoplites": {
+    "src": "/media/hoplites.mp4",
+    "poster": "/media/hoplites-poster.webp",
+    "width": 1120,
+    "height": 624,
+    "duration": 65.0,
+    "source": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/video/f63cac569549c53d32019db58f633d790ee5f693102e6395f4ff2def725a7a3d.mp4",
+    "sha256": "f63cac569549c53d32019db58f633d790ee5f693102e6395f4ff2def725a7a3d",
+    "start": 43
+  },
+  "clip-one": {
+    "src": "/media/clip-one.mp4",
+    "poster": "/media/clip-one-poster.webp",
+    "width": 478,
+    "height": 850,
+    "duration": 53.496009,
+    "source": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/video/51fc8c089195571647d379c7017e0b8506da02ea4a713e312210d5cf719374a0.mp4",
+    "sha256": "51fc8c089195571647d379c7017e0b8506da02ea4a713e312210d5cf719374a0",
+    "start": 0
+  },
+  "clip-two": {
+    "src": "/media/clip-two.mp4",
+    "poster": "/media/clip-two-poster.webp",
+    "width": 478,
+    "height": 850,
+    "duration": 63.902993,
+    "source": "docs/portfolio-materials/sources/OPCL/OPCLPortfolioProject/video/13287319fae0590a118fc67b2a4783cc488f658d4598c15fef24fa150493ba78.mp4",
+    "sha256": "13287319fae0590a118fc67b2a4783cc488f658d4598c15fef24fa150493ba78",
+    "start": 0
+  }
+}

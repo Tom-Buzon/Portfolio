@@ -1,0 +1,578 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Spécialiser un petit LLM : de la preuve de concept à la décision IT</title><style>
+:root{color-scheme:light;--ink:#202624;--muted:#5b6560;--line:#d9e1dc;--accent:#225e43}
+*{box-sizing:border-box}body{margin:0;background:#f4f6f3;color:var(--ink);font:17px/1.7 system-ui,sans-serif}
+main{max-width:1120px;margin:0 auto;padding:40px 28px 80px}article{background:white;padding:36px;border:1px solid var(--line);border-radius:16px}
+h1{font-size:clamp(1.9rem,4vw,3rem);line-height:1.2}h2{margin-top:2.6rem;line-height:1.3}h3,h4{line-height:1.4}
+a{color:var(--accent)}nav{display:flex;flex-wrap:wrap;gap:12px 24px;margin-bottom:24px}.muted{color:var(--muted)}
+blockquote{margin:24px 0;padding:8px 24px;border-left:4px solid var(--accent);background:#eef5ee}
+code{font-size:.9em;background:#edf1ed;padding:2px 5px;border-radius:4px}pre{overflow:auto;padding:16px;background:#edf1ed}
+table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.5}th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+th{background:#eef3ee}.table-scroll{overflow:auto;margin:24px 0}img,video{display:block;max-width:100%;height:auto;background:#111;margin:12px 0}
+figure{margin:0 0 28px}figcaption{font-size:15px;color:var(--muted)}.gallery article{margin:24px 0}.gallery img{width:100%}
+@media(max-width:640px){main{padding:24px 14px}article{padding:22px 16px}body{font-size:16px}}
+@media print{body{background:white;font-size:11pt}main,article{max-width:none;padding:0;border:0}nav{display:none}h2,h3,h4{break-after:avoid}tr{break-inside:avoid}a{color:inherit}}
+</style></head>
+<body class=""><main><nav aria-label="Actions du rapport"><a href="technicalRepportSFT.md" download>Télécharger le rapport Markdown original</a></nav><article><h1>Spécialiser un petit LLM : de la preuve de concept à la décision IT</h1>
+<p><strong>Rapport de conduite de projet AI Engineering · Cas d’étude CHSA</strong><br />
+<strong>Scénario organisationnel fictif · Expérimentation technique réelle · Mars–juillet 2026</strong></p>
+<blockquote>
+<p><strong>35,7 % → 60,7 % d’exactitude</strong> sur un benchmark interne exploratoire  après SFT puis DPO : <strong>+25 points observés</strong>. Un gain mesuré sur cet échantillon, pas une validation clinique ni une preuve de généralisation.</p>
+</blockquote>
+<h2>Synthèse exécutive</h2>
+<p><strong>La commande simulée.</strong> Le CHSA, établissement hospitalier fictif, souhaite savoir si ses futures données métier pourraient servir à spécialiser des modèles compacts plutôt que de dépendre exclusivement de modèles généralistes. La direction IT demande une <strong>preuve de faisabilité technique</strong> et des <strong>options d’action</strong>, non une application opérationnelle ni un choix d’architecture définitif.</p>
+<p><strong>La réponse du POC réel.</strong> Une chaîne de préparation des données, fine-tuning supervisé (SFT/LoRA), optimisation par préférences (DPO), comparaison et packaging Docker a été mise en œuvre sur un corpus médical de recherche. Une amélioration de classification est observée sur 28 cas. L’audit a également imposé un pivot vers des données comportant une cible native de triage.</p>
+<p><strong>La recommandation.</strong> Autoriser, si le CHSA le souhaite, une <strong>phase de qualification des données et d’évaluation élargie</strong>, avec points d’arrêt explicites. Ni le déploiement clinique, ni l’architecture finale ne sont recommandés sur la seule base de ce POC.</p>
+<p><strong>Convention de lecture.</strong> Les encadrés <strong>[SIMULATION]</strong> concernent le commanditaire, son brief, ses décisions et le cadre de pilotage pédagogique. Les éléments <strong>[RÉALISÉ]</strong> reprennent le travail technique et les résultats effectivement documentés. Les éléments <strong>[PROPOSITION]</strong> sont des méthodes ou actions non encore exécutées.</p>
+<h2>1. Recueil des besoins et cadrage de la mission</h2>
+<h3>1.1 Brief du commanditaire — [SIMULATION]</h3>
+<p>Le CHSA explore une stratégie d’IA maîtrisable localement, soucieuse de protection des données, de réversibilité et de coût d’exploitation. Il ne demande pas de construire un logiciel médical. Son attente : « Démontrer si un petit LLM peut progresser sur une tâche métier grâce à un corpus spécialisé ; documenter les limites et proposer la suite à instruire par notre équipe IT. »</p>
+<p><strong>Méthode de recueil reconstituée pour le cas d’étude.</strong> Analyse du brief simulé, cartographie des parties prenantes, distinction entre objectifs, exigences et hypothèses, puis traduction en tests techniques observables. Il ne s’agit <strong>pas d’entretiens réellement menés</strong>. Les parties prenantes envisagées sont : sponsor IT (décision de poursuivre), ingénieurs data/ML (faisabilité), métier clinique (qualité du besoin et des labels), DPO/juridique (licéité), RSSI (sécurité), exploitation (maintenabilité).</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Besoin du commanditaire</th>
+<th>Critère d’acceptation pour le POC</th>
+<th>Hors périmètre</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vérifier la capacité de spécialisation</td>
+<td>Mesurer une variante entraînée contre le modèle de base sur le même benchmark</td>
+<td>Certification, robustesse clinique</td>
+</tr>
+<tr>
+<td>Maîtriser une expérimentation locale</td>
+<td>Décrire modèle, ressources, données, entraînement et artefact exécutable</td>
+<td>Infrastructure hospitalière réelle</td>
+</tr>
+<tr>
+<td>Décider en connaissance de cause</td>
+<td>Présenter gains, limites, risques, scénarios et portes de décision</td>
+<td>Choix imposé du fournisseur ou de l’architecture</td>
+</tr>
+<tr>
+<td>Préparer une utilisation future de données internes</td>
+<td>Définir les contrôles de qualification et de conformité requis</td>
+<td>Affirmer que les données CHSA ont été utilisées</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Critères de succès de la mission.</strong> Un pipeline fonctionnel, au moins une comparaison chiffrée à une baseline, un diagnostic data ayant une conséquence explicite, un artefact démontrable et un avis de poursuite argumenté. Les critères de <em>produit médical</em> (sécurité de triage, bénéfice clinique, performances en situation) ne sont pas des critères de réussite de cette mission.</p>
+<h3>1.2 Cas métier servant de banc d’essai — [RÉALISÉ]</h3>
+<p>La classification textuelle de situations médicales en <code>LOW</code>, <code>MEDIUM</code>, <code>EMERGENCY</code> est utilisée comme <strong>tâche expérimentale mesurable</strong>. Elle est volontairement distincte d’un vrai parcours de triage à l’hôpital : le modèle n’interagit pas avec des patients et ne décide pas de leur prise en charge.</p>
+<h2>2. Audit des données : décider avant d’entraîner — [RÉALISÉ]</h2>
+<p><strong>Méthode appliquée.</strong> Inventorier volume et langues ; vérifier l’existence d’une cible alignée avec la tâche ; mesurer la distribution des classes ; contrôler les transformations réalisées ; identifier les risques de fuite, de biais, de confidentialité et de représentativité. Les contrôles non chiffrés restent explicitement <strong>non démontrés</strong>.</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Critère d’audit</th>
+<th>Première piste : corpus Q/R FR–EN</th>
+<th>Deuxième piste : FedMML</th>
+<th>Conséquence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Volume et structure</td>
+<td>2 432 exemples : 1 431 FR / 1 001 EN</td>
+<td>87 234 lignes, 28 colonnes dans le fichier brut</td>
+<td>Inventaire disponible</td>
+</tr>
+<tr>
+<td>Label natif adapté</td>
+<td>Aucun label de triage natif</td>
+<td><code>esi_level</code> présent</td>
+<td><strong>Pivot vers FedMML</strong></td>
+</tr>
+<tr>
+<td>Répartition utile</td>
+<td>Labels reconstruits : 865 urgences, 97 moyens, <strong>0 faibles</strong></td>
+<td>Jeux v6 : 6 500 cas ; v6_2 : 6 400 cas</td>
+<td>Première piste écartée</td>
+</tr>
+<tr>
+<td>Limites</td>
+<td>Q/R médicales ≠ décision de triage</td>
+<td>ESI 4 exclu ; représentativité locale inconnue</td>
+<td>Ne pas généraliser au triage réel</td>
+</tr>
+</tbody>
+</table></div>
+<p>Pour le POC, la conversion retenue est <strong>ESI 1–2 → EMERGENCY ; ESI 3 → MEDIUM ; ESI 5 → LOW ; ESI 4 exclu</strong>. Cette réduction simplifie la cible expérimentale mais ne reproduit pas l’échelle ESI complète. La qualité des labels, les doublons, les données manquantes et l’indépendance stricte des partitions ne sont pas suffisamment établis dans le dossier de synthèse pour être déclarés contrôlés.</p>
+<p><strong>Décision de conduite de projet :</strong> arrêter l’optimisation sur le premier jeu et reprendre la préparation à partir d’une cible de triage existante. <strong>Leçon transférable aux données internes :</strong> une source disponible n’est pas nécessairement une source adaptée ; chaque jeu doit faire l’objet d’une fiche de provenance, licence, finalité, qualité des labels, représentativité et restrictions d’usage.</p>
+<h2>3. Identifier, évaluer et prioriser les usages</h2>
+<h3>3.1 Catalogue et grille de priorisation — [SIMULATION ANALYTIQUE]</h3>
+<p>Pour la mise en situation, les cas d’usage sont classés <strong>avant tout choix d’architecture</strong>. Grille illustrative sur 5 : valeur pour la mission (30 %), faisabilité data/technique (35 %), mesurabilité du résultat (25 %), sécurité du périmètre d’essai (10 %). Note élevée = option plus adaptée à un <strong>premier POC</strong>, et non valeur clinique supérieure. Ces scores sont <strong>construits pour le cas d’étude</strong>, pas issus d’un comité CHSA réel.</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Cas d’usage</th>
+<th>Acteur et résultat attendu</th>
+<th style="text-align:right">Valeur</th>
+<th style="text-align:right">Faisabilité</th>
+<th style="text-align:right">Mesure</th>
+<th style="text-align:right">Sécurité POC</th>
+<th style="text-align:right">Score /5</th>
+<th>Décision pédagogique</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>UC1 — Classification sur dossiers hors production</strong></td>
+<td>Ingénieur ML : prédire 3 classes et comparer à une référence</td>
+<td style="text-align:right">4</td>
+<td style="text-align:right">4</td>
+<td style="text-align:right">5</td>
+<td style="text-align:right">4</td>
+<td style="text-align:right"><strong>4,25</strong></td>
+<td><strong>POC retenu</strong></td>
+</tr>
+<tr>
+<td>UC2 — Questions de collecte ciblées</td>
+<td>Patient / soignant : dossier initial plus complet</td>
+<td style="text-align:right">5</td>
+<td style="text-align:right">2</td>
+<td style="text-align:right">3</td>
+<td style="text-align:right">2</td>
+<td style="text-align:right"><strong>3,15</strong></td>
+<td>Étude métier ultérieure</td>
+</tr>
+<tr>
+<td>UC3 — Exploitation de constantes</td>
+<td>Soignant : alerte ou estimation à partir de valeurs structurées</td>
+<td style="text-align:right">4</td>
+<td style="text-align:right">3</td>
+<td style="text-align:right">4</td>
+<td style="text-align:right">2</td>
+<td style="text-align:right"><strong>3,45</strong></td>
+<td>Baseline ML à instruire</td>
+</tr>
+<tr>
+<td>UC4 — Assistance au triage réel</td>
+<td>Professionnel : suggestion soumise à validation humaine</td>
+<td style="text-align:right">5</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">2</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right"><strong>2,45</strong></td>
+<td>Exclu du POC actuel</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Description de l’usage retenu.</strong>
+<em>Déclencheur</em> : lancement d’une campagne d’évaluation par l’ingénieur. *
+Entrée* : cas textuel pré-étiqueté, sans flux patient réel.
+<em>Traitement</em> : inférence du modèle de base et des variantes spécialisées. *
+Sortie* : classe, conformité du format, mesures comparatives.
+<em>Exception</em> : classe invalide, résultat non exploitable ou échec technique → erreur journalisée et cas non comptabilisé comme succès. <em>Critère de sortie</em> : rapport comparatif reproductible. <strong>Aucune décision médicale n’est automatisée.</strong></p>
+<p>Le choix de UC1 est donc <strong>méthodologique</strong> : hypothèse falsifiable, données disponibles, périmètre maîtrisable et comparaison simple. Les trois autres cas ne sont ni développés ni validés ; ils constituent une <strong>liste d’options</strong>.</p>
+<h2>4. POC technique : architecture, entraînement et mesures — [RÉALISÉ]</h2>
+<p><strong>Socle.</strong> <code>Qwen/Qwen3-1.7B-Base</code>, expérimenté sur <strong>RTX 4070 8 Go</strong>. Stratégie principale : quantification NF4 4 bits, SFT avec LoRA, puis étape DPO orientée vers les préférences de réponse et le format. Configuration documentée : 768 tokens max, 2 époques, learning rate <code>1e-4</code>, LoRA rank 16 / alpha 32, dropout 0,1, batch 2 avec accumulation 8, <code>paged_adamw_8bit</code>.</p>
+<p><strong>Chaîne réalisée :</strong> corpus préparé → SFT/LoRA → fusion → DPO → fusion FP16 → API / interface de démonstration Docker. La comparaison porte sur les variantes disponibles ; elle n’établit pas la supériorité globale de cette famille de modèles.</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>État du modèle</th>
+<th style="text-align:right">Exactitude — benchmark interne de 28 cas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Base</td>
+<td style="text-align:right"><strong>35,7 %</strong></td>
+</tr>
+<tr>
+<td>Après SFT</td>
+<td style="text-align:right"><strong>53,6 %</strong></td>
+</tr>
+<tr>
+<td>Après DPO</td>
+<td style="text-align:right"><strong>60,7 %</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Lecture du gain.</strong> L’augmentation observée est de <strong>25 points de pourcentage</strong> entre le modèle initial et la variante finale. Sur 28 cas seulement, ce résultat ne permet pas d’établir une robustesse statistique suffisante, une sécurité clinique ni une généralisation. La séparation complète train/test, la sensibilité par classe, la calibration et les intervalles de confiance restent à vérifier.</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Packaging comparé</th>
+<th style="text-align:right">Exactitude</th>
+<th style="text-align:right">Format strict</th>
+<th style="text-align:right">Latence moyenne</th>
+<th style="text-align:right">Débit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Adaptateur NF4</td>
+<td style="text-align:right">64,3 %</td>
+<td style="text-align:right">32,1 %</td>
+<td style="text-align:right">3,81 s</td>
+<td style="text-align:right">10,79 tok/s</td>
+</tr>
+<tr>
+<td>Adaptateur FP16</td>
+<td style="text-align:right">60,7 %</td>
+<td style="text-align:right">89,3 %</td>
+<td style="text-align:right">2,25 s</td>
+<td style="text-align:right">16,55 tok/s</td>
+</tr>
+<tr>
+<td><strong>Fusionné FP16</strong></td>
+<td style="text-align:right"><strong>60,7 %</strong></td>
+<td style="text-align:right"><strong>89,3 %</strong></td>
+<td style="text-align:right"><strong>1,21 s</strong></td>
+<td style="text-align:right"><strong>30,56 tok/s</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Arbitrage réellement pris pour la démonstration :</strong> retenir la variante fusionnée FP16, plus rapide et plus stable en format strict que l’adaptateur NF4 sur cette campagne, sans choisir de solution de production. Les conditions exhaustives de reproductibilité doivent être confirmées dans le dépôt technique (versions, graines, empreintes de données).</p>
+<h2>5. Pilotage : jalons, écarts, coûts et livrables</h2>
+<h3>5.1 Chronologie effective du POC — [RÉALISÉ]</h3>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Période</th>
+<th>Résultat documenté</th>
+<th>Décision / contrôle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mars 2026</td>
+<td>Pipeline bilingue, traitement et anonymisation</td>
+<td>Premier corpus candidat</td>
+</tr>
+<tr>
+<td>Avril</td>
+<td>Préparation, essais SFT/LoRA</td>
+<td>Labels reconstruits inadaptés</td>
+</tr>
+<tr>
+<td>Fin avril–mai</td>
+<td>Audit, pivot vers FedMML</td>
+<td><strong>Réorientation du périmètre data</strong></td>
+</tr>
+<tr>
+<td>Mai–juillet</td>
+<td>SFT, variantes, DPO</td>
+<td>Mesures comparatives</td>
+</tr>
+<tr>
+<td>Juillet</td>
+<td>Benchmark, fusion, API, Docker</td>
+<td>Artefact de démonstration</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Livrables réalisés :</strong> scripts de préparation, datasets versionnés, scripts SFT/LoRA, préférences DPO, modèle fusionné, benchmarks, API/interface et conteneur Docker. <strong>Écart majeur :</strong> la première stratégie de labels ne permettait pas la démonstration ; le plan technique a été ajusté. Les délais exacts d’impact et le coût de ce pivot ne sont pas connus.</p>
+<h3>5.2 Cadre de pilotage du scénario — [SIMULATION]</h3>
+<p>Pour rendre la mission gouvernable dans l’étude de cas, le CHSA aurait pu utiliser <strong>cinq jalons de validation</strong> :
+J1 brief approuvé ;
+J2 audit de données accepté ;
+J3 pipeline fonctionnel ;
+J4 benchmark et démonstrateur ;
+J5 remise d’options et GO/NO-GO pour l’étude suivante.
+Le tableau précédent présente <strong>la réalité des activités</strong> ; ces cinq jalons sont un <strong>cadre pédagogique ajouté</strong>, et non un planning historique prouvé.</p>
+<h3>5.3 Planification financière et scénarios de montée en charge — [SIMULATION]</h3>
+<p>Le POC initial a été développé principalement sur une infrastructure locale, avec une exposition du démonstrateur via une API hébergée sur AWS. Le projet ayant validé une amélioration expérimentale sur un modèle de 1,7 milliard de paramètres, l'étape suivante consiste à estimer les ressources nécessaires pour étendre les expérimentations.</p>
+<p>Trois scénarios progressifs sont proposés au CHSA. Ils constituent des <strong>hypothèses de planification</strong>, et non des décisions d'investissement.</p>
+<h4>1. Scénarios techniques et financiers</h4>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>-</th>
+<th>A — POC étendu</th>
+<th>B — Pilote avancé</th>
+<th>C — Préindustrialisation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Modèle étudié</td>
+<td>1,7–3B</td>
+<td>7–8B</td>
+<td>14–32B</td>
+</tr>
+<tr>
+<td>Durée indicative</td>
+<td>3 mois</td>
+<td>6 mois</td>
+<td>9 mois</td>
+</tr>
+<tr>
+<td>Objectif</td>
+<td>Validation élargie</td>
+<td>Comparaison de modèles et intégration</td>
+<td>Préparation d'un système exploitable</td>
+</tr>
+<tr>
+<td>Entraînement</td>
+<td>LoRA / QLoRA</td>
+<td>QLoRA + évaluations comparatives</td>
+<td>Fine-tuning distribué si nécessaire</td>
+</tr>
+<tr>
+<td>Inférence</td>
+<td>GPU à la demande</td>
+<td>Service GPU dédié</td>
+<td>Service GPU redondant à évaluer</td>
+</tr>
+<tr>
+<td>Budget global estimé</td>
+<td><strong>45 k€</strong></td>
+<td><strong>175 k€</strong></td>
+<td><strong>455 k€</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p>Budgets indicatifs incluant personnel, infrastructure et une provision de 15 %, arrondis. Ils ne constituent ni des devis fournisseurs ni une estimation de conformité clinique achevée.</p>
+<h4>2. Ressources humaines et compétences nécessaires</h4>
+<p>Le dimensionnement repose sur les tarifs journaliers hypothétiques suivants : Data Engineer 600 €, ML Engineer 700 €, MLOps 700 €, référent clinique 900 €, sécurité/conformité 800 € et chef de projet 650 €.</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Profil</th>
+<th>A — Jours</th>
+<th>B — Jours</th>
+<th>C — Jours</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Data Engineer</td>
+<td>12</td>
+<td>35</td>
+<td>80</td>
+</tr>
+<tr>
+<td>ML / AI Engineer</td>
+<td>20</td>
+<td>65</td>
+<td>140</td>
+</tr>
+<tr>
+<td>MLOps / Cloud Engineer</td>
+<td>8</td>
+<td>35</td>
+<td>100</td>
+</tr>
+<tr>
+<td>Référent clinique</td>
+<td>5</td>
+<td>25</td>
+<td>65</td>
+</tr>
+<tr>
+<td>Sécurité / conformité</td>
+<td>3</td>
+<td>12</td>
+<td>45</td>
+</tr>
+<tr>
+<td>Chef de projet IT</td>
+<td>5</td>
+<td>20</td>
+<td>55</td>
+</tr>
+<tr>
+<td><strong>Coût RH total</strong></td>
+<td><strong>36 950 €</strong></td>
+<td><strong>136 100 €</strong></td>
+<td><strong>346 250 €</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p>Les charges représentent des jours-personnes répartis sur les différentes phases. Elles ne supposent pas que chaque profil soit mobilisé à temps plein.</p>
+<h4>3. Coûts d'infrastructure</h4>
+<p>Les postes ci-dessous couvrent l'expérimentation GPU, les services d'inférence et les coûts complémentaires de stockage, d'observabilité et d'intégration.</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Poste</th>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Entraînement / expérimentation GPU</td>
+<td>300 €</td>
+<td>2 500 €</td>
+<td>10 000 €</td>
+</tr>
+<tr>
+<td>Hébergement et inférence</td>
+<td>900 €</td>
+<td>9 000 €</td>
+<td>26 000 €</td>
+</tr>
+<tr>
+<td>Stockage, monitoring, réseau et services complémentaires</td>
+<td>500 €</td>
+<td>3 500 €</td>
+<td>15 000 €</td>
+</tr>
+<tr>
+<td><strong>Total infrastructure</strong></td>
+<td><strong>1 700 €</strong></td>
+<td><strong>15 000 €</strong></td>
+<td><strong>51 000 €</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Hypothèse de calcul :</strong> infrastructure cloud européenne, machines GPU facturées à l'utilisation et capacité d'inférence croissante. Les montants doivent être recalculés selon la taille du modèle, sa quantification, les exigences de disponibilité, la région d'hébergement et la charge réelle.</p>
+<p>Pour l'inférence, le coût unitaire devra être mesuré pendant le pilote :</p>
+<p><strong>Coût par interaction = coût total mensuel d'inférence / nombre d'interactions traitées.</strong></p>
+<p>Il faudra également mesurer le débit, la latence p95, le taux d'utilisation GPU et les besoins de concurrence. Une instance GPU continuellement allumée représente un coût fixe important, même lorsque le volume de requêtes est faible.</p>
+<h4>4. Synthèse budgétaire</h4>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Poste</th>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Équipe projet</td>
+<td>36 950 €</td>
+<td>136 100 €</td>
+<td>346 250 €</td>
+</tr>
+<tr>
+<td>Infrastructure</td>
+<td>1 700 €</td>
+<td>15 000 €</td>
+<td>51 000 €</td>
+</tr>
+<tr>
+<td>Sous-total</td>
+<td>38 650 €</td>
+<td>151 100 €</td>
+<td>397 250 €</td>
+</tr>
+<tr>
+<td>Provision risques (15 %)</td>
+<td>5 798 €</td>
+<td>22 665 €</td>
+<td>59 588 €</td>
+</tr>
+<tr>
+<td><strong>Budget prévisionnel arrondi</strong></td>
+<td><strong>45 000 €</strong></td>
+<td><strong>175 000 €</strong></td>
+<td><strong>455 000 €</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p>Ces estimations couvrent la durée de chaque scénario, sans constituer un coût annuel récurrent. Les coûts d'exploitation après projet devront être budgétés séparément.</p>
+<h4>5. Recommandation à la direction IT</h4>
+<p>La montée en taille du modèle ne garantit pas une amélioration proportionnelle de la performance. Avant d'investir dans une architecture plus coûteuse, le CHSA devrait :</p>
+<ol>
+<li>Qualifier les données métiers, leurs droits d'utilisation et leur représentativité.</li>
+<li>Comparer plusieurs modèles sur un benchmark indépendant et identique.</li>
+<li>Évaluer les compromis entre qualité, coût d'entraînement, coût d'inférence et contraintes de sécurité.</li>
+<li>Conditionner chaque investissement supplémentaire à des résultats mesurables et à une validation métier.</li>
+</ol>
+<p><strong>La recommandation n'est donc pas de choisir immédiatement le modèle le plus puissant, mais de financer une progression expérimentale dont chaque étape apporte les preuves nécessaires à la décision suivante.</strong></p>
+<h2>6. Conseil technique : options de MOE sans préjuger de la décision — [PROPOSITION]</h2>
+<p><strong>Constat :</strong> le fine-tuning peut modifier la performance d’un petit modèle sur une tâche ciblée. <strong>Il ne prouve pas</strong> que le fine-tuning est le meilleur choix pour le CHSA, ni qu’une architecture multi-modèles sera préférable.</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Scénario</th>
+<th>Atouts potentiels</th>
+<th>Risques ou vérifications nécessaires</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Modèle compact affiné localement</td>
+<td>Contrôle de l’exécution, spécialisation, réversibilité</td>
+<td>Maintenance, généralisation, coûts de réentraînement</td>
+</tr>
+<tr>
+<td>Modèle général via API</td>
+<td>Simplicité initiale, large couverture fonctionnelle</td>
+<td>Données, coûts d’usage, dépendance fournisseur</td>
+</tr>
+<tr>
+<td>ML classique / règles</td>
+<td>Baseline interprétable sur variables structurées</td>
+<td>Qualité des variables, besoin de validation métier</td>
+</tr>
+<tr>
+<td>Architecture modulaire (dialogue / constantes / triage supervisé)</td>
+<td>Composants testables et remplaçables</td>
+<td>Intégration, latence, responsabilité et risques cliniques</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Leviers de maîtrise d’œuvre envisageables.</strong>
+<em>Data-centric AI</em> (labels revus avec experts, provenance et couverture) ; baselines gelées ;
+évaluation par sous-population ;
+LoRA/QLoRA ou autres adaptations à coût maîtrisé ;
+comparaison contrôlée avec RAG, règles et ML tabulaire selon l’usage ;
+versionnement et traçabilité ;
+gates avant fusion/déploiement ;
+instrumentation, monitoring, rollback. **
+Ce sont des pistes à tester**, non des recommandations de tout déployer simultanément.</p>
+<p><strong>Plan d’action pour l’équipe IT — [PROPOSITION]</strong></p>
+<ol>
+<li><strong>Cadrer</strong> : qualifier les usages prioritaires avec les métiers, préciser les données et les critères de succès. <em>Décision : pertinence du cas d’usage.</em></li>
+<li><strong>Auditer</strong> : réaliser le data-readiness des données internes : finalité, licéité, représentativité, labels et fuites. <em>Décision : données utilisables ou non.</em></li>
+<li><strong>Comparer</strong> : définir test indépendant, baselines règles/ML/LLM et protocole identique. <em>Décision : poursuite ou abandon de l’approche SFT.</em></li>
+<li><strong>Sécuriser</strong> : validation clinique et juridique des usages sensibles, tests d’urgence, supervision, abstention. <em>Décision : autorisation éventuelle d’une observation sans impact patient.</em></li>
+<li><strong>Arbitrer</strong> : présenter coûts complets, performance, risques, alternatives et responsabilités au comité. <em>Décision CHSA : GO/NO-GO, budget et architecture.</em></li>
+</ol>
+<h2>7. Risques, réglementation et posture de conseil</h2>
+<p><strong>Le prototype réel ne constitue pas un dispositif clinique validé.</strong> Dans le scénario, avant traitement de données de santé identifiables : analyser le <strong>RGPD</strong> (article 6 et condition de l’article 9, finalité, minimisation, sécurité, droits, sous-traitants et éventuelle AIPD). Avant un usage médical : évaluer la finalité prévue et la possible qualification comme <strong>logiciel dispositif médical</strong> au titre du règlement <strong>MDR</strong> et des lignes directrices <strong>MDCG 2019-11 rev.1</strong>. Examiner également la classification et les échéances pertinentes de l’<strong>AI Act</strong>. Ces obligations ne sont pas réputées satisfaites par le seul POC.</p>
+<div class="table-scroll"><table>
+<thead>
+<tr>
+<th>Risque</th>
+<th>Conséquence</th>
+<th>Mesure préalable proposée</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sous-triage ou mauvaise priorisation</td>
+<td>Impact potentiellement critique sur les patients</td>
+<td>Tests ciblés, abstention, supervision médicale et escalade</td>
+</tr>
+<tr>
+<td>Dataset ou labels impropres</td>
+<td>Résultats trompeurs</td>
+<td>Qualification des sources, revue experte, test indépendant</td>
+</tr>
+<tr>
+<td>Données de santé / droits de réutilisation</td>
+<td>Risque juridique et de confidentialité</td>
+<td>Analyse RGPD, licences, habilitations, minimisation</td>
+</tr>
+<tr>
+<td>Dégradation, latence et coûts</td>
+<td>Exploitabilité insuffisante</td>
+<td>Benchmarks comparables, budgets, monitoring et rollback</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Posture professionnelle :</strong> distinguer faits, hypothèses du cas fictif et options ; chiffrer ce qui est réellement mesuré ; expliciter ce qui reste inconnu ; éclairer sans se substituer au décideur. Aucun entretien ou accord réel du CHSA n’est revendiqué.</p>
+<h2>8. Conclusion — décision proposée, pas décision imposée</h2>
+<p><strong>La mission remplit son objectif expérimental restreint :</strong> une amélioration est <strong>observée</strong> sur un petit benchmark après spécialisation d’un modèle compact ; le travail démontre une chaîne d’AI Engineering fonctionnelle, un audit ayant changé la trajectoire et une comparaison des choix de packaging.</p>
+<p><strong>L’étape suivante relève de l’organisation :</strong> vérifier les données internes, mesurer sur un benchmark indépendant substantiel, comparer des alternatives plus simples et apprécier la faisabilité juridique et clinique avant toute décision d’exploitation.</p>
+<blockquote>
+<p><strong>Recommandation au CHSA fictif : GO conditionnel pour une étude de faisabilité approfondie ; NO-GO pour un déploiement clinique sur la base des preuves actuelles.</strong> Ce n’est pas une décision adoptée par une direction réelle.</p>
+</blockquote>
+<p><strong>Traçabilité.</strong> Les chiffres et étapes techniques sont repris du rapport de projet transmis. Les acteurs, contraintes institutionnelles, scores de priorisation et jalons de gouvernance sont des éléments <strong>simulés explicitement</strong>. Documents réglementaires : règlement (UE) 2016/679 ; règlement (UE) 2017/745 ; MDCG 2019-11 rev.1 (2025) ; règlement (UE) 2024/1689 tel que modifié. <strong>Projet technique complet :</strong> dépôt / dossier technique à relier depuis le portfolio.</p>
+<hr />
+<p><em>Annexe — Lecture de la grille de compétences : besoins et méthode (§1) ; audit (§2) ; identification/priorisation et compatibilité (§3–4) ; conseil, posture et conformité (§6–7) ; suivi, coûts, performance (§4–5).</em></p>
+</article></main></body></html>

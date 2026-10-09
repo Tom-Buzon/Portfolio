@@ -1,0 +1,57 @@
+export const L = (fr, en, nl) => ({ fr, en, nl });
+export function localize(value, locale = 'fr') {
+  if (value && typeof value === 'object' && 'fr' in value && 'en' in value) return value[locale] || value.fr;
+  if (Array.isArray(value)) return value.map(item => localize(item, locale));
+  if (value && typeof value === 'object') return Object.fromEntries(Object.entries(value).map(([key, item]) => [key, localize(item, locale)]));
+  return value;
+}
+export const copy = {
+  profile: L('La personne', 'Profile', 'Profiel'), skills: L('La démarche', 'Approach', 'Werkwijze'), work: L('Le portfolio', 'Portfolio', 'Portfolio'),
+  menu: L('Menu', 'Menu', 'Menu'), close: L('Fermer', 'Close', 'Sluiten'), skip: L('Aller au contenu', 'Skip to content', 'Naar inhoud'),
+  identity: L('Pilotage technique · Produit · IA appliquée', 'Technical delivery · Product · Applied AI', 'Technische projecten · Product · Toegepaste AI'),
+  heroFirst: L('Clarifier le problème.', 'Find the right direction.', 'De juiste richting vinden.'),
+  heroLast: L('Construire la suite.', 'Bring it to life.', 'En die werkelijkheid maken.'),
+  heroBody: L('Je transforme un besoin encore flou en un projet concret. Je cadre, je coordonne et je construis — avec les bonnes personnes et la technologie qui répond au problème.', 'I turn an unclear need into a concrete project. I frame the problem, coordinate delivery and build — bringing together the right people and the technology the problem actually needs.', 'Ik maak van een onduidelijke behoefte een concreet project. Ik bepaal het probleem, coördineer de uitvoering en bouw, met de juiste mensen en passende technologie.'),
+  explore: L('Voir mes réalisations', 'Explore my work', 'Bekijk mijn werk'),
+  profileTitle: L('Comprendre. Décider.\nFaire avancer.', 'Understand. Decide.\nMake it happen.', 'Begrijpen. Beslissen.\nVooruitkomen.'),
+  profileLead: L('« Nous savons qu’il y a un problème. Nous ne savons pas encore quelle est la bonne solution. »', '“We know there’s a problem. We’re just not sure what the right solution is yet.”', '“We weten dat er een probleem is. We weten alleen nog niet wat de juiste oplossing is.”'),
+  profileBody: L('J’aime les projets où le problème est réel, mais la solution reste à inventer. Mon rôle : comprendre ce qui compte, choisir une direction et la faire avancer jusqu’à un résultat que l’on peut tester. Selon le besoin, je pilote le travail avec l’équipe ou je conçois et construis le prototype moi-même.', 'I like projects with a real problem and an open question about the solution. I work out what matters, choose a direction and carry it through to something we can test. Depending on the need, I coordinate the team’s delivery or design and build the prototype myself.', 'Ik werk graag aan echte problemen waarvoor de oplossing nog openligt. Ik onderzoek wat telt, bepaal een richting en werk toe naar iets dat we kunnen testen. Soms coördineer ik het team, soms ontwerp en bouw ik zelf het prototype.'),
+  aiNote: L('L’IA est un outil puissant, pas une solution en quête de problème. Je l’utilise pour rechercher, concevoir, construire, relire et tester — et je garde la responsabilité des décisions.', 'AI is a powerful tool, not a solution looking for a problem. I use it to research, design, build, review and test — while keeping responsibility for the decisions.', 'AI is een krachtig hulpmiddel, geen oplossing op zoek naar een probleem. Ik gebruik het voor onderzoek, ontwerp, bouw, review en tests — en blijf verantwoordelijk voor de beslissingen.'),
+  studies: L('Après une reconversion financée par mes économies, je termine mon Master en ingénierie de l’IA en octobre 2026, en parallèle de mes projets indépendants.', 'After investing my savings in a career change, I am completing my Master’s in AI Engineering in October 2026 alongside independent projects.', 'Na een carrièreswitch die ik met mijn spaargeld financierde, rond ik in oktober 2026 mijn master AI Engineering af, naast mijn eigen projecten.'),
+  methodTitle: L('Un problème.\nDes essais.\nUne direction qui s’affine.', 'A problem.\nA few experiments.\nA clearer direction.', 'Een probleem.\nExperimenten.\nEen steeds duidelijker richting.'),
+  methodLead: L('La méthode reste la même, même quand la technologie change.', 'The method stays consistent, even when the technology changes.', 'De methode blijft dezelfde, ook als de technologie verandert.'),
+  skillsTitle: L('Des compétences\nqui se répondent.', 'Skills that\nwork together.', 'Vaardigheden\ndie elkaar versterken.'),
+  skillsLead: L('La carte complète de ma pratique : quatre orbites, vingt stations et les outils qui les relient.', 'The full atlas of my practice: four orbits, twenty stations and the tools connecting them.', 'De volledige kaart van mijn werk: vier banen, twintig stations en de bijbehorende hulpmiddelen.'),
+  all: L('Tout explorer', 'Explore all', 'Alles bekijken'), evidence: L('Dans mes projets', 'In my work', 'In mijn projecten'), tools: L('Outils et terrains explorés', 'Tools and areas explored', 'Hulpmiddelen en verkende gebieden'),
+  workTitle: L('Des projets.\nDes choix. Des résultats.', 'Projects, decisions\nand what came of them.', 'Projecten, keuzes\nen resultaten.'),
+  workLead: L('Des produits, des expériences et les décisions qui les ont fait évoluer. Entrez dans un projet, ou poursuivez la visite.', 'Products, experiments and the decisions that shaped them. Step into a project, or keep exploring.', 'Producten, experimenten en de beslissingen die ze vormgaven. Verdiep je in een project, of ga verder.'),
+  inspect: L('Examiner les médias', 'Explore the media', 'Bekijk de media'), case: L('Comprendre le projet', 'Inside the project', 'Achter het project'),
+  resume: L('Reprendre la visite', 'Resume the visit', 'Bezoek hervatten'), continue: L('Continuer vers', 'Continue to', 'Verder naar'),
+  join: L('Rejoindre la visite', 'Join the visit', 'Naar het volledige bezoek'),
+  enlarge: L('Agrandir l’image', 'Enlarge image', 'Afbeelding vergroten'), previous: L('Précédent', 'Previous', 'Vorige'), next: L('Suivant', 'Next', 'Volgende'),
+  capture: L('Capture', 'Image', 'Afbeelding'), of: L('sur', 'of', 'van'), play: L('Regarder', 'Watch', 'Bekijken'),
+  mediaError: L('Le média ne peut pas être chargé. Ouvrir le fichier directement', 'The media could not load. Open the file directly', 'De media kon niet worden geladen. Open het bestand direct'),
+  intent: L('Le point de départ', 'The starting point', 'Het begin'), decisions: L('Les choix', 'The decisions', 'De keuzes'), result: L('Réalisation et apprentissage', 'What I built and learned', 'Wat ik bouwde en leerde'), limits: L('État actuel et suite', 'Current state and next steps', 'Huidige stand en vervolg'),
+  report: L('Lire le rapport', 'Read the report', 'Lees het rapport'), code: L('Code de déploiement', 'Deployment code', 'Deploymentcode'),
+  archives: L('Le carnet d’explorations', 'The exploration notebook', 'Het experimentenboek'), archivesLead: L('D’autres terrains, d’autres questions. Une sélection de travaux et prototypes antérieurs.', 'Other fields, other questions. A selection of earlier work and prototypes.', 'Andere gebieden, andere vragen. Een selectie van eerder werk en prototypes.'),
+  contactTitle: L('La prochaine question\nm’intéresse.', 'I’m curious about\nthe next question.', 'Ik ben benieuwd naar\nde volgende vraag.'),
+  contactBody: L('Je recherche un environnement où stratégie, technologie et réalisation se rencontrent — et où l’IA fait aussi partie de la façon de travailler.', 'I’m looking for an environment where strategy, technology and hands-on execution meet — and where AI is also part of how the team works.', 'Ik zoek een omgeving waar strategie, technologie en uitvoering samenkomen — en waar AI ook deel uitmaakt van de werkwijze.'),
+  email: L('M’écrire', 'Get in touch', 'Neem contact op'), location: L('Leiden, Pays-Bas', 'Leiden, Netherlands', 'Leiden, Nederland'),
+  motionOn: L('Mouvement activé', 'Motion on', 'Beweging aan'), motionOff: L('Mouvement réduit', 'Reduced motion', 'Minder beweging'),
+  reduced: L('Le mouvement suit les préférences de votre appareil.', 'Motion follows your device preferences.', 'Beweging volgt de voorkeuren van je apparaat.'),
+  soundNote: L('Lecture volontaire · casque conseillé', 'Play when ready · headphones recommended', 'Start zelf · hoofdtelefoon aanbevolen'),
+  selected: L('Portfolio', 'Portfolio', 'Portfolio'), method: L('La méthode', 'The method', 'De methode'),
+};
+export const experience = [
+  ['2020 — 2022', 'JPSI', 'Web Developer', L('Construire et maintenir des applications web.', 'Building and maintaining web applications.', 'Webapplicaties bouwen en onderhouden.')],
+  ['2022 — 2024', 'ESA', 'Assistant Project Controller', L('Planification, suivi et reporting de programmes complexes.', 'Planning, tracking and reporting on complex programmes.', 'Planning, opvolging en rapportage van complexe programma’s.')],
+  ['2025', 'JPSI', 'Product Owner / Product Builder', L('Du besoin à un outil de gestion des tâches déployé auprès de vrais utilisateurs.', 'From problem definition to a task-management system used by real people.', 'Van probleemdefinitie tot een taakbeheersysteem voor echte gebruikers.')],
+  ['2025 — 2026', 'Independent', 'AI Engineering', L('LLMs, RAG, agents et produits. Master en cours, fin prévue en octobre 2026.', 'LLMs, RAG, agents and products. Master’s in progress, expected October 2026.', 'LLMs, RAG, agents en producten. Master in uitvoering, afronding gepland in oktober 2026.')],
+];
+export const method = [
+  ['Understand', L('Clarifier avant de choisir.', 'Understand before choosing.', 'Begrijpen vóór kiezen.'), L('Le besoin, les personnes, les contraintes. Définir ce qui mérite vraiment de changer.', 'The need, the people, the constraints. Define what actually needs to change.', 'De behoefte, de mensen, de beperkingen. Bepalen wat echt moet veranderen.')],
+  ['Build', L('Donner forme à une hypothèse.', 'Give a hypothesis a shape.', 'Een hypothese vormgeven.'), L('Choisir une approche, coordonner le travail ou construire un premier périmètre testable.', 'Choose an approach, coordinate the work or build the first testable scope.', 'Een aanpak kiezen, het werk coördineren of een eerste testbare versie bouwen.')],
+  ['Test', L('Confronter l’idée au réel.', 'Put the idea to the test.', 'Het idee in de praktijk testen.'), L('Observer l’usage, le fonctionnement et les contraintes. Chercher aussi ce qui ne marche pas.', 'Observe use, behaviour and constraints. Look for what does not work, too.', 'Gebruik, werking en beperkingen observeren. Ook zoeken naar wat niet werkt.')],
+  ['Learn', L('Faire parler les résultats.', 'Learn from the results.', 'Leren van de resultaten.'), L('Interpréter les écarts, rendre les décisions lisibles et accepter de revoir une hypothèse.', 'Interpret the gaps, make decisions clear and be willing to revisit an assumption.', 'Afwijkingen begrijpen, beslissingen uitleggen en aannames durven herzien.')],
+  ['Iterate', L('Reprendre avec un meilleur cap.', 'Start again with a clearer direction.', 'Verder met een duidelijker richting.'), L('Ajuster le périmètre, l’architecture ou le produit. Décider de la suite sur ce que l’on a appris.', 'Adjust scope, architecture or product. Let what we have learned guide the next step.', 'Scope, architectuur of product aanpassen. De volgende stap baseren op wat we leerden.')],
+];

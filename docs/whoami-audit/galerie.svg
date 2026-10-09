@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1120" viewBox="0 0 1600 1120" style="width:100%;height:auto;display:block" role="img" aria-labelledby="title desc">
+  <title id="title">Plan de principe de la galerie de Tom Buzon</title>
+  <desc id="desc">Six travées longent une allée continue : MnemeMind, Vesper et Hoplite, ClipGenerator, SFT, AtticAgentWatcher, puis Blender et Car AI. Les médias s'examinent dans leur poste et le détail se déplie dans la visite. Conception avant implémentation, sans échelle architecturale.</desc>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#14212c"/><stop offset="1" stop-color="#090f15"/></linearGradient>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="none" stroke="#dfb783" stroke-width="1.6"/></marker>
+    <style>text{font-family:Arial,sans-serif;fill:#edf0e9}.eyebrow{font-family:Consolas,monospace;font-size:16px;letter-spacing:2px;fill:#dfb783}.title{font-size:38px;font-weight:600}.h{font-size:23px;font-weight:600}.copy{font-size:18px;fill:#bdc9d3}.small{font-size:16px;fill:#98aab8}.panel{fill:#16232e;stroke:#465460;stroke-width:1}.screen{fill:#0a141c;stroke:#9eb8c7;stroke-width:2}.wood{fill:#674b35;stroke:#a07d56}.path{fill:none;stroke:#dfb783;stroke-width:3;marker-end:url(#arrow)}.dash{fill:none;stroke:#8da2b3;stroke-width:1.5;stroke-dasharray:5 5}</style>
+  </defs>
+  <rect width="1600" height="1120" fill="url(#bg)"/>
+  <text x="54" y="45" class="eyebrow">WHOAMI / CONCEPTION DE LA GALERIE / 9 OCTOBRE 2026</text>
+  <text x="54" y="100" class="title">Les réalisations habitent la pièce.</text>
+  <text x="54" y="136" class="copy">Une visite continue. Des arrêts facultatifs. Le même poste pour découvrir, regarder et comprendre.</text>
+
+  <rect x="54" y="181" width="1080" height="650" rx="8" fill="#0d1720" stroke="#42515f"/>
+  <text x="78" y="213" class="eyebrow">IMPLANTATION DE PRINCIPE · VUE DÉPLIÉE SANS ÉCHELLE</text>
+  <path d="M78 465H1109M78 545H1109" stroke="#465460"/>
+  <path d="M90 505H1090" class="path"/>
+  <text x="88" y="489" class="small">DEPUIS LA TABLE ET LA SKILL MAP</text>
+  <text x="780" y="529" class="small">VERS LE CARNET ET LE CONTACT</text>
+
+  <rect x="78" y="237" width="326" height="202" rx="3" class="panel"/>
+  <text x="96" y="269" class="h">01 · MnemeMind</text>
+  <rect x="163" y="292" width="133" height="72" rx="2" class="screen"/>
+  <rect x="105" y="304" width="49" height="61" class="screen"/>
+  <rect x="305" y="304" width="49" height="61" class="screen"/>
+  <path d="M187 337L213 315L241 342L270 316M213 315L270 316M213 315L229 347" fill="none" stroke="#8fc7b3" stroke-width="2"/>
+  <circle cx="187" cy="337" r="4" fill="#8fc7b3"/><circle cx="213" cy="315" r="4" fill="#8fc7b3"/><circle cx="241" cy="342" r="4" fill="#8fc7b3"/><circle cx="270" cy="316" r="4" fill="#8fc7b3"/>
+  <rect x="99" y="374" width="273" height="11" class="wood"/>
+  <text x="96" y="410" class="copy">12 captures · 4 dossiers de 3</text>
+  <path d="M238 465V441" class="dash"/>
+
+  <rect x="78" y="570" width="326" height="231" rx="3" class="panel"/>
+  <text x="96" y="602" class="h">02 · Vesper et Hoplite</text>
+  <rect x="98" y="624" width="117" height="65" class="screen"/>
+  <path d="M149 643L169 656L149 669Z" fill="#d0a47d"/>
+  <path d="M101 711V704C101 688 126 688 126 704V711M99 703H105V714H99ZM122 703H128V714H122Z" fill="none" stroke="#d0a47d" stroke-width="2"/>
+  <rect x="240" y="624" width="144" height="81" class="screen"/>
+  <path d="M301 646L326 662L301 678Z" fill="#b5a3d2"/>
+  <text x="101" y="741" class="small">Son · 43 s</text><text x="242" y="741" class="small">Combat · 65 s</text>
+  <text x="96" y="780" class="copy">Deux expériences distinctes</text>
+  <path d="M328 547V568" class="dash"/>
+
+  <rect x="422" y="237" width="326" height="202" rx="3" class="panel"/>
+  <text x="440" y="269" class="h">03 · ClipGenerator</text>
+  <rect x="480" y="288" width="47" height="83" class="screen"/>
+  <rect x="541" y="288" width="47" height="83" class="screen"/>
+  <path d="M496 320L512 330L496 340ZM557 320L573 330L557 340Z" fill="#cda4d9"/>
+  <rect x="620" y="321" width="98" height="51" class="screen"/>
+  <path d="M629 359H707M630 352H646M653 352H675M681 352H706" stroke="#cda4d9" stroke-width="3"/>
+  <rect x="450" y="379" width="274" height="9" class="wood"/>
+  <text x="440" y="415" class="copy">2 films au mur · montage à côté</text>
+  <path d="M494 465V441" class="dash"/>
+
+  <rect x="422" y="570" width="326" height="231" rx="3" class="panel"/>
+  <text x="440" y="602" class="h">04 · SFT</text>
+  <rect x="443" y="624" width="177" height="97" class="screen"/>
+  <rect x="462" y="684" width="29" height="23" fill="#6e8799"/><rect x="510" y="670" width="29" height="37" fill="#9eb8c7"/><rect x="558" y="657" width="29" height="50" fill="#dfb783"/>
+  <text x="454" y="643" class="small">28 cas exploratoires</text>
+  <path d="M647 650H720L707 711H634Z" fill="#d9d1ba"/>
+  <path d="M655 665H705M652 677H701M649 689H696" stroke="#59646d" stroke-width="2"/>
+  <text x="440" y="747" class="copy">Expérience → déploiement</text>
+  <text x="440" y="780" class="small">Rapport + dépôt Docker</text>
+  <path d="M671 547V568" class="dash"/>
+
+  <rect x="766" y="237" width="344" height="202" rx="3" class="panel"/>
+  <text x="784" y="269" class="h">05 · AtticAgentWatcher</text>
+  <rect x="795" y="297" width="127" height="76" class="screen"/>
+  <rect x="937" y="297" width="139" height="76" class="screen"/>
+  <path d="M809 356V341M831 356V320M853 356V328M875 356V312M897 356V331" stroke="#9eb8c7" stroke-width="8"/>
+  <path d="M951 353H1063M954 353V332H976V353M990 353V318H1013V353M1030 353V336H1057V353" fill="none" stroke="#bdabd9" stroke-width="2"/>
+  <rect x="790" y="383" width="290" height="8" class="wood"/>
+  <text x="784" y="417" class="copy">Dashboard + MyFactory · 5 vues</text>
+  <path d="M850 465V441" class="dash"/>
+
+  <rect x="766" y="570" width="344" height="231" rx="3" class="panel"/>
+  <text x="784" y="602" class="h">06 · Matière et explorations</text>
+  <rect x="792" y="624" width="124" height="86" class="screen"/>
+  <path d="M805 696V654L850 636L903 654V696ZM850 636V680L805 696M850 680L903 696" fill="none" stroke="#dfb783"/>
+  <rect x="942" y="663" width="55" height="47" class="screen"/>
+  <path d="M950 687H988" stroke="#9eb8c7" stroke-width="2"/>
+  <path d="M1020 673H1075L1081 707H1026Z" fill="#d9d1ba"/>
+  <rect x="787" y="722" width="299" height="9" class="wood"/>
+  <text x="784" y="759" class="copy">Blender · Car AI · carnet</text>
+  <text x="784" y="786" class="small">Un dernier cadrage plus ouvert</text>
+  <path d="M1022 547V568" class="dash"/>
+
+  <rect x="1160" y="181" width="386" height="650" rx="8" fill="#17212b" stroke="#465460"/>
+  <text x="1185" y="216" class="eyebrow">LES DEGRÉS DE LECTURE</text>
+  <text x="1185" y="270" class="h">1. Découvrir</text>
+  <text x="1185" y="304" class="copy">Une preuve, un problème, un rôle.</text>
+  <text x="1185" y="332" class="copy">Le scroll poursuit la visite.</text>
+  <path d="M1200 351V382" class="path"/>
+  <text x="1185" y="422" class="h">2. Examiner sur place</text>
+  <text x="1185" y="456" class="copy">Rapprochement court du support.</text>
+  <text x="1185" y="484" class="copy">Média net, décor encore visible.</text>
+  <text x="1185" y="512" class="copy">La caméra se pose pour lire.</text>
+  <path d="M1200 532V563" class="path"/>
+  <text x="1185" y="603" class="h">3. Comprendre les choix</text>
+  <text x="1185" y="637" class="copy">Le détail se déplie dans la page.</text>
+  <text x="1185" y="665" class="copy">Un seul défilement pour lire.</text>
+  <rect x="1185" y="705" width="334" height="55" rx="3" fill="#dfb783"/>
+  <text x="1352" y="739" text-anchor="middle" font-size="19" style="fill:#13202b">Reprendre la visite →</text>
+  <text x="1185" y="796" class="small">Même poste, même sélection.</text>
+
+  <text x="54" y="889" class="eyebrow">MOBILIER À PRÉVOIR</text>
+  <text x="54" y="930" class="copy">Poste MnemeMind à 3 supports · 2 cadres vidéo verticaux · Pupitre SFT · Supports son et carte</text>
+  <text x="54" y="963" class="copy">Console double · Rail de processus · Cartels et index · Petit panneau Car AI · Onglets du carnet</text>
+  <path d="M54 991H1546" stroke="#465460"/>
+  <text x="54" y="1030" class="copy">Un seul lecteur actif · Aucun son automatique · Les 12 captures MnemeMind remplacent toute vidéo prévue</text>
+  <text x="54" y="1072" class="small">Volumes et dégagements à valider après accord. Schéma narratif, pas une capture de la refonte réalisée.</text>
+</svg>

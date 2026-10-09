@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="1040" viewBox="0 0 1440 1040" style="width:100%;height:auto;display:block" role="img" aria-labelledby="title desc">
+  <title id="title">Parcours proposé pour le portfolio WhoAmI de Tom Buzon</title>
+  <desc id="desc">Trois zones reliées dans le grenier : le bureau pour le profil, une table pour la démarche et les compétences, puis une galerie pour les preuves. Le problème évolue selon Understand, Build, Test, Learn et Iterate autour de la même table. Schéma de conception, pas une capture du site réalisé.</desc>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#101d29"/><stop offset="1" stop-color="#090e15"/></linearGradient>
+    <linearGradient id="lamp" x2="0" y2="1"><stop stop-color="#e5bc8c" stop-opacity=".25"/><stop offset="1" stop-color="#e5bc8c" stop-opacity="0"/></linearGradient>
+    <marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="none" stroke="#e5bc8c" stroke-width="1.5"/></marker>
+    <style>text{font-family:Arial,sans-serif;fill:#eef0e9}.eyebrow{font-family:Consolas,monospace;font-size:16px;letter-spacing:2px;fill:#e5bc8c}.title{font-size:39px;font-weight:600;letter-spacing:-1px}.head{font-size:28px;font-weight:600}.copy{font-size:19px;fill:#b4c1cf}.small{font-size:16px;fill:#8e9faf}.step{font-size:20px;font-weight:600;fill:#e5bc8c}.panel{fill:#101a24;stroke:#3d4c5b}.line{fill:none;stroke:#e5bc8c;stroke-width:2}.blue{fill:none;stroke:#8ec4d8;stroke-width:2}.node{fill:#101a24;stroke:#8ec4d8;stroke-width:2}</style>
+  </defs>
+  <rect width="1440" height="1040" fill="url(#bg)"/>
+  <text x="56" y="49" class="eyebrow">WHOAMI / TOM BUZON</text>
+  <text x="56" y="106" class="title">Entrer dans l’atelier. Suivre une pensée. Examiner les preuves.</text>
+  <text x="56" y="141" class="copy">Plan de principe pour la refonte · Proposition avant implémentation · 9 octobre 2026</text>
+
+  <rect x="56" y="182" width="402" height="464" rx="3" class="panel"/>
+  <rect x="490" y="182" width="460" height="464" rx="3" class="panel"/>
+  <rect x="982" y="182" width="402" height="464" rx="3" class="panel"/>
+  <text x="80" y="219" class="eyebrow">01 / PROFILE</text>
+  <text x="80" y="258" class="head">Le bureau personnel</text>
+  <text x="514" y="219" class="eyebrow">02 / APPROACH &amp; SKILLS</text>
+  <text x="514" y="258" class="head">Une table, cinq étapes</text>
+  <text x="1006" y="219" class="eyebrow">03 / SELECTED WORK</text>
+  <text x="1006" y="258" class="head">La galerie des réalisations</text>
+
+  <path d="M84 395L256 292L430 395" stroke="#4e4138" stroke-width="11" fill="none"/>
+  <path d="M111 422L404 422M110 444L404 444M110 466L404 466" stroke="#3d464d"/>
+  <path d="M315 331L259 454L388 454Z" fill="url(#lamp)"/>
+  <path d="M147 400L351 400L382 424L120 424Z" fill="#795039" stroke="#ac7e59"/>
+  <path d="M135 424V473M365 424V473" stroke="#6c7983" stroke-width="5"/>
+  <rect x="213" y="344" width="78" height="46" fill="#081119" stroke="#8ec4d8" stroke-width="2"/>
+  <path d="M252 390V400M229 401H275" class="blue"/>
+  <path d="M323 400V351L304 335L327 325" stroke="#e5bc8c" stroke-width="4" fill="none"/>
+  <path d="M301 336L320 319L340 335Z" fill="#e5bc8c"/>
+  <path d="M163 402L195 402L202 413L168 413Z" fill="#dfd8c3"/>
+  <circle cx="260" cy="478" r="12" fill="#e5bc8c"/><path d="M256 470L273 478L256 486" stroke="#101a24" stroke-width="2" fill="none"/>
+  <text x="80" y="530" class="copy">Nom, rôle, conviction, parcours.</text>
+  <text x="80" y="560" class="copy">Liens Work et LinkedIn immédiats.</text>
+  <text x="80" y="603" class="small">CAMÉRA · plan de trois quarts,</text>
+  <text x="80" y="626" class="small">puis rapprochement doux vers le bureau.</text>
+
+  <path d="M560 391L843 391L891 446L523 446Z" fill="#5f4635" stroke="#b18a61"/>
+  <path d="M550 446V477M865 446V477" stroke="#6c7983" stroke-width="5"/>
+  <ellipse cx="707" cy="373" rx="133" ry="69" fill="none" stroke="#7eaabe" stroke-opacity=".4"/>
+  <ellipse cx="707" cy="373" rx="86" ry="51" fill="none" stroke="#b7abed" stroke-opacity=".6" transform="rotate(-15 707 373)"/>
+  <path d="M587 351L638 319L758 318L830 378L754 421L662 407Z" fill="none" stroke="#e5bc8c" stroke-width="2"/>
+  <path d="M587 351L707 369L758 318M707 369L754 421M638 319L662 407" class="blue"/>
+  <circle cx="587" cy="351" r="6" class="node"/><circle cx="638" cy="319" r="6" class="node"/><circle cx="758" cy="318" r="6" class="node"/><circle cx="830" cy="378" r="6" class="node"/><circle cx="754" cy="421" r="6" class="node"/><circle cx="662" cy="407" r="6" class="node"/>
+  <rect x="681" y="345" width="53" height="48" rx="3" fill="#e5bc8c"/>
+  <text x="707" y="375" text-anchor="middle" font-size="16" fill="#111820" style="fill:#111820">Idée</text>
+  <path d="M547 472Q700 513 866 472" class="line" marker-end="url(#arrow)"/>
+  <text x="514" y="530" class="copy">Le problème devient un système testable.</text>
+  <text x="514" y="560" class="copy">Puis les liens s’ouvrent en Skill Map.</text>
+  <text x="514" y="603" class="small">CAMÉRA · petit arc, avancée, recul.</text>
+  <text x="514" y="626" class="small">Arrêt frontal pour l’exploration des compétences.</text>
+
+  <path d="M1031 479L1100 302H1347L1354 479" stroke="#3d4c5b" fill="none"/>
+  <path d="M1031 479H1354M1051 442H1352M1068 400H1350M1085 349H1348" stroke="#3d4c5b"/>
+  <rect x="1084" y="330" width="85" height="96" fill="#17322d" stroke="#8dc8b5"/>
+  <rect x="1100" y="347" width="54" height="39" fill="#0a1917" stroke="#8dc8b5"/>
+  <path d="M1107 374L1122 357L1131 374L1147 361" stroke="#8dc8b5" fill="none"/>
+  <text x="1126" y="408" text-anchor="middle" font-size="15">MnemeMind</text>
+  <rect x="1210" y="317" width="69" height="65" fill="#302626" stroke="#bf9b87"/>
+  <path d="M1232 332L1259 349L1232 366Z" fill="#bf9b87"/>
+  <rect x="1297" y="306" width="40" height="47" fill="#252936" stroke="#b7abed"/>
+  <path d="M1305 340V325M1315 340V316M1325 340V320" stroke="#b7abed" stroke-width="4"/>
+  <path d="M1045 469C1135 469 1170 449 1188 418" class="line" marker-end="url(#arrow)"/>
+  <text x="1006" y="530" class="copy">Une preuve forte pour chaque projet.</text>
+  <text x="1006" y="560" class="copy">Médias dans la pièce, détails sur place.</text>
+  <text x="1006" y="603" class="small">CAMÉRA · entrée latérale courte,</text>
+  <text x="1006" y="626" class="small">puis cadrages stables pendant la lecture.</text>
+
+  <path d="M458 430H487" class="line" marker-end="url(#arrow)"/>
+  <path d="M950 430H979" class="line" marker-end="url(#arrow)"/>
+  <text x="56" y="704" class="eyebrow">LE FIL CONDUCTEUR / UN MÊME PROBLÈME SE TRANSFORME</text>
+
+  <text x="80" y="757" class="step">01 / Understand</text><text x="80" y="788" class="small">Clarifier le besoin</text>
+  <text x="360" y="757" class="step">02 / Build</text><text x="360" y="788" class="small">Coordonner et construire</text>
+  <text x="640" y="757" class="step">03 / Test</text><text x="640" y="788" class="small">Confronter à l’usage</text>
+  <text x="920" y="757" class="step">04 / Learn</text><text x="920" y="788" class="small">Interpréter les résultats</text>
+  <text x="1190" y="757" class="step">05 / Iterate</text><text x="1190" y="788" class="small">Revoir l’approche</text>
+  <path d="M284 749H333M541 749H613M804 749H893M1077 749H1163" class="line" marker-end="url(#arrow)"/>
+  <path d="M1280 803V826H156V803" class="blue"/>
+  <text x="720" y="822" text-anchor="middle" class="small" style="fill:#8ec4d8;paint-order:stroke;stroke:#0b131d;stroke-width:10">Le système évolue ; la caméra poursuit la visite.</text>
+
+  <rect x="56" y="854" width="1328" height="1" fill="#3d4c5b"/>
+  <text x="56" y="898" class="head">La 3D guide la découverte. Le contenu reste lisible.</text>
+  <text x="56" y="937" class="copy">Accès direct Profile / Skills / Work · Projets avec URL · Lecture sur place · Aucun son automatique</text>
+  <text x="56" y="973" class="copy">Sur mobile et en mouvement réduit : même histoire, déplacements simplifiés, preuves accessibles immédiatement.</text>
+  <text x="56" y="1018" class="small">Schéma narratif non coté. Les positions et les dégagements seront validés dans la scène existante après accord.</text>
+</svg>

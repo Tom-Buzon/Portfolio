@@ -2,6 +2,22 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { CatmullRomCurve3, Vector3 } from 'three';
 import { measureTour, sampleTour, tourRoutes } from '../src/scene/tour.js';
+import { roomDestination, visitStops } from '../src/lib/scrollStory.js';
+
+test('a stopped doorway gesture completes toward the intended room, and leaves reading poses alone',()=>{
+  const tops=[3000,4200,5500],height=1000;
+  assert.equal(roomDestination(tops,3500,height,1),4180);
+  assert.equal(roomDestination(tops,3500,height,-1),2980);
+  assert.equal(roomDestination(tops,4800,height,1),5480);
+  assert.equal(roomDestination(tops,4800,height,-1),4180);
+  assert.equal(roomDestination(tops,4080,height,1),null);
+  assert.equal(roomDestination(tops,1000,height,1),null);
+});
+
+test('a scroll-only project visit reaches every supplied medium and evidence chapter in order',()=>{
+  const chapters=[{items:[{id:'a'},{id:'b'},{id:'c'}]},{items:[],graphic:'results'},{items:[{id:'d'}]}];
+  assert.deepEqual(visitStops(chapters).map(s=>[s.chapter,s.media,s.item?.id]),[[0,0,'a'],[0,1,'b'],[0,2,'c'],[1,0,undefined],[2,0,'d']]);
+});
 
 test('a crossing keeps travelling through its entire visible interval without a dead final screen',()=>{
   const stops=measureTour([{top:0,height:800,from:0},{top:1600,height:600,from:1,to:2},{top:2200,height:1100,from:2}],800);
@@ -30,8 +46,9 @@ test('cinematic arcs stay inside the expanded rooms and outside gallery objects,
   for(const [route,stops] of Object.entries(tourRoutes)){
     const curve=new CatmullRomCurve3(stops.map(p=>new Vector3(...p.slice(0,3))),false,'centripetal');
     let distance=0,previous=curve.getPoint(0);
-    for(let i=1;i<=800;i++){
-      const p=curve.getPoint(i/800);distance+=p.distanceTo(previous);
+    const samples=stops.length*100;
+    for(let i=1;i<=samples;i++){
+      const p=curve.getPoint(i/samples);distance+=p.distanceTo(previous);
       assert.ok(p.distanceTo(previous)<.25,'no discontinuous camera segment');previous=p;
       for(const mobile of [false,true]){
         const x=p.x,y=p.y+(mobile?.65:0),z=p.z;
@@ -50,11 +67,32 @@ test('cinematic arcs stay inside the expanded rooms and outside gallery objects,
           assert.ok(x>-7.4 && x<7.7 && z>-59 && z<15);
           for(const stationZ of [0,-14,-28,-42,-54])assert.ok(Math.hypot(x-1.1,z-stationZ)>3,'home arcs clear the workstations');
         }
-        const ridge=route==='home'?0:route==='agency'&&x<-8?-16:route==='portfolio'&&x>8?16:0;
-        const ceiling=route==='home'?10-Math.abs(x)*5.5/8:9-Math.abs(x-ridge)*4.5/8;
+        if(route==='whoami'){
+          assert.ok(x>-23.4&&x<23.4&&z>-86&&z<15);
+          if(x<-8)assert.ok(z>-11.5&&z<5.5,'supervision room envelope');
+          if(x>8){assert.ok(x<14.2,'gallery route stays in the clear aisle');}
+          if(Math.abs(x+8)<.3)assert.ok(z>-7.6&&z<-.1,'use the supervision doorway');
+          if(Math.abs(x-8)<.3)assert.ok([[-14,-9],[-33,-25],[-51,-43]].some(([back,front])=>z>back+.2&&z<front-.2),'use an actual opening between rooms');
+          if(Math.abs(z+6.5)<.55)assert.ok(x<-1.5||x>6.6,'clear the new welcome bookshelves');
+        }
+        const ridge=x<-8?-16:x>8?16:0;
+        const ceiling=ridge===0?10-Math.abs(x)*5.5/8:9-Math.abs(x-ridge)*4.5/8;
         assert.ok(y<ceiling-.2,`${route} camera below rafters at ${x.toFixed(2)}, ${y.toFixed(2)}, ${z.toFixed(2)}`);
       }
     }
     assert.ok(distance>(route==='agency'?24:45),'keep the original sense of travel');
+  }
+});
+
+test('optional case-study height extends its own reading pose and preserves subsequent travel',()=>{
+  for(const height of [1000,3200,6100])for(const viewport of [720,844,1080]){
+    const top=5000,next=top+height;
+    const stops=measureTour([{top:top-1000,height:800,from:7.4},{top,height,from:8,hold:true},{top:next,height:1200,from:9,hold:true}],viewport);
+    assert.equal(sampleTour(stops,top),8);
+    assert.equal(sampleTour(stops,top+height-viewport),8);
+    assert.equal(sampleTour(stops,next),9);
+    for(let i=1;i<stops.length;i++)assert.ok(stops[i].y>stops[i-1].y&&stops[i].p>=stops[i-1].p);
+    const position=top+height/2;const forward=sampleTour(stops,position);sampleTour(stops,next+999);
+    assert.equal(sampleTour(stops,position),forward);
   }
 });
