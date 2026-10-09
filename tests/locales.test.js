@@ -20,17 +20,17 @@ test('language routing preserves anchors and data identifiers',async()=>{
 });
 
 test('project-site routes, language switches and runtime textures retain the deployment prefix',async()=>{
- const vite=await createServer({configFile:false,optimizeDeps:{noDiscovery:true,include:[]},base:'/M-IA/',server:{middlewareMode:true},appType:'custom'});
+ const vite=await createServer({configFile:false,optimizeDeps:{noDiscovery:true,include:[]},base:'/Portfolio/',server:{middlewareMode:true},appType:'custom'});
  try{
   const {localeUrl}=await vite.ssrLoadModule('/src/i18n/core.js');
   const {publicUrl}=await vite.ssrLoadModule('/src/lib/publicUrl.js');
-  assert.equal(localeUrl('/agence/#brief','nl'),'/M-IA/nl/agence/#brief');
-  assert.equal(localeUrl('/M-IA/en/portfolio/#vesper','fr'),'/M-IA/portfolio/#vesper');
-  assert.equal(localeUrl('/','en'),'/M-IA/en/');
+  assert.equal(localeUrl('/agence/#brief','nl'),'/Portfolio/nl/agence/#brief');
+  assert.equal(localeUrl('/Portfolio/en/portfolio/#vesper','fr'),'/Portfolio/portfolio/#vesper');
+  assert.equal(localeUrl('/','en'),'/Portfolio/en/');
   assert.equal(localeUrl('#methode','nl'),'#methode');
   assert.equal(localeUrl('https://example.com/','en'),'https://example.com/');
-  assert.equal(publicUrl('/images/vesper.webp'),'/M-IA/images/vesper.webp');
-  assert.equal(publicUrl('/M-IA/images/vesper.webp'),'/M-IA/images/vesper.webp');
+  assert.equal(publicUrl('/images/vesper.webp'),'/Portfolio/images/vesper.webp');
+  assert.equal(publicUrl('/Portfolio/images/vesper.webp'),'/Portfolio/images/vesper.webp');
   assert.equal(publicUrl('//example.com/image.webp'),'//example.com/image.webp');
  }finally{await vite.close();}
 });
@@ -46,6 +46,20 @@ test('all 33 personal portfolio entries preserve assets, project links, language
    assert.equal((html.match(/<h1[ >]/g)||[]).length,1);
    assert.match(html,/hreflang="fr"/);assert.match(html,/hreflang="en"/);assert.match(html,/hreflang="nl"/);
    assert.match(html,/<link rel="canonical" href="https:\/\/[^"]+"/);
+   if(base!=='/'){
+     const canonicalRoute=route.anchor?{...route,path:''}:route;
+     const canonical=new URL(html.match(/<link rel="canonical" href="([^"]+)"/)[1]);
+     assert.equal(canonical.pathname,base+directory(locale,canonicalRoute));
+     assert.equal(html.match(/property="og:url" content="([^"]+)"/)[1],canonical.href);
+     for(const lang of languages){
+       const alternate=new URL(html.match(new RegExp('hreflang="'+lang+'" href="([^"]+)"'))[1]);
+       assert.equal(alternate.origin,canonical.origin);
+       assert.equal(alternate.pathname,base+directory(lang,canonicalRoute));
+     }
+     const image=new URL(html.match(/property="og:image" content="([^"]+)"/)[1]);
+     assert.equal(image.origin,canonical.origin);
+     assert.ok(image.pathname.startsWith(base),'Sharing images must use the deployment prefix');
+   }
    assert.ok(!html.includes('chat-launcher'));
    assert.ok(!html.includes('Attic Factory'));
    if(route.project){
@@ -63,7 +77,7 @@ test('all 33 personal portfolio entries preserve assets, project links, language
      await access('dist/'+file+(file.endsWith('/')||!file?'index.html':''));
    }
  }
- if(base==='/M-IA/'){
+ if(base!=='/'){
    assert.ok(!home.includes('chat-launcher'),'the static demo must not offer the unavailable API');
    await access('dist/.nojekyll');
  }

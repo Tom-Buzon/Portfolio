@@ -3,7 +3,7 @@ import { languages, routes, directory } from './routes.js';
 import { projects } from '../src/content/projects.js';
 import { copy, localize } from '../src/content/copy.js';
 const media=JSON.parse(await readFile('src/content/media.json','utf8'));
-const site=(process.env.SITE_URL || 'https://tom-buzon.github.io/M-IA/').replace(/\/?$/,'/');
+const site=(process.env.SITE_URL || 'https://tom-buzon.github.io/Portfolio/').replace(/\/?$/,'/');
 const escape=value=>String(value).replaceAll('&','&amp;').replaceAll('"','&quot;').replaceAll('<','&lt;').replaceAll('>','&gt;');
 for(const locale of languages)for(const route of routes){
   const c=localize(copy,locale),project=localize(projects.find(p=>p.id===route.project),locale);

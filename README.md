@@ -90,6 +90,8 @@ Le test `tests/tour.test.js` couvre les hauteurs variables, le retour arrière e
 
 Le déploiement est géré par `.github/workflows/pages.yml` : installation, lint, build statique, tests puis publication de `dist`. Dans Settings → Pages, la source doit être **GitHub Actions**, et non « Deploy from a branch » à la racine (qui publierait le code source JSX).
 
-`npm run build:pages` prépare les neuf pages sous `/M-IA/` et masque le chat pour cette démo sans serveur. Les liens de navigation, changements de langue, images et textures WebGL utilisent ce préfixe. Aucun secret ni `.env` n’est requis par GitHub Actions. `npm run build` conserve la version complète à la racine avec son chat.
+Le site public est disponible sur https://tom-buzon.github.io/Portfolio/. Le workflow lit l’URL et le préfixe réels avec `actions/configure-pages`, puis les transmet au build via `SITE_URL` et `SITE_BASE`. Les publications suivent ainsi le nom du dépôt ou un domaine personnalisé configuré dans Pages.
 
-Pour un autre préfixe, définir `SITE_BASE` avant le build. Pour un domaine dédié à la racine : `SITE_BASE=/`. La démo reste une version de présentation ; le backend OpenRouter n’est pas publié sur Pages.
+`npm run build:pages` prépare les 33 pages sous `/Portfolio/` par défaut en local. Les liens de navigation, changements de langue, images, textures WebGL et métadonnées de partage utilisent ce préfixe. Aucun secret ni `.env` n’est requis par GitHub Actions. `npm run build` conserve la version complète à la racine avec son chat.
+
+Pour un autre emplacement en local, définir `SITE_BASE` et `SITE_URL` avant le build. Pour un domaine dédié à la racine : `SITE_BASE=/` et `SITE_URL=https://votre-domaine/`. Le backend OpenRouter n’est pas publié sur Pages.
