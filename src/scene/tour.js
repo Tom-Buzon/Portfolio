@@ -35,12 +35,12 @@ export const tourRoutes = {
 
 export function measureTour(elements, viewportHeight) {
   const stops = [];
-  for (const { top, height, from, to, hold } of elements) {
+  for (const { top, height, from, to, hold, ease } of elements) {
     if (hold) {
       // Keep a reading pose while optional inline content grows. Travel in the
       // gap between the end of one reading interval and the next one.
       const start=Math.max(0,top-viewportHeight*.12);
-      stops.push({y:start,p:from},{y:Math.max(start+1,top+height-viewportHeight*.92),p:from});
+      stops.push({y:start,p:from,easeIn:ease},{y:Math.max(start+1,top+height-viewportHeight*.92),p:from,easeOut:ease});
     }
     else if (to === undefined) stops.push({ y: Math.max(0, top - viewportHeight * .22), p: from });
     else {
@@ -59,7 +59,8 @@ export function sampleTour(stops, y) {
   for (let i=1;i<stops.length;i++) {
     if (y <= stops[i].y) {
       const a=stops[i-1],b=stops[i];
-      return a.p+(b.p-a.p)*(y-a.y)/(b.y-a.y);
+      const t=(y-a.y)/(b.y-a.y),blend=a.easeOut||b.easeIn?t*t*(3-2*t):t;
+      return a.p+(b.p-a.p)*blend;
     }
   }
   return stops.at(-1).p;

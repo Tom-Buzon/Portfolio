@@ -35,3 +35,17 @@ export function installRoomTravel(lenis){
 export function visitStops(chapters){
   return chapters.flatMap((chapter,chapterIndex)=>(chapter.items.length?chapter.items:[null]).map((item,mediaIndex)=>({chapter:chapterIndex,media:mediaIndex,item})));
 }
+
+const clamp01=value=>Math.max(0,Math.min(1,value));
+
+// Five short beats, with a visible response to every scroll gesture.
+export function methodTimeline(passed,height){
+  const beat=height*.32,position=Math.max(0,passed)/beat,step=Math.min(4,Math.floor(position));
+  const arrival=clamp01(-passed/(height*.32));
+  return {step,fill:clamp01(position-step),progress:clamp01(position/5),arrivalOffset:passed<0&&arrival<1?passed*(1-arrival)**2:0};
+}
+
+// The closing panel gets a full approach: reveal it, pull back, then restore the tour.
+export function visitReturnProgress(exitTop,height){
+  return clamp01((height*.8-exitTop)/(height*.7));
+}

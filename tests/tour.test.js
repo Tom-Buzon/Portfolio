@@ -2,7 +2,41 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { CatmullRomCurve3, Vector3 } from 'three';
 import { measureTour, sampleTour, tourRoutes } from '../src/scene/tour.js';
-import { roomDestination, visitStops } from '../src/lib/scrollStory.js';
+import { roomDestination, visitStops,methodTimeline,visitReturnProgress } from '../src/lib/scrollStory.js';
+
+test('method beats respond continuously, take less than two viewports and reverse cleanly',()=>{
+  const height=1000;
+  for(let step=0;step<5;step++){
+    const start=methodTimeline(step*320,height),halfway=methodTimeline(step*320+160,height);
+    assert.equal(start.step,step);assert.equal(halfway.step,step);
+    assert.ok(Math.abs(halfway.fill-.5)<1e-8);
+  }
+  assert.equal(methodTimeline(1600,height).progress,1);
+  assert.equal(methodTimeline(750,height).step,2);
+  assert.equal(methodTimeline(500,height).step,1);
+  assert.equal(methodTimeline(-400,height).arrivalOffset,0);
+  assert.ok(methodTimeline(-160,height).arrivalOffset<0);
+  assert.equal(methodTimeline(0,height).arrivalOffset,0);
+});
+
+test('the project return reveals its intent before completion and can be reversed mid-approach',()=>{
+  assert.equal(visitReturnProgress(850,1000),0);
+  assert.equal(visitReturnProgress(800,1000),0);
+  assert.equal(visitReturnProgress(450,1000),.5);
+  assert.equal(visitReturnProgress(100,1000),1);
+  assert.equal(visitReturnProgress(900,1000),0);
+});
+
+test('the method camera decelerates into its reading pose and accelerates out smoothly',()=>{
+  const stops=measureTour([{top:0,height:800,from:0},{top:1200,height:2600,from:1,hold:true,ease:true},{top:4000,height:800,from:2}],1000);
+  const arrival=1080;
+  const early=sampleTour(stops,arrival-100)-sampleTour(stops,arrival-110);
+  const late=sampleTour(stops,arrival)-sampleTour(stops,arrival-10);
+  assert.ok(late<early/5);
+  assert.equal(sampleTour(stops,1200),1);
+  assert.equal(sampleTour(stops,2800),1);
+  assert.equal(sampleTour(stops,4000),2);
+});
 
 test('a stopped doorway gesture completes toward the intended room, and leaves reading poses alone',()=>{
   const tops=[3000,4200,5500],height=1000;

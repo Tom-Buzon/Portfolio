@@ -10,9 +10,10 @@ import AtticWorld from './components/AtticWorld';
 import Whoami from './pages/Whoami';
 import { useMotion } from './lib/useMotion';
 import { plainClick,scrollPage } from './lib/navigation';
+import { captureReadingPosition,saveReadingPosition } from './lib/languagePosition';
 
 function Roof() { return <svg viewBox="0 0 38 32" aria-hidden="true"><path d="M3 27 19 5l16 22M11 27l8-11 8 11M19 5v-3" fill="none" stroke="currentColor" strokeWidth="2.2" /></svg>; }
-function Shell({ project, anchor }) {
+function Shell({ project, anchor, readingPosition }) {
   const { locale, url } = useLocale();
   const c = localize(copy, locale);
   const [active, setActive] = useState('profile'), [motion, setMotion] = useState(true), [systemReduced, setSystemReduced] = useState(false);
@@ -50,7 +51,14 @@ function Shell({ project, anchor }) {
     if (!plainClick(event)) return;
     event.preventDefault(); window.dispatchEvent(new CustomEvent('whoami:navigate', { detail:id }));
   };
-  const languages = <div className="language-switch" role="group" aria-label="Language">{['fr','en','nl'].map(lang => <a key={lang} href={localeUrl(currentProject ? `/work/${currentProject}/` : `/#${active}`,lang)} hrefLang={lang} lang={lang} aria-current={lang === locale ? 'true' : undefined} aria-label={{fr:'Français',en:'English',nl:'Nederlands'}[lang]}>{lang.toUpperCase()}</a>)}</div>;
+  const changeLanguage=(event,lang)=>{
+    if(!plainClick(event))return;
+    event.preventDefault();if(lang===locale)return;
+    const position=captureReadingPosition();
+    const destination=localeUrl(position.project?`/work/${position.project}/`:`/#${position.section}`,lang);
+    saveReadingPosition(position,destination);location.assign(destination);
+  };
+  const languages = <div className="language-switch" role="group" aria-label="Language">{['fr','en','nl'].map(lang => <a key={lang} href={localeUrl(currentProject ? `/work/${currentProject}/` : `/#${active}`,lang)} onClick={event=>changeLanguage(event,lang)} hrefLang={lang} lang={lang} aria-current={lang === locale ? 'true' : undefined} aria-label={{fr:'Français',en:'English',nl:'Nederlands'}[lang]}>{lang.toUpperCase()}</a>)}</div>;
   return <div className="site page-whoami" id="top">
     <ArrivalLoader /><AtticWorld page="whoami" />
     <a className="skip-link" href="#main">{c.skip}</a>
@@ -61,11 +69,11 @@ function Shell({ project, anchor }) {
       <div className="header-actions">{languages}</div>
     </header>
     <nav className="chapter-rail" aria-label={c.menu}>{chapters.map(([id,label],i) => <a key={id} href={url('/#'+id)} onClick={event => go(event,id)} aria-label={label} aria-current={active === id ? 'location' : undefined}><span>{label}</span><i /><small>0{i+1}</small></a>)}</nav>
-    <main id="main"><Whoami initialProject={project} initialAnchor={anchor} /></main>
+    <main id="main"><Whoami initialProject={project} initialAnchor={anchor} readingPosition={readingPosition}/></main>
     <footer className="site-footer personal-footer"><div className="footer-top"><a className="brand" href={url('/')} onClick={event => go(event,'top')}><Roof /><span>tom buzon.</span></a><p>{c.location}<br />Strategy, technology & hands-on delivery</p><a href={'mailto:'+email}>{c.email} ↗</a></div><div className="footer-bottom"><span>© {new Date().getFullYear()} Tom Buzon</span><nav aria-label={c.menu}>{chapters.map(([id,label]) => <a key={id} href={url('/#'+id)} onClick={event => go(event,id)}>{label}</a>)}<a href="https://www.linkedin.com/in/tom-buzon-93833b229/" target="_blank" rel="noreferrer">LinkedIn ↗</a></nav><span>WHOAMI</span></div></footer>
     <button className="motion-toggle" disabled={systemReduced} title={systemReduced ? c.reduced : undefined} aria-pressed={!motion} onClick={toggleMotion}><span className="motion-bars" aria-hidden="true"><i /><i /><i /></span>{motion ? c.motionOn : c.motionOff}</button>
   </div>;
 }
-Shell.propTypes = { project:PropTypes.string, anchor:PropTypes.string };
-export default function App({ locale = 'fr', project = '', anchor = '' }) { return <LocaleProvider locale={locale}><Shell project={project} anchor={anchor} /></LocaleProvider>; }
-App.propTypes = { locale:PropTypes.string, project:PropTypes.string, anchor:PropTypes.string };
+Shell.propTypes = { project:PropTypes.string, anchor:PropTypes.string, readingPosition:PropTypes.object };
+export default function App({ locale = 'fr', project = '', anchor = '', readingPosition }) { return <LocaleProvider locale={locale}><Shell project={project} anchor={anchor} readingPosition={readingPosition}/></LocaleProvider>; }
+App.propTypes = { locale:PropTypes.string, project:PropTypes.string, anchor:PropTypes.string, readingPosition:PropTypes.object };

@@ -426,7 +426,7 @@ export function createAtticWorld(host, { page, onReady, onFailure }) {
   function measure(){
     stops=measureTour([...document.querySelectorAll('[data-scene-stop]')].filter(el=>el.offsetHeight>0).map(el=>({
       top:el.getBoundingClientRect().top+scrollY,height:el.offsetHeight,
-      from:Number(el.dataset.sceneStop),to:el.hasAttribute('data-scene-to')?Number(el.dataset.sceneTo):undefined,hold:el.hasAttribute('data-scene-hold'),
+      from:Number(el.dataset.sceneStop),to:el.hasAttribute('data-scene-to')?Number(el.dataset.sceneTo):undefined,hold:el.hasAttribute('data-scene-hold'),ease:el.hasAttribute('data-scene-ease'),
     })),innerHeight);
     updateScroll();
   }
@@ -456,7 +456,9 @@ export function createAtticWorld(host, { page, onReady, onFailure }) {
       if(focusProject!==visit.dataset.project){focusProject=visit.dataset.project;lastFocus=null;focusBlend=0;}
       inspection=gallery.focus(visit.dataset.project,visit.dataset.inspectScreen);
     }else if(!visit){focusProject='';}
-    focusBlend+=((inspection?1:0)-focusBlend)*(1-Math.exp(-delta*8));
+    const retreat=Number(visit?.dataset.exitProgress)||0;
+    const focusTarget=inspection?1-retreat*retreat*(3-2*retreat):0;
+    focusBlend+=(focusTarget-focusBlend)*(1-Math.exp(-delta*(retreat>0?6:8)));
     if(inspection){if(!lastFocus)lastFocus={position:desiredPosition.clone(),look:desiredLook.clone()};lastFocus.position.lerp(inspection.position,smoothing);lastFocus.look.lerp(inspection.look,smoothing);}
     if(lastFocus){desiredPosition.lerp(lastFocus.position,focusBlend);desiredLook.lerp(lastFocus.look,focusBlend);}
     menuBlend+=((menuOpen?1:0)-menuBlend)*smoothing;
