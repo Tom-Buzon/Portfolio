@@ -88,7 +88,7 @@ main>.inspect{grid-column:2;grid-row:2;position:relative;inset:auto;width:100%;h
 /* On a short screen the selected title already appears in the select. Keep every skill and logo, trim repeated labels. */
 @media(max-height:460px){.under .detail h2,.under .detail p,.under .tools h3,.under .tools .note{display:none}.under .detail,.under .tools{padding:14px}.under .tags{margin-top:14px;gap:5px}.under .tag,.under .detail:has(.tag:nth-child(7)) .tag{font-size:12px;padding:6px}.under .toolcaps{margin:12px 0 0;gap:6px}}
 </style>
-</head>
+<link rel="stylesheet" href="./responsive.css?v=20261010-6c"></head>
 <body>
 <main class="wrap">
 
@@ -199,4 +199,4 @@ document.querySelectorAll('.station').forEach(station=>{const box=station.getBBo
 let lastHeight=0;
 new ResizeObserver(()=>{const height=Math.ceil(document.querySelector('main').getBoundingClientRect().height);if(height!==lastHeight){lastHeight=height;parent.postMessage({type:'whoami:atlas-height',height},location.origin)}}).observe(document.querySelector('main'));
 window.addEventListener('message',event=>{if(event.origin!==location.origin||event.source!==parent||event.data?.type!=='whoami:atlas-motion')return;const paused=!event.data.enabled;document.documentElement.dataset.paused=String(paused);const svg=document.getElementById('map');if(paused)svg.pauseAnimations();else svg.unpauseAnimations()});
-</script></body></html>
+</script><script src="./responsive.js?v=20261010-6c"></script></body></html>

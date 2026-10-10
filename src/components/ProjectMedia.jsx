@@ -30,7 +30,7 @@ export function VideoPlayer({item,worldId,onInspect}) {
     return()=>{observer.disconnect();document.removeEventListener('visibilitychange',pause);node?.pause();};
   },[]);
   return <div className={'world-surface video-surface video-'+item.id} data-world-screen={worldId} style={{'--media-ratio':`${a.width}/${a.height}`}}>
-    <video ref={player} src={publicUrl(a.src)} poster={publicUrl(a.poster)} controls={playing} preload="none" playsInline aria-label={item.title} onPlay={()=>{document.querySelectorAll('video').forEach(other=>{if(other!==player.current)other.pause();});setPlaying(true);onInspect?.(item.id);}} onPause={()=>setPlaying(false)} onEnded={()=>setPlaying(false)} onError={()=>setError(true)} />
+    <video ref={player} data-media-id={item.id} src={publicUrl(a.src)} poster={publicUrl(a.poster)} controls={playing} preload="none" playsInline aria-label={item.title} onPlay={()=>{document.querySelectorAll('video').forEach(other=>{if(other!==player.current)other.pause();});setPlaying(true);onInspect?.(item.id);}} onPause={()=>setPlaying(false)} onEnded={()=>setPlaying(false)} onError={()=>setError(true)} />
     {!playing && !error && <button className="video-play" onClick={()=>{setError(false);player.current.play().catch(()=>setError(true));}}><span className="play-icon" aria-hidden="true">▶</span><span>{item.title}<small>{Math.floor(a.duration/60)}:{String(Math.round(a.duration%60)).padStart(2,'0')} · {c.play}</small></span></button>}
     {error && <a className="media-error" href={publicUrl(a.src)}>{c.mediaError} ↗</a>}
   </div>;

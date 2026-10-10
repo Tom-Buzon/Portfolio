@@ -96,4 +96,4 @@ export const projects = [
   },
 ];
 export const projectIds = projects.map(project => project.id);
-export const aliases = { mastermind:'mnememind', frameforge:'clipgenerator', matiere:'explorations', blender:'explorations', myagents:'atticagentwatcher', tom:'profile', methode:'approach', brief:'contact', services:'skills', depart:'profile', atelier:'work', archives:'explorations', origine:'profile', questions:'contact' };
+export const aliases = { mastermind:'mnememind', frameforge:'clipgenerator', matiere:'explorations', blender:'explorations', myagents:'atticagentwatcher', background:'approach', profile:'approach', tom:'approach', methode:'approach', brief:'contact', services:'skills', depart:'approach', atelier:'work', archives:'explorations', origine:'approach', questions:'contact' };

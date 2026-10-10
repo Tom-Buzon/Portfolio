@@ -5,6 +5,8 @@ import { localeUrl } from './i18n/core';
 import { copy, localize } from './content/copy';
 import { email } from './data';
 import SignalText from './components/SignalText';
+import SceneNavigator from './components/SceneNavigator';
+import AnalyticsConsent from './components/AnalyticsConsent';
 import ArrivalLoader from './components/ArrivalLoader';
 import AtticWorld from './components/AtticWorld';
 import Whoami from './pages/Whoami';
@@ -16,9 +18,9 @@ function Roof() { return <svg viewBox="0 0 38 32" aria-hidden="true"><path d="M3
 function Shell({ project, anchor, readingPosition }) {
   const { locale, url } = useLocale();
   const c = localize(copy, locale);
-  const [active, setActive] = useState('profile'), [motion, setMotion] = useState(true), [systemReduced, setSystemReduced] = useState(false);
+  const [active, setActive] = useState('approach'), [motion, setMotion] = useState(true), [systemReduced, setSystemReduced] = useState(false);
   const [currentProject, setCurrentProject] = useState(project);
-  const chapters = [['profile', c.profile], ['approach', c.skills], ['work', c.work]];
+  const chapters = [['approach', c.method], ['skills', locale==='fr'?'Compétences':locale==='nl'?'Vaardigheden':'Skills'], ['work', c.work]];
   useMotion(motion, 'whoami');
   useEffect(() => {
     const media = matchMedia('(prefers-reduced-motion: reduce)');
@@ -30,9 +32,9 @@ function Shell({ project, anchor, readingPosition }) {
   useEffect(() => {
     const read = () => {
       if(document.querySelector('.project-visit')){setActive('work');return;}
-      const sections = ['profile', 'approach', 'skills', 'work'].map(id => document.getElementById(id)).filter(Boolean);
-      let chosen = 'profile';
-      for (const section of sections) if (section.getBoundingClientRect().top < innerHeight * .5) chosen = section.id==='skills'?'approach':section.id;
+      const sections = ['approach', 'skills', 'work'].map(id => document.getElementById(id)).filter(Boolean);
+      let chosen = 'approach';
+      for (const section of sections) if (section.getBoundingClientRect().top < innerHeight * .5) chosen = section.id;
       setActive(chosen);
     };
     const route = event => {setCurrentProject(event.detail || '');if(event.detail)setActive('work');};
@@ -68,9 +70,9 @@ function Shell({ project, anchor, readingPosition }) {
       <nav className="header-sections" aria-label={c.menu}>{chapters.map(([id,label])=><a key={id} href={url('/#'+id)} aria-current={active===id?'location':undefined} onClick={event=>go(event,id)}><SignalText text={label} active={active===id}/></a>)}</nav>
       <div className="header-actions">{languages}</div>
     </header>
-    <nav className="chapter-rail" aria-label={c.menu}>{chapters.map(([id,label],i) => <a key={id} href={url('/#'+id)} onClick={event => go(event,id)} aria-label={label} aria-current={active === id ? 'location' : undefined}><span>{label}</span><i /><small>0{i+1}</small></a>)}</nav>
+    <SceneNavigator project={currentProject}/>
     <main id="main"><Whoami initialProject={project} initialAnchor={anchor} readingPosition={readingPosition}/></main>
-    <footer className="site-footer personal-footer"><div className="footer-top"><a className="brand" href={url('/')} onClick={event => go(event,'top')}><Roof /><span>tom buzon.</span></a><p>{c.location}<br />Strategy, technology & hands-on delivery</p><a href={'mailto:'+email}>{c.email} ↗</a></div><div className="footer-bottom"><span>© {new Date().getFullYear()} Tom Buzon</span><nav aria-label={c.menu}>{chapters.map(([id,label]) => <a key={id} href={url('/#'+id)} onClick={event => go(event,id)}>{label}</a>)}<a href="https://www.linkedin.com/in/tom-buzon-93833b229/" target="_blank" rel="noreferrer">LinkedIn ↗</a></nav><span>WHOAMI</span></div></footer>
+    <footer className="site-footer personal-footer"><div className="footer-top"><a className="brand" href={url('/')} onClick={event => go(event,'top')}><Roof /><span>tom buzon.</span></a><p>{c.location}<br />Strategy, technology & hands-on delivery</p><a href={'mailto:'+email}>{c.email} ↗</a></div><div className="footer-bottom"><span>© {new Date().getFullYear()} Tom Buzon</span><nav aria-label={c.menu}>{chapters.map(([id,label]) => <a key={id} href={url('/#'+id)} onClick={event => go(event,id)}>{label}</a>)}<a href="https://www.linkedin.com/in/tom-buzon-93833b229/" target="_blank" rel="noreferrer">LinkedIn ↗</a></nav><AnalyticsConsent /></div></footer>
     <button className="motion-toggle" disabled={systemReduced} title={systemReduced ? c.reduced : undefined} aria-pressed={!motion} onClick={toggleMotion}><span className="motion-bars" aria-hidden="true"><i /><i /><i /></span>{motion ? c.motionOn : c.motionOff}</button>
   </div>;
 }

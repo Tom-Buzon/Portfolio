@@ -77,6 +77,9 @@ let lastHeight=0;
 new ResizeObserver(()=>{const height=Math.ceil(document.querySelector('main').getBoundingClientRect().height);if(height!==lastHeight){lastHeight=height;parent.postMessage({type:'whoami:atlas-height',height},location.origin)}}).observe(document.querySelector('main'));
 window.addEventListener('message',event=>{if(event.origin!==location.origin||event.source!==parent||event.data?.type!=='whoami:atlas-motion')return;const paused=!event.data.enabled;document.documentElement.dataset.paused=String(paused);const svg=document.getElementById('map');if(paused)svg.pauseAnimations();else svg.unpauseAnimations()});
 </script>''')
+# Responsive geometry lives in the derivative adapter; preserve original data.
+html = html.replace('</head>', '<link rel="stylesheet" href="./responsive.css?v=20261010-6c"></head>')
+html = html.replace('</body>', '<script src="./responsive.js?v=20261010-6c"></script></body>')
 target = root / 'public/atlas/index.html'
 target.parent.mkdir(parents=True, exist_ok=True)
 target.write_text(html, encoding='utf-8')

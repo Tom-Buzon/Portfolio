@@ -22,11 +22,11 @@ export const skillGroups = [
     ['Physical prototypes',L('Explorer une boucle entre perception et mouvement.','Explore a loop between perception and movement.','Een lus tussen waarneming en beweging verkennen.'),'Raspberry Pi · Python · Vision','car-ai'],
   ]},
   {id:'product',name:'Product & Strategy',color:'#b7abed',items:[
-    ['Problem framing',L('Traduire une situation ambiguë en besoin et en premier périmètre.','Translate ambiguity into a need and an initial scope.','Onduidelijkheid vertalen naar een behoefte en een eerste scope.'),'Discovery · Process maps · Requirements','profile'],
+    ['Problem framing',L('Traduire une situation ambiguë en besoin et en premier périmètre.','Translate ambiguity into a need and an initial scope.','Onduidelijkheid vertalen naar een behoefte en een eerste scope.'),'Discovery · Process maps · Requirements','background'],
     ['Feasibility & POC',L('Formuler une hypothèse, préparer un essai et décider de la suite.','Form a hypothesis, design an experiment and decide what comes next.','Een hypothese formuleren, een proef ontwerpen en het vervolg bepalen.'),'Python · Docker · Notebooks · Git','sft'],
     ['Technical strategy',L('Comparer les architectures et savoir changer d’approche.','Compare architectures and know when to change direction.','Architecturen vergelijken en weten wanneer de aanpak moet veranderen.'),'Architecture · Roadmaps · Trade-offs','atticagentwatcher'],
-    ['Full-stack delivery',L('Relier conception, développement et usage réel.','Connect design, development and real use.','Ontwerp, ontwikkeling en echt gebruik verbinden.'),'Electron · Tauri · Angular · Node.js','profile'],
-    ['Operations & costs',L('Planifier, suivre et transmettre ; distinguer coût observé et estimation.','Plan, track and hand over; distinguish observed cost from estimates.','Plannen, opvolgen en overdragen; gemeten kosten van schattingen onderscheiden.'),'Project control · Reporting · Docker · AWS','profile'],
+    ['Full-stack delivery',L('Relier conception, développement et usage réel.','Connect design, development and real use.','Ontwerp, ontwikkeling en echt gebruik verbinden.'),'Electron · Tauri · Angular · Node.js','background'],
+    ['Operations & costs',L('Planifier, suivre et transmettre ; distinguer coût observé et estimation.','Plan, track and hand over; distinguish observed cost from estimates.','Plannen, opvolgen en overdragen; gemeten kosten van schattingen onderscheiden.'),'Project control · Reporting · Docker · AWS','background'],
   ]},
 ];
 export const explorations = [

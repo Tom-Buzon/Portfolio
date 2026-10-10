@@ -105,15 +105,15 @@ export function createAtticWorld(host, { page, onReady, onFailure }) {
     cylinder(.06,.55,0,-.18,0,steel,group);box(.7,.05,.42,0,-.45,0,steel,group);
     const scan=box(2.42,.014,.004,0,.8,.085,blue,group);animated.push(time=>{scan.position.y=.11+(time*.16)%1.36;scan.material.opacity=.7;});return group;
   }
-  function desk(z){
+  function desk(z,width=5,offset=0){
     const group=new THREE.Group();group.position.set(1.1,0,z);scene.add(group);
-    box(5,.2,2.35,0,1.5,0,oak,group);
-    for(const x of [-2.1,2.1]){box(.12,1.5,1.9,x,.72,0,steel,group);box(.8,.05,2,x,.03,0,black,group);}
+    box(width,.2,2.35,offset,1.5,0,oak,group);
+    for(const x of [offset-width/2+.4,offset+width/2-.4]){box(.12,1.5,1.9,x,.72,0,steel,group);box(.8,.05,2,x,.03,0,black,group);}
     // A translucent light pool anchors the furniture to the floor.
     const pool=add(new THREE.CircleGeometry(4,48),new THREE.MeshBasicMaterial({color:0x203344,transparent:true,opacity:.3,depthWrite:false}),group);pool.rotation.x=-Math.PI/2;pool.position.y=-.02;
     return group;
   }
-  const work=desk(0);
+  const work=desk(0,6.4,.7);
   const welcomeMonitor=monitor(work,.55,2.05,-.65);
   const side=monitor(work,-1.65,2.05,-.45,'BUILD',.67);side.rotation.y=.32;
   box(2,.06,.65,.2,1.66,.65,black,work);

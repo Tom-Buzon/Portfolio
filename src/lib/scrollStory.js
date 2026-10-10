@@ -38,6 +38,14 @@ export function visitStops(chapters){
 
 const clamp01=value=>Math.max(0,Math.min(1,value));
 
+// The outgoing card contracts in the first half of its bar; the next grows
+// during the second half. Scroll drives both, so reversing stays continuous.
+export function methodCardFocus(position,index){
+  if(index===Math.floor(position))return 1-clamp01((position-index)*2);
+  if(index===Math.ceil(position))return clamp01((position-index+.5)*2);
+  return 0;
+}
+
 // Five short beats, with a visible response to every scroll gesture.
 export function methodTimeline(passed,height){
   const beat=height*.32,position=Math.max(0,passed)/beat,step=Math.min(4,Math.floor(position));

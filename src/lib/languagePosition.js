@@ -15,7 +15,8 @@ export function captureReadingPosition(){
     const sections=[...document.querySelectorAll('.general-visit [data-scene-stop]')].filter(node=>node.offsetHeight);
     element=sections[0];
     for(const section of sections)if(section.getBoundingClientRect().top<=innerHeight*.2)element=section;
-    position={section:element?.id||'top',expanded:[...document.querySelectorAll('.general-visit details')].flatMap((node,index)=>node.open?[index]:[])};
+    position={section:element?.id||'top',career:{open:document.querySelector('.career-open')?.getAttribute('aria-expanded')==='true',selected:[...document.querySelectorAll('.career-years button')].findIndex(button=>button.getAttribute('aria-pressed')==='true')},expanded:[...document.querySelectorAll('.general-visit details')].flatMap((node,index)=>node.open?[index]:[])};
+    if(element?.classList.contains('room-threshold')){const card=element.querySelector('.room-card-scene');position.roomPhase=card.getBoundingClientRect().top<=innerHeight*.2?'card':'title';element=element.querySelector(position.roomPhase==='card'?'.room-card-scene':'.room-title-scene');}
   }
   return {...position,offset:element?-element.getBoundingClientRect().top/element.offsetHeight:0};
 }
@@ -38,10 +39,12 @@ export function restoreReadingPosition(position,onRestore=()=>{}){
   const stop=()=>{stopped=true;cancelAnimationFrame(frame);observer?.disconnect();clearTimeout(timer);events.forEach(type=>window.removeEventListener(type,stop,true));};
   const align=()=>{
     if(stopped)return;
-    const element=position.project?document.querySelector(position.exiting?'.project-visit .visit-exit':`.project-visit [data-visit-step="${Number(position.step)||0}"]`):position.section==='top'?document.querySelector('.personal-hero'):document.getElementById(position.section);
+    let element=position.project?document.querySelector(position.exiting?'.project-visit .visit-exit':`.project-visit [data-visit-step="${Number(position.step)||0}"]`):position.section==='top'?document.querySelector('.personal-hero'):document.getElementById(position.section);
+    if(position.roomPhase&&element)element=element.querySelector(position.roomPhase==='card'?'.room-card-scene':'.room-title-scene');
     if(element?.offsetHeight){scrollPage(Math.max(0,element.getBoundingClientRect().top+scrollY+element.offsetHeight*position.offset),true);onRestore();}
   };
   frame=requestAnimationFrame(()=>{
+    if(position.career)window.dispatchEvent(new CustomEvent('whoami:career-restore',{detail:position.career}));
     if(!position.project)document.querySelectorAll('.general-visit details').forEach((node,index)=>{node.open=position.expanded?.includes(index)||false;});
     align();
     observer=new ResizeObserver(align);const main=document.querySelector('main');if(main)observer.observe(main);
