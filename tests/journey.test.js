@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { sceneDestination,travelEase } from '../src/lib/sceneTravel.js';
+import { normalizeSceneStops,sceneDestination,sceneRailProgress,sceneTravelDuration,travelEase } from '../src/lib/sceneTravel.js';
 import { methodCardFocus } from '../src/lib/scrollStory.js';
 import { activeMilliseconds,analyticsUrl,validConsent,installAnalytics,setAnalyticsConsent,track,measurementId } from '../src/lib/analytics.js';
 
@@ -18,9 +18,52 @@ test('scene navigation reads tall content, advances one stop and reverses withou
  assert.equal(sceneDestination([],0,800,1),null);
 });
 test('travel is monotonic, has no overshoot, and slows at both ends',()=>{
- assert.equal(travelEase(0),0);assert.equal(travelEase(1),1);
- for(let i=1;i<=100;i++)assert.ok(travelEase(i/100)>=travelEase((i-1)/100));
+ for(const mobile of [false,true]){
+  assert.equal(travelEase(0,mobile),0);assert.equal(travelEase(1,mobile),1);
+  for(let i=1;i<=100;i++)assert.ok(travelEase(i/100,mobile)>=travelEase((i-1)/100,mobile));
+ }
  assert.ok(travelEase(.01)<.0001);assert.ok(1-travelEase(.99)<.0001);
+});
+test('mobile responds earlier with shorter bounded trips while preserving the desktop timing',()=>{
+ assert.ok(travelEase(.1,true)>travelEase(.1));
+ assert.equal(sceneTravelDuration(800,800),1830);
+ assert.equal(sceneTravelDuration(800,800,{project:true}),1150);
+ for(const distance of [250,800,8000]){
+  const duration=sceneTravelDuration(distance,800,{mobile:true});
+  assert.ok(duration<=1350&&duration<sceneTravelDuration(distance,800));
+ }
+ assert.ok(sceneTravelDuration(800,800,{mobile:true,project:true})<900);
+ assert.ok(sceneTravelDuration(256,800,{mobile:true,method:true})<260);
+});
+test('the contents marker reaches its last node at the reachable bottom and reverses',()=>{
+ const positions=[0,800,1700,2420];
+ assert.deepEqual(sceneRailProgress(positions,2000,2000),{index:3,progress:1});
+ assert.equal(sceneRailProgress(positions,1700,2000).index,2);
+ assert.ok(sceneRailProgress(positions,1800,2000).progress<1);
+ assert.deepEqual(sceneRailProgress([0,800,1700,2420],1600,1600),{index:3,progress:1});
+ assert.deepEqual(sceneRailProgress([],0,0),{index:0,progress:0});
+});
+test('the clamped contact and footer share one reachable stop and allow reversing',()=>{
+ const stops=normalizeSceneStops([
+  {id:'explorations',top:22952,end:23008},
+  {id:'contact',top:24208,end:24208},
+  {id:'footer',top:24908,end:24908},
+ ],23968);
+ assert.equal(stops.length,2);
+ const bottom=sceneDestination(stops,23008,1200,1);
+ assert.equal(bottom,23968);
+ assert.equal(sceneDestination(stops,bottom,1200,-1),23008);
+ assert.equal(sceneDestination(stops,bottom,1200,1),null);
+});
+test('a footer taller than the viewport remains readable through its actual bottom',()=>{
+ const stops=normalizeSceneStops([{id:'contact',top:800,end:900},{id:'footer',top:1400,end:2150}],2150);
+ assert.equal(sceneDestination(stops,900,400,1),1400);
+ let position=1400;
+ for(let i=0;i<4&&position<2150;i++)position=sceneDestination(stops,position,400,1);
+ assert.equal(position,2150);
+ assert.equal(sceneDestination(stops,position,400,-1),1886);
+ assert.equal(sceneDestination(stops,1400,400,-1),900);
+ assert.deepEqual(normalizeSceneStops([{top:0,end:10},{top:10,end:20}],-100),[{top:0,end:0}]);
 });
 test('method hands emphasis over at the middle of its progress bar, in both directions',()=>{
  for(let from=0;from<4;from++){

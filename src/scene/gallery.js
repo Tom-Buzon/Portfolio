@@ -64,6 +64,15 @@ export function createGallery({scene,box,cylinder,beam,label,light,glow,add,mate
     const mobile=innerWidth<=1000 || !enabled;
     for(const screen of screens){
       if(Math.abs(progress-screen.stop)<1.35)load(screen,screen.image);
+      // Mobile uses native media cards. Avoid locating and measuring desktop
+      // projection surfaces on every rendered frame while swiping.
+      if(mobile){
+        if(screen.element?.dataset.projected==='true'){
+          screen.element.dataset.projected='false';
+          const article=screen.element.closest('.project-visit');if(article)article.dataset.galleryActive='false';
+        }
+        continue;
+      }
       if(!screen.element?.isConnected||screen.element.dataset.worldScreen!==screen.id)screen.element=document.querySelector(`[data-world-screen="${screen.id}"]`);
       const element=screen.element;if(!element)continue;
       const article=element.closest('.project-visit'), rect=article?.getBoundingClientRect();
@@ -139,6 +148,7 @@ export function createMethodObject({scene,box,line,display,textures,materials}) 
   }
   return progress=>{
     group.visible=progress<2;
+    if(!group.visible)return;
     const selected=Number(document.querySelector('[data-method-step]')?.dataset.methodStep||0);
     current+=(selected-current)*.075;
     const frame=Math.round(current*90);if(frame!==previous){drawBrief(current,selected);previous=frame;}

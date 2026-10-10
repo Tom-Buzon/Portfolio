@@ -1,6 +1,30 @@
-// The camera has one route and one timing curve, regardless of input strength.
-export const travelEase=t=>t*t*t*(t*(t*6-15)+10);
+// One route per gesture, with predictable device timing regardless of input strength.
+export const travelEase=(t,mobile=false)=>mobile?t*t*(3-2*t):t*t*t*(t*(t*6-15)+10);
 export const methodCanPin=(width,height)=>width>1000?height>=640:width>=360&&height>=720;
+export function sceneTravelDuration(distance,height,{mobile=false,project=false,method=false}={}){
+  if(method&&distance<height*.5)return mobile?220:260;
+  if(mobile)return project?Math.min(900,560+distance/height*100):Math.min(1350,600+distance/height*150);
+  return project?1150:Math.min(2800,1650+distance/height*180);
+}
+export function sceneRailProgress(positions,y,maxScroll){
+  if(!positions.length)return {index:0,progress:0};
+  const tops=positions.map(top=>Math.max(0,Math.min(Math.max(0,maxScroll),top)));
+  let index=0;tops.forEach((top,i)=>{if(top<=y+8)index=i;});
+  const next=tops[index+1],fraction=next>tops[index]?Math.max(0,Math.min(1,(y-tops[index])/(next-tops[index]))):0;
+  return {index,progress:(index+fraction)/Math.max(1,tops.length-1)};
+}
+// The last sections can collapse onto the same reachable position. Keep one
+// stop there so reversing leaves the footer instead of targeting it again.
+export function normalizeSceneStops(stops,maxScroll){
+  const max=Math.max(0,maxScroll),clamp=value=>Math.max(0,Math.min(max,value));
+  return stops.map(stop=>({...stop,top:clamp(stop.top),end:clamp(Math.max(stop.top,stop.end))}))
+    .sort((a,b)=>a.top-b.top).reduce((result,stop)=>{
+      const previous=result.at(-1);
+      if(previous&&previous.top===stop.top)previous.end=Math.max(previous.end,stop.end);
+      else result.push(stop);
+      return result;
+    },[]);
+}
 export function sceneDestination(stops,y,height,direction){
   if(!stops.length)return null;
   let index=0;
@@ -30,10 +54,10 @@ export function sceneStops(){
       }else if(el.classList.contains('room-threshold')){add(id+'-title',top);const card=el.querySelector('.room-card-scene');const cardTop=card.getBoundingClientRect().top+y;add(id+'-card',cardTop,cardTop+card.offsetHeight-h);}
       else add(id,top,top+el.offsetHeight-h);
     });
-    const footer=document.querySelector('.site-footer');if(footer)add('footer',footer.getBoundingClientRect().top+y);
+    const footer=document.querySelector('.site-footer');if(footer)add('footer',footer.getBoundingClientRect().top+y,document.documentElement.scrollHeight-h);
   }
   const max=document.documentElement.scrollHeight-h;
-  return stops.map(stop=>({...stop,top:Math.min(max,stop.top),end:Math.min(max,stop.end)}));
+  return normalizeSceneStops(stops,max);
 }
 
 export function installSceneTravel(){
@@ -48,9 +72,10 @@ export function installSceneTravel(){
     if(immediate||reduced()||Math.abs(target-from)<2){window.scrollTo({top:target,behavior:'instant'});release();return;}
     busy=true;html.dataset.travelling='true';
     const sameMethod=document.querySelector('#approach')?.contains(document.elementFromPoint(innerWidth*.4,innerHeight*.5));
-    const duration=document.querySelector('.project-visit')?1150:sameMethod&&Math.abs(target-from)<innerHeight*.5?260:Math.min(2800,1650+Math.abs(target-from)/innerHeight*180);
+    const mobile=innerWidth<=1000;
+    const duration=sceneTravelDuration(Math.abs(target-from),innerHeight,{mobile,project:Boolean(document.querySelector('.project-visit')),method:sameMethod});
     const start=performance.now();
-    const draw=now=>{if(disposed)return;const t=Math.min(1,(now-start)/duration);window.scrollTo({top:from+(target-from)*travelEase(t),behavior:'instant'});if(t<1)frame=requestAnimationFrame(draw);else{lastInput=performance.now();release();}};
+    const draw=now=>{if(disposed)return;const t=Math.min(1,(now-start)/duration);window.scrollTo({top:from+(target-from)*travelEase(t,mobile),behavior:'instant'});if(t<1)frame=requestAnimationFrame(draw);else{lastInput=performance.now();release();}};
     frame=requestAnimationFrame(draw);
   }
   const native=target=>Boolean(target?.closest?.('dialog,[data-tour-native],input,textarea,select,video'));
@@ -76,13 +101,13 @@ export function installSceneTravel(){
     const dx=touch.x-event.touches[0].clientX,dy=touch.y-event.touches[0].clientY;
     if(Math.abs(dx)>Math.abs(dy))return;
     if(event.cancelable)event.preventDefault();
-    if(!touchUsed&&Math.abs(dy)>36){touchUsed=true;advance(Math.sign(dy));}
+    if(!touchUsed&&Math.abs(dy)>24){touchUsed=true;advance(Math.sign(dy));}
   };
   const key=event=>{
     if(native(event.target)||event.target.closest?.('button,a,[role=button]'))return;
     const direction=['ArrowDown','PageDown',' '].includes(event.key)?(event.shiftKey?-1:1):['ArrowUp','PageUp'].includes(event.key)?-1:0;
     if(direction){event.preventDefault();if(!event.repeat)advance(direction);}
-    else if(['Home','End'].includes(event.key)){event.preventDefault();const stops=sceneStops();if(stops.length)travel(event.key==='Home'?stops[0].top:stops.at(-1).top);}
+    else if(['Home','End'].includes(event.key)){event.preventDefault();const stops=sceneStops();if(stops.length)travel(event.key==='Home'?stops[0].top:stops.at(-1).end);}
   };
   // A deliberate destination wins over settling caused by focus/anchor scrolling.
   // Wheel and touch input remain locked until the chosen journey has finished.

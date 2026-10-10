@@ -11,8 +11,8 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 // One continuous, deliberately open attic. The camera travels between physical stations.
 export function createAtticWorld(host, { page, onReady, onFailure }) {
   let mobile = innerWidth <= 1000;
-  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false, powerPreference: 'high-performance' });
-  renderer.setPixelRatio(Math.min(devicePixelRatio, mobile ? 1.25 : 1.6));
+  const renderer = new THREE.WebGLRenderer({ antialias: !mobile, alpha: false, powerPreference: 'high-performance' });
+  renderer.setPixelRatio(Math.min(devicePixelRatio, mobile ? 1 : 1.6));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.35;
@@ -25,7 +25,7 @@ export function createAtticWorld(host, { page, onReady, onFailure }) {
   const composer = mobile ? null : new EffectComposer(renderer, new THREE.WebGLRenderTarget(1,1,{type:THREE.HalfFloatType,samples:4}));
   let bloom;
   if(composer){composer.addPass(new RenderPass(scene,camera));bloom=new UnrealBloomPass(new THREE.Vector2(innerWidth,innerHeight),.14,.5,1.05);composer.addPass(bloom);composer.addPass(new OutputPass());}
-  const render=()=>composer?composer.render():renderer.render(scene,camera);
+  const render=()=>composer&&!mobile?composer.render():renderer.render(scene,camera);
   renderer.shadowMap.enabled = !mobile;
   renderer.shadowMap.type = THREE.PCFShadowMap;
   const pmrem = new THREE.PMREMGenerator(renderer);
@@ -442,12 +442,17 @@ export function createAtticWorld(host, { page, onReady, onFailure }) {
     // Wider mobile FOV keeps the same physical path through doorways and between exhibits.
     if(mobile){position.y+=.65;target.y+=.25;}
   }
-  function resize(){mobile=innerWidth<=1000;renderer.setPixelRatio(Math.min(devicePixelRatio,mobile?1.25:1.6));renderer.setSize(innerWidth,innerHeight);composer?.setSize(innerWidth,innerHeight);camera.fov=mobile?63:48;camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();measure();if(!enabled)renderStill();}
+  function resize(){mobile=innerWidth<=1000;renderer.setPixelRatio(Math.min(devicePixelRatio,mobile?1:1.6));renderer.shadowMap.enabled=!mobile;renderer.setSize(innerWidth,innerHeight);composer?.setSize(innerWidth,innerHeight);camera.fov=mobile?63:48;camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();dustMaterial.uniforms.uDpr.value=renderer.getPixelRatio();measure();if(!enabled)renderStill();}
   function renderStill(){progress=targetProgress;pose(progress,initialPosition,initialLook);camera.position.copy(initialPosition);camera.lookAt(initialLook);updateMethod(progress);network.visible=false;gallery.update(camera,progress,false);render();}
-  function draw(now){if(!alive||document.hidden||(!sceneVisible&&!menuOpen)){frame=0;return;}frame=requestAnimationFrame(draw);if(now-lastTime<(mobile?32:16))return;const delta=Math.min((now-lastTime)/1000,.06);lastTime=now;
+  function draw(now){if(!alive||document.hidden||(!sceneVisible&&!menuOpen)){frame=0;return;}frame=requestAnimationFrame(draw);
+    const travelling=document.documentElement.dataset.travelling==='true';
+    const moving=travelling||Math.abs(targetProgress-progress)>.002;
+    // Keep the reading pose economical, but render every display frame in transit.
+    if(now-lastTime<(mobile&&!moving?32:16))return;const delta=Math.min((now-lastTime)/1000,.06);lastTime=now;
     elapsed+=delta;const t=elapsed;const smoothing=1-Math.exp(-delta*11);
     if(jump&&!document.querySelector('.project-visit')&&!focusProject){focusBlend=0;lastFocus=null;}
-    progress=jump?targetProgress:progress+(targetProgress-progress)*smoothing;jump=false;
+    // The scroll controller already eases the route; a second mobile easing trails the gesture.
+    progress=jump||(mobile&&travelling)?targetProgress:progress+(targetProgress-progress)*smoothing;jump=false;
     smoothPointer.x+=(pointer.x-smoothPointer.x)*.035;smoothPointer.y+=(pointer.y-smoothPointer.y)*.035;
     pose(progress,desiredPosition,desiredLook);
     let inspection=null;
@@ -474,7 +479,7 @@ export function createAtticWorld(host, { page, onReady, onFailure }) {
   }
   function start(){if(enabled&&!frame&&!document.hidden&&(sceneVisible||menuOpen)){progress=targetProgress;lastTime=performance.now();metricStart=lastTime;measuredFrames=0;frame=requestAnimationFrame(draw);}}
   function toggle(e){enabled=e.detail&&!matchMedia('(prefers-reduced-motion:reduce)').matches;if(!enabled){cancelAnimationFrame(frame);frame=0;renderStill();}else start();}
-  function pointerMove(e){pointer={x:(e.clientX/innerWidth-.5)*2,y:(.5-e.clientY/innerHeight)*2};}
+  function pointerMove(e){if(mobile||e.pointerType==='touch')return;pointer={x:(e.clientX/innerWidth-.5)*2,y:(.5-e.clientY/innerHeight)*2};}
   function contextLost(e){e.preventDefault();cancelAnimationFrame(frame);frame=0;onFailure();}
   function inspect(event){const {project,open,screen}=event.detail;if(open)inspections.set(project,screen);else inspections.delete(project);}
   function navigate(event){if(event.detail.immediate)jump=true;}

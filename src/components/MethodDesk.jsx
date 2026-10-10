@@ -14,9 +14,10 @@ export default function MethodDesk(){
   useEffect(()=>{
     const read=()=>{
       const element=section.current;if(!element||element.closest('[hidden]'))return;
+      const rect=element.getBoundingClientRect();if(rect.bottom<0||rect.top>innerHeight)return;
       const cards=element.querySelectorAll('.method-cards button');
       if(!pinned()){let active=0;cards.forEach((card,i)=>{if(card.getBoundingClientRect().top<innerHeight*.55)active=i;card.style.setProperty('--step-progress','0');card.style.removeProperty('--card-focus');});element.style.setProperty('--method-arrival','0px');setStep(active);return;}
-      const timeline=methodTimeline(-element.getBoundingClientRect().top,innerHeight);
+      const timeline=methodTimeline(-rect.top,innerHeight);
       element.style.setProperty('--method-arrival',timeline.arrivalOffset+'px');
       element.style.setProperty('--method-progress',timeline.progress);
       const position=Math.min(4,timeline.step+timeline.fill);
